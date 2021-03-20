@@ -97,10 +97,18 @@ public class Output {
   public static void main(String[] args) {
     Output output = new Output();
     try {
-      byte[][] res = toutput.rocks.allKeys(Database.PageIDtoURLInfo, 5);
-      for() {
-        
-      }
+      // byte[][] res = new byte[10][];
+      // res = output.rocks.allKeys(Database.PageIDtoURLInfo, 5);
+      // for(int i = 0; i < res.length; i++) {
+      //   String out = new String(res[i]);
+      //   System.out.println(out);
+
+      // String num = "1";
+      // byte[] res = output.rocks.getEntry(Database.PageIDtoURLInfo, num.getBytes());
+      // System.out.println(new String(res));
+
+      output.rocks.printHead(Database.PageIDtoURLInfo, 1);
+      
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }

@@ -1,5 +1,6 @@
 import java.util.Vector;
 import java.util.HashSet;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;
@@ -10,6 +11,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import org.jsoup.HttpStatusException;
 import java.lang.RuntimeException;
+import java.sql.Time;
+
 import org.rocksdb.RocksDBException;
 
 import resources.Porter;
@@ -31,7 +34,7 @@ class RevisitException extends RuntimeException {
 public class Crawler {
   private HashSet<String> urls; // the set of urls that have been visited before
   public Vector<Link> todos; // the queue of URLs to be crawled
-  private int max_crawl_depth = 1; // feel free to change the depth limit of the spider.
+  private int max_crawl_depth = 30; // feel free to change the depth limit of the spider.
   private StopWord stopW;
   private Porter porter;
   private Rocks rocks;
@@ -168,7 +171,7 @@ public class Crawler {
         String title = res.parse().title();
         String infos = focus.url + "@@" + lastModified + "@@" + size + "@@" + title;
         rocks.addEntry(Database.PageIDtoURLInfo, pageID, infos.getBytes());
-        rocks.printHead(Database.PageIDtoURLInfo, 100);
+        // rocks.printHead(Database.PageIDtoURLInfo, 100);
 
         Document doc = res.parse();
 
@@ -186,31 +189,71 @@ public class Crawler {
         }
         Vector<String> links = this.extractLinks(doc);
         ///////////////////////////////// KELVIN WORKSPACE /////////////////////////
+        String childLinks = "";
+        Vector<String> currLinks = new Vector<String>();
         for (String link : links) {
           try {
-            if (link.charAt(0) == '/')
-              link = focus.url + link.substring(1);
-            else if (link.charAt(0) == '#')
+            if (link.length()==0 || link.charAt(0) == '#')
               continue;
+            else if (link.charAt(0) == '/')
+              link = focus.url + link.substring(1);
+            else if (link.charAt(0) == '?' || (link.length() > 4 && !link.substring(0, 4).equals("http"))) {
+              // System.out.println(link.substring(0, 4).equals("http"));
+              link = focus.url + link;
+            } else if (link.charAt(0) == '.' && link.charAt(1) == '/')
+              link = focus.url + link.substring(2);
+            if (currLinks.contains(link)) {
+              continue;
+            }
           } catch (StringIndexOutOfBoundsException e) {
-
+            System.err.println(e.toString());
           }
-          // System.out.println(link);
-          this.todos.add(new Link(link, focus.level + 1)); // add links
+          this.todos.add(new Link(link, focus.level + 1)); // add link
+          if (this.rocks.getEntry(Database.ParentToChild, focus.url.getBytes()) == null) {
+            childLinks = childLinks + "@@" + link;
+            currLinks.add(link);
+            byte[] tempParentLinks = this.rocks.getEntry(Database.ChildToParent, link.getBytes());
+            if (tempParentLinks != null) {
+              this.rocks.addEntry(Database.ChildToParent, link.getBytes(),
+                  (new String(tempParentLinks) + "@@" + focus.url).getBytes());
+            } else {
+              this.rocks.addEntry(Database.ChildToParent, link.getBytes(), focus.url.getBytes());
+            }
+          }
         }
+        if (this.rocks.getEntry(Database.ParentToChild, focus.url.getBytes()) == null) {
+          if (childLinks != "")
+            this.rocks.addEntry(Database.ParentToChild, focus.url.getBytes(), childLinks.substring(2).getBytes());
+          else
+            this.rocks.addEntry(Database.ParentToChild, focus.url.getBytes(), childLinks.getBytes());
+        }
+        // rocks.printHead(Database.ParentToChild, 100);
+        // System.out.println("\n\n");
+        // rocks.printHead(Database.ChildToParent, 100);
         ///////////////////////////////// KELVIN WORKSPACE /////////////////////////
         ///////////////////////////////// MAXI WORKSPACE /////////////////////////
-        for (String word : words) {
-          if (word.length() > 0) {
-            if (stopW.isStopWord(word))
-              continue;
-            else
-              word = stem(word);
-              byte[] temp = rocks.getEntry(Database.ForwardIndex,word.getBytes());
-              System.out.println()
-          }
-        String WordFreq = "";
-        // rocks.addEntry(Database.ForwardIndex, pageID, WordFreq);
+        // for (String word : words) {
+        //   if (word.length() > 0) {
+        //     if (stopW.isStopWord(word))
+        //       continue;
+        //     else {
+        //       word = stem(word);
+        //       try {
+        //         String temp = Arrays.toString(rocks.getEntry(Database.ForwardIndex, word.getBytes()));
+        //         if (temp == null) {
+        //           String val = word + "@" + Integer.toString(1);
+        //           rocks.addEntry(Database.ForwardIndex, word.getBytes(), val.getBytes());
+        //         } else {
+        //           int freq = Integer.parseInt(temp.split("@")[1]);
+        //           String val = word + "@" + Integer.toString(freq + 1);
+        //           rocks.delEntry(Database.ForwardIndex, word.getBytes());
+        //           rocks.addEntry(Database.ForwardIndex, word.getBytes(), val.getBytes());
+        //         }
+        //       } catch (StringIndexOutOfBoundsException e) {
+        //       }
+        //     }
+        //   }
+        // }
         ///////////////////////////////// MAXI WORKSPACE /////////////////////////
         counter++;
       } catch (HttpStatusException e) {
@@ -227,11 +270,12 @@ public class Crawler {
   }
 
   public static void main(String[] args) {
+    long currentTime = System.currentTimeMillis();
     String url = "https://www.cse.ust.hk/";
     Crawler crawler = new Crawler(url);
 
     crawler.crawlLoop();
-
     System.out.println("\nSuccessfully Returned");
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }
 }
