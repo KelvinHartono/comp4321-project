@@ -5,9 +5,8 @@ public enum Database {
   PageIDtoURLInfo, // PageID <=> URL Date Size UnstemmedPageTitle
   ParentToChild, // PageID(parent) <=> PageID(child) (linked)
   ChildToParent, // PageID(child) <=> PageID(parent)
-  ForwardIndex, // PageID <=> WordID freq
-  WordMap, // Word <=> WordID
-  WordToPage, // WordID@pageID <=> score(tf) positioninfo
-  HTMLtoPage, // WordID(in html body) <=> pageIDs
-  InvertedIndex // WordID(in page title) <=> pageIDs
+  ForwardIndex, // PageID <=> WordID freq (nowcast=2, about=5, academ=5,)
+  WordToPage, // Word@pageID <=> freq positioninfos (freq@positioninfo1@positioninfo2@......)
+  HTMLtoPage, // Word(in html body) <=> pageIDs
+  InvertedIndex // Word(in page title) <=> pageIDs
 };

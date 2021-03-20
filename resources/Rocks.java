@@ -5,16 +5,17 @@ import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 import resources.Database;
+import java.util.Vector;
 
 public class Rocks {
   private RocksDB[] db;
   private Options options;
 
   public Rocks(String[] dbpath) throws RocksDBException {
-    this.db = new RocksDB[9];
+    this.db = new RocksDB[8];
     this.options = new Options();
     this.options.setCreateIfMissing(true);
-    for (int i = 0; i < 9; ++i) {
+    for (int i = 0; i < 8; ++i) {
       this.db[i] = RocksDB.open(this.options, dbpath[i]);
     }
   }
@@ -40,14 +41,17 @@ public class Rocks {
     }
   }
 
-  public byte[][] allKeys(Database choice, int size) throws RocksDBException {
+  public Vector<String> allKeys(Database choice, double size) throws RocksDBException {
+    if (size == -1.)
+      size = Double.POSITIVE_INFINITY;
     RocksIterator iter = db[choice.ordinal()].newIterator();
     int count = 0;
-    byte[][] retArr = new byte[size * 2][];
+    Vector<String> retArr = new Vector<String>();
+    // String[] retArr = new String[size * 2];
     for (iter.seekToFirst(); iter.isValid() && count < size; iter.next()) {
-      retArr[count] = iter.key();
-      retArr[count + 1] = iter.value();
-      ++count;
+      retArr.add(new String(iter.key()));
+      retArr.add(new String(iter.value()));
+      count++;
     }
     return retArr;
   }

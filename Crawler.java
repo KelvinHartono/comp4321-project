@@ -1,5 +1,6 @@
 import java.util.Vector;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 import org.jsoup.Jsoup;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import org.jsoup.HttpStatusException;
 import java.lang.RuntimeException;
 import java.sql.Time;
-
+import java.util.stream.Collectors;
 import org.rocksdb.RocksDBException;
 
 import resources.Porter;
@@ -34,7 +35,7 @@ class RevisitException extends RuntimeException {
 public class Crawler {
   private HashSet<String> urls; // the set of urls that have been visited before
   public Vector<Link> todos; // the queue of URLs to be crawled
-  private int max_crawl_depth = 30; // feel free to change the depth limit of the spider.
+  private int max_crawl_depth = 2; // feel free to change the depth limit of the spider.
   private StopWord stopW;
   private Porter porter;
   private Rocks rocks;
@@ -71,12 +72,12 @@ public class Crawler {
 
     Connection conn = Jsoup.connect(url).followRedirects(false);
     // the default body size is 2Mb, to attain unlimited page, use the following.
-    // Connection conn =
-    // Jsoup.connect(this.url).maxBodySize(0).followRedirects(false);
+    // Connection conn = Jsoup.connect(this.url).maxBodySize(0).followRedirects(false);
     Response res;
     try {
       /* establish the connection and retrieve the response */
       res = conn.execute();
+      
       /* if the link redirects to other place... */
       if (res.hasHeader("location")) {
         String actual_url = res.header("location");
@@ -91,15 +92,6 @@ public class Crawler {
     } catch (HttpStatusException e) {
       throw e;
     }
-    /* Get the metadata from the result */
-    // String lastModified = res.header("last-modified");
-    // int size = res.bodyAsBytes().length;
-    // String htmlLang = res.parse().select("html").first().attr("lang");
-    // String bodyLang = res.parse().select("body").first().attr("lang");
-    // String lang = htmlLang + bodyLang;
-    // System.out.printf("Last Modified: %s\n", lastModified);
-    // System.out.printf("Size: %d Bytes\n", size);
-    // System.out.printf("Language: %s\n", lang);
     return res;
   }
 
@@ -162,10 +154,12 @@ public class Crawler {
       try {
         Response res = this.getResponse(focus.url);
 
+        // FOR URLtoPageID
         byte[] pageID = Integer.toString(focus.url.hashCode()).getBytes();
         rocks.addEntry(Database.URLtoPageID, focus.url.getBytes(), pageID);
         // rocks.printHead(Database.URLtoPageID, 100);
 
+        // FOR PageIDtoURLInfo
         String lastModified = res.header("last-modified");
         int size = res.bodyAsBytes().length;
         String title = res.parse().title();
@@ -193,12 +187,11 @@ public class Crawler {
         Vector<String> currLinks = new Vector<String>();
         for (String link : links) {
           try {
-            if (link.length()==0 || link.charAt(0) == '#')
+            if (link.length() == 0 || link.charAt(0) == '#')
               continue;
             else if (link.charAt(0) == '/')
               link = focus.url + link.substring(1);
             else if (link.charAt(0) == '?' || (link.length() > 4 && !link.substring(0, 4).equals("http"))) {
-              // System.out.println(link.substring(0, 4).equals("http"));
               link = focus.url + link;
             } else if (link.charAt(0) == '.' && link.charAt(1) == '/')
               link = focus.url + link.substring(2);
@@ -208,52 +201,118 @@ public class Crawler {
           } catch (StringIndexOutOfBoundsException e) {
             System.err.println(e.toString());
           }
+          byte[] pageIDlink = Integer.toString(link.hashCode()).getBytes();
+          rocks.addEntry(Database.URLtoPageID, link.getBytes(), pageIDlink);
+          
           this.todos.add(new Link(link, focus.level + 1)); // add link
-          if (this.rocks.getEntry(Database.ParentToChild, focus.url.getBytes()) == null) {
-            childLinks = childLinks + "@@" + link;
+          
+          if (this.rocks.getEntry(Database.ParentToChild, pageID) == null) {
+            childLinks = childLinks + "@@" + new String(pageIDlink);
             currLinks.add(link);
-            byte[] tempParentLinks = this.rocks.getEntry(Database.ChildToParent, link.getBytes());
+
+            byte[] tempParentLinks = this.rocks.getEntry(Database.ChildToParent, pageIDlink);
             if (tempParentLinks != null) {
-              this.rocks.addEntry(Database.ChildToParent, link.getBytes(),
-                  (new String(tempParentLinks) + "@@" + focus.url).getBytes());
+              this.rocks.addEntry(Database.ChildToParent, pageIDlink,
+                  (new String(tempParentLinks) + "@@" + pageID).getBytes());
             } else {
-              this.rocks.addEntry(Database.ChildToParent, link.getBytes(), focus.url.getBytes());
+              this.rocks.addEntry(Database.ChildToParent, pageIDlink, pageID);
             }
           }
         }
-        if (this.rocks.getEntry(Database.ParentToChild, focus.url.getBytes()) == null) {
-          if (childLinks != "")
-            this.rocks.addEntry(Database.ParentToChild, focus.url.getBytes(), childLinks.substring(2).getBytes());
-          else
-            this.rocks.addEntry(Database.ParentToChild, focus.url.getBytes(), childLinks.getBytes());
+        if (this.rocks.getEntry(Database.ParentToChild, pageID) == null) {
+          if (childLinks != ""){
+            this.rocks.addEntry(Database.ParentToChild, pageID, childLinks.substring(2).getBytes());
+          }
+          else{
+            this.rocks.addEntry(Database.ParentToChild, pageID, childLinks.getBytes());
+          }
         }
-        // rocks.printHead(Database.ParentToChild, 100);
+        // rocks.printHead(Database.URLtoPageID, 100);
+        // rocks.printHead(Database.PageIDtoURLInfo, 3);
+        // rocks.printHead(Database.ParentToChild, 3);
+        // rocks.printHead(Database.ChildToParent, 3);
         // System.out.println("\n\n");
-        // rocks.printHead(Database.ChildToParent, 100);
+        // rocks.printHead(Database.PageIDtoURLInfo, 100);
         ///////////////////////////////// KELVIN WORKSPACE /////////////////////////
         ///////////////////////////////// MAXI WORKSPACE /////////////////////////
-        // for (String word : words) {
-        //   if (word.length() > 0) {
-        //     if (stopW.isStopWord(word))
-        //       continue;
-        //     else {
-        //       word = stem(word);
-        //       try {
-        //         String temp = Arrays.toString(rocks.getEntry(Database.ForwardIndex, word.getBytes()));
-        //         if (temp == null) {
-        //           String val = word + "@" + Integer.toString(1);
-        //           rocks.addEntry(Database.ForwardIndex, word.getBytes(), val.getBytes());
-        //         } else {
-        //           int freq = Integer.parseInt(temp.split("@")[1]);
-        //           String val = word + "@" + Integer.toString(freq + 1);
-        //           rocks.delEntry(Database.ForwardIndex, word.getBytes());
-        //           rocks.addEntry(Database.ForwardIndex, word.getBytes(), val.getBytes());
-        //         }
-        //       } catch (StringIndexOutOfBoundsException e) {
-        //       }
+        //Making Forward Index
+        HashMap<String, Integer> wordFreqs = new HashMap<String, Integer>();
+        HashMap<String, String> WordPage = new HashMap<String, String>();
+        Integer ctr = 0;
+        for (String word : words) {
+          if (word.length() > 0) {
+            if (stopW.isStopWord(word))
+              continue;
+            else
+              word = stem(word);
+            if(word.equals(""))
+              continue;
+            ++ctr;
+            if (wordFreqs.containsKey(word) )
+              wordFreqs.put(word, wordFreqs.get(word) + 1);
+            else 
+              wordFreqs.put(word, 1);
+            if (WordPage.containsKey(word))
+              {
+                String temp = WordPage.get(word).substring(WordPage.get(word).indexOf('@'),WordPage.get(word).length());
+                WordPage.put(word, wordFreqs.get(word)+"@"+temp+"@"+Integer.toString(ctr));
+              }
+            else
+              WordPage.put(word, wordFreqs.get(word)+"@"+Integer.toString(ctr));
+          }
+        }
+        rocks.addEntry(Database.ForwardIndex, pageID, wordFreqs.toString().getBytes());
+        // // rocks.printHead(Database.ForwardIndex, 100);
+        // String str = wordFreqs.toString();
+        // str = str.substring(1,str.length()-1);
+        // //FOR WordToPage
+        // for(HashMap.Entry<String,String> entry : WordPage.entrySet())
+        //   {
+        //     String key = entry.getKey()+"@"+new String(pageID);
+        //     String val = entry.getValue();
+        //     rocks.addEntry(Database.WordToPage,key.getBytes(), val.getBytes());
+        //   }
+        // // FOR HTMLtoPage
+        // for(HashMap.Entry<String, Integer> entry : wordFreqs.entrySet())
+        //   {
+        //     Byte[] temp = rocks.getEntry(Database.HTMLtoPage,entry.getKey().getBytes());
+        //     if(temp==null)
+        //       rocks.addEntry(Database.HTMLtoPage,entry.getKey().getBytes(),pageID);
+        //     else
+        //     {
+        //       String newVal = new String(temp)+"@@"+new String(pageID);
+        //       rocks.addEntry(Database.HTMLtoPage,entry.getKey().getBytes(),newVal.getBytes()); 
         //     }
         //   }
+
+        // Vector<String> titleWords = new Vector<String>();
+        // StringTokenizer stTitle = new StringTokenizer(title);
+        // while (stTitle.hasMoreTokens()) {
+        //   titleWords.add(stTitle.nextToken());
         // }
+        // for(String titleWord : titleWords)
+        //   {
+        //     if (titleWord.length() > 0) {
+        //       if (stopW.isStopWord(titleWord))
+        //         continue;
+        //       else
+        //         titleWord = stem(titleWord);
+        //       if(titleWord.equals(""))
+        //         continue;
+        //       else
+        //         {
+        //           Byte[] temp = rocks.getEntry(Database.InvertedIndex,titleWord.getBytes());
+        //           if(temp==null)
+        //             rocks.addEntry(Database.InvertedIndex,titleWord.getBytes(),pageID);
+        //           else
+        //             {
+        //               String newVal = new String(temp)+"@@"+new String(pageID);
+        //               rocks.addEntry(Database.InvertedIndex,titleWord.getBytes(),newVal.getBytes());
+        //             }
+
+        //         }
+        //   }
+        //   }
         ///////////////////////////////// MAXI WORKSPACE /////////////////////////
         counter++;
       } catch (HttpStatusException e) {

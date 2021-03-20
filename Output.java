@@ -36,79 +36,93 @@ public class Output {
     }
   }
 
-  // If the file doesn't exists, create and write to it
-  // If the file exists, truncate (remove all content) and write to it
-  private String getTitle(int pageID) {
+  public String getChildString(String pageID) {
+    String str = "";
     try {
-      System.out
-          .println(new String(this.rocks.getEntry(Database.PageIDtoURLInfo, Integer.toString(pageID).getBytes())));
+      str = new String(this.rocks.getEntry(Database.ParentToChild, pageID.getBytes()));
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
-    return "";
+    return str;
   }
 
-  // private String getURL() {
-  // // RocksIterator it = db[1].newIterator();
+  // public String getParentString(String input) {
 
-  // // for(it.seekToFirst(); it.isValid(); it.next()) {
-  // // System.out.println(new String(it.key()) + "=" + new String(it.value()));
-  // // }
+  // String seg[] = input.split("@@");
+  // System.out.println(Arrays.toString(seg));
+
+  // return "";
   // }
 
-  // private String getDate() {
+  public String getForwardIndex(String input) {
+    String str = "";
+    try {
+      byte[] content = rocks.getEntry(Database.ForwardIndex, input.getBytes());
+      str = new String(content);
+    } catch (RocksDBException e) {
+      System.err.println(e.toString());
+    }
+    // HashMap<String, Integer> test = (HashMap<String, Integer>)
+    // Arrays.asList(str.split(",")).stream().map(s ->
+    // s.split("=")).collect(Collectors.toMap(e -> e[0], e ->
+    // Integer.parseInt(e[1])));
+    // Vector<String> buf = new Vector<String>();
+    // StringTokenizer st = new StringTokenizer(content);
+    // while (st.hasMoreTokens()) {
+    // buf.add(st.nextToken());
+    // }
+    // while(!buf.isEmpty()) {
+    // res += buf.firstElement();
 
-  // }
+    // }
+    return str;
+  }
 
-  // private String getSize() {
+  public String getMetaData(String input) {
 
-  // }
+    String seg[] = input.split("@@");
+    // System.out.println(Arrays.toString(seg));
+    String pageTitle = seg[seg.length - 1];
+    String URL = seg[0];
+    String lastModificationDate = seg[1];
+    String pageSize = seg[2];
 
-  // private String getKeywordWithFreq(int pageID) {
-  // // String res = new String(getEntry(4, pageID.getBytes()));
-  // // return res;
-  // }
+    String ret = "Page Title: " + pageTitle + "\nURL: " + URL + "\nLast Modification Date: " + lastModificationDate
+        + ", Page Size: " + pageSize + " Bytes\n";
 
-  // private String getChildURL() {
-  // // String res = new String(getEntry(2, pageID.getBytes()));
-
-  // // Vector<String> result = new Vector<String>();
-  // // StringTokenizer st = new StringTokenizer(res);
-  // // while(st.hasMoreTokens()) {
-  // // result.add(st.nextToken());
-  // // }
-  // }
-
-  // private String getData(int pageID) {
-  // // String title = getTitle(pageID);
-
-  // }
-
-  // // try {
-
-  // // // FileWriter writer = new FileWriter("spider_result.txt");
-  // // // BufferedWriter bw = new BufferedWriter(writer);
-  // // // bw.write(content);
-
-  // // } catch (IOException e) {
-  // // e.printStackTrace();
-  // // }
+    return ret;
+  }
 
   public static void main(String[] args) {
     Output output = new Output();
     try {
-      // byte[][] res = new byte[10][];
-      // res = output.rocks.allKeys(Database.PageIDtoURLInfo, 5);
-      // for(int i = 0; i < res.length; i++) {
-      //   String out = new String(res[i]);
-      //   System.out.println(out);
+      Vector<String> res = new Vector<String>();
+      int num = 10;
+      res = output.rocks.allKeys(Database.PageIDtoURLInfo, num);
+      int count = 0;
+      System.out.println(res.size());
+      for (int i = 0; i < num * 2; i += 2) {
+        // System.out.println(Integer.toString(count) + ". " + res.elementAt(i) + " = "
+        // + res.elementAt(i+1));
 
-      // String num = "1";
-      // byte[] res = output.rocks.getEntry(Database.PageIDtoURLInfo, num.getBytes());
-      // System.out.println(new String(res));
+        String metaData = output.getMetaData(res.elementAt(i + 1));
+        String forwardIndex = output.getForwardIndex(res.elementAt(i));
+        forwardIndex = forwardIndex.substring(1, forwardIndex.length() - 1);
+        String child[] = output.getChildString(res.elementAt(i)).split("@@");
+        System.out.println(metaData);
+        System.out.println(forwardIndex);
+        System.out.println(Integer.toString(child.length) + "Children Links :");
+        for (int j = 0; j < child.length; j++) {
+          System.out.print("\t" + child[j] + " " + j);
+          byte[] li = output.rocks.getEntry(Database.PageIDtoURLInfo, child[j].getBytes());
+          if (li == null)
+            continue;
+          String link = new String(li).split("@@")[0];
+          System.out.println(link);
+        }
+        count++;
+      }
 
-      output.rocks.printHead(Database.PageIDtoURLInfo, 1);
-      
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
