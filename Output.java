@@ -93,34 +93,50 @@ public class Output {
     return ret;
   }
 
+  public Boolean isIndexed(String input) {
+    try {
+      byte[] content = rocks.getEntry(Database.ForwardIndex, input.getBytes());
+      if (content == null) {
+        return false;
+      }
+    } catch (RocksDBException e) {
+      System.err.println(e.toString());
+    }
+
+    return true;
+  }
+
   public static void main(String[] args) {
     Output output = new Output();
     try {
       Vector<String> res = new Vector<String>();
       int num = 10;
-      res = output.rocks.allKeys(Database.PageIDtoURLInfo, num);
+      res = output.rocks.allKeys(Database.PageIDtoURLInfo, -1);
       int count = 0;
-      System.out.println(res.size());
-      for (int i = 0; i < num * 2; i += 2) {
-        // System.out.println(Integer.toString(count) + ". " + res.elementAt(i) + " = "
-        // + res.elementAt(i+1));
-
+      // System.out.println(res.size());
+      for (int i = 0; i < res.size(); i += 2) {
+        if (!output.isIndexed(res.elementAt(i))) {
+          continue;
+        } else if (count >= num) {
+          break;
+        }
         String metaData = output.getMetaData(res.elementAt(i + 1));
         String forwardIndex = output.getForwardIndex(res.elementAt(i));
         forwardIndex = forwardIndex.substring(1, forwardIndex.length() - 1);
         String child[] = output.getChildString(res.elementAt(i)).split("@@");
         System.out.println(metaData);
+        System.out.println("Keywords:\n");
         System.out.println(forwardIndex);
-        System.out.println(Integer.toString(child.length) + "Children Links :");
+        System.out.println("\nChildren Links (including the non-indexed ones) :");
         for (int j = 0; j < child.length; j++) {
-          System.out.print("\t" + child[j] + " " + j);
+          System.out.print("\t");
           byte[] li = output.rocks.getEntry(Database.PageIDtoURLInfo, child[j].getBytes());
           if (li == null)
             continue;
           String link = new String(li).split("@@")[0];
           System.out.println(link);
         }
-        count++;
+        // count++;
       }
 
     } catch (RocksDBException e) {

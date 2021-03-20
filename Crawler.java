@@ -35,7 +35,7 @@ class RevisitException extends RuntimeException {
 public class Crawler {
   private HashSet<String> urls; // the set of urls that have been visited before
   public Vector<Link> todos; // the queue of URLs to be crawled
-  private int max_crawl_depth = 2; // feel free to change the depth limit of the spider.
+  private int max_crawl_depth = 3; // feel free to change the depth limit of the spider.
   private StopWord stopW;
   private Porter porter;
   private Rocks rocks;
@@ -92,6 +92,8 @@ public class Crawler {
     } catch (HttpStatusException e) {
       throw e;
     }
+    /* Get the metadata from the result */
+
     return res;
   }
 
@@ -154,20 +156,28 @@ public class Crawler {
       try {
         Response res = this.getResponse(focus.url);
 
+        // Getting metadatas
+        int size = res.bodyAsBytes().length;
+        String lastModified = res.header("last-modified");
+
+        Document doc = res.parse();
+        // Handle only english pages
+        String htmlLang = doc.select("html").first().attr("lang");
+        if(htmlLang!="" && !htmlLang.substring(0,2).equals("en"))
+          continue;
+
         // FOR URLtoPageID
         byte[] pageID = Integer.toString(focus.url.hashCode()).getBytes();
+
         rocks.addEntry(Database.URLtoPageID, focus.url.getBytes(), pageID);
         // rocks.printHead(Database.URLtoPageID, 100);
 
         // FOR PageIDtoURLInfo
-        String lastModified = res.header("last-modified");
-        int size = res.bodyAsBytes().length;
-        String title = res.parse().title();
+        String title = doc.title();
         String infos = focus.url + "@@" + lastModified + "@@" + size + "@@" + title;
         rocks.addEntry(Database.PageIDtoURLInfo, pageID, infos.getBytes());
         // rocks.printHead(Database.PageIDtoURLInfo, 100);
 
-        Document doc = res.parse();
 
         Vector<String> words = this.extractWords(doc);
 
@@ -186,6 +196,8 @@ public class Crawler {
         String childLinks = "";
         Vector<String> currLinks = new Vector<String>();
         for (String link : links) {
+          // if(focus.url.equals("https://hkust.edu.hk/"))
+          //   System.out.println(link);
           try {
             if (link.length() == 0 || link.charAt(0) == '#')
               continue;
@@ -203,9 +215,18 @@ public class Crawler {
           }
           byte[] pageIDlink = Integer.toString(link.hashCode()).getBytes();
           rocks.addEntry(Database.URLtoPageID, link.getBytes(), pageIDlink);
-          
+          String dummyinfos = link + "@@null@@null@@null";
+          if(rocks.getEntry(Database.PageIDtoURLInfo, pageIDlink)==null){
+            rocks.addEntry(Database.PageIDtoURLInfo, pageIDlink, dummyinfos.getBytes());
+          }
+
+          // if(focus.url.equals("https://hkust.edu.hk/")){
+          //   System.out.println(link);
+          //   System.out.println(new String(pageIDlink));
+          //   System.out.println("----------------------------------------------------");
+          // }
           this.todos.add(new Link(link, focus.level + 1)); // add link
-          
+
           if (this.rocks.getEntry(Database.ParentToChild, pageID) == null) {
             childLinks = childLinks + "@@" + new String(pageIDlink);
             currLinks.add(link);
@@ -213,7 +234,7 @@ public class Crawler {
             byte[] tempParentLinks = this.rocks.getEntry(Database.ChildToParent, pageIDlink);
             if (tempParentLinks != null) {
               this.rocks.addEntry(Database.ChildToParent, pageIDlink,
-                  (new String(tempParentLinks) + "@@" + pageID).getBytes());
+                  (new String(tempParentLinks) + "@@" + new String(pageID)).getBytes());
             } else {
               this.rocks.addEntry(Database.ChildToParent, pageIDlink, pageID);
             }
@@ -325,7 +346,6 @@ public class Crawler {
         System.err.println(e.toString());
       }
     }
-
   }
 
   public static void main(String[] args) {
