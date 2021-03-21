@@ -1,0 +1,62 @@
+Design of RocksDB database schema and Design Explanation:
+
+1. URLtoPageID, // URL<=>PageID
+- Stores URL that has been visited with a PageID which obtained from hashing the URL.
+- Key: (URL) <=> Values: (Hashed pageID)
+- The purpose of this DB is to shorten / compress the size of the url link
+
+2. PageIDtoURLInfo, // PageID <=> URL Date Size UnstemmedPageTitle
+- Stores the pageID and the page's metadata which includes URL, Last Modification Date, Size of Page and Unstemmed Page Title
+- Key: (pageID) <=> Values: (URL@@Date@@Size@@PageTitle)
+- "@@" is used to separate the metadata for the ease of identifying and tokenizing
+- We use this to store all the metadatas regarding each of the pages.
+
+3. ParentToChild, // PageID(parent) <=> PageID(child) (linked)
+- Stores list of URLs (child URL) in the target URL (parent URL)
+- Key: (ParentURL) <=> Values: (ChildURL1@@ChildURL2@@childURL3@@...)
+- "@@" is used to separate the child links for the ease of identifying and tokenizing
+- This db will be used for queries to obtain pagerank values or some other weights.
+
+4. ChildToParent, // PageID(child) <=> PageID(parent)
+- Stores list of URLs (parent URL) that contains the target URL (child URL) in the document
+- Key: (ChildURL) <=> Values: (parentURL1@@parentURL2@@parentURL3@@...)
+- "@@" is used to separate the parent links for the ease of identifying and tokenizing
+- This db will be used for queries to obtain weights of each node, for example the authority
+ and Hub weights in the HITS algorithm. Although we are not certain of using it in the end,
+ having these values will be useful in such case when we decide to use it.
+
+5. ForwardIndex, // PageID <=> Word freq (nowcast=2, about=5, academ=5,)
+- Stores the pageID with the list of stemmed words and its' corresponding frequency appeared in the page
+- Key: (pageID) <=> Values: (word1=freq1, word2=freq2, word3=freq3, ...) eg. (comput=3, stem=2, ...)
+- This information is needed to output spider_result.txt file, which requires us to output
+every words in each document and its frequency. This may not be used for further queries and
+processing, and may be removed on the later progress to increase speed in crawling.
+
+6.WordToPage, // Word@pageID <=> freq positioninfos (freq@positioninfo1@positioninfo2@......)
+- Stores keys of the form Word@pageID and their respective frequencies along with  each of their positions
+- Key: Word@pageID <=> Values: (Frequency@Position 1@Position 2@...)
+- "@" is used to separate the position info from each other in the Values
+- Similar to assignment 2, this db is used to acquire the position of each word in different
+pages in high speed. We also include the frequency attribute here to ease up the calculation of tf*idf in
+the later stages.
+
+7. HTMLtoPage, // Word(in html body) <=> pageIDs
+- Stores the list of unique words with each word in row and the list of pageIDs that contain the particular word
+- Key: Word <=> Values: (pageID1@@pageID2@@pageID3@@pageID4@@ ...)
+- "@@" is used to separate the pageIDs from each other
+- This db is used for fetching the pageIDs which the words in the html body matches  the keywords in the queries, it filters out the pageID which has minimal to no relevance to the queries to reduce the search area which increase the overall query speed.
+
+8. InvertedIndex // Word(in page title) <=> pageIDs
+- Stores words in a page's title as the key, and stores the corresponding pageID from which the title corresponds to.
+- Key: Word <=> Values : pageIDs (pageID1@@pageID2@@...)
+- "@@" is used to separate the pageIDs from each other
+- This db is used to for fetching the pageIDs which contain the keywords in the queries, but is useful for matching words in the html title only, which will make it easier to filter out irrelevant pageIDs.
+
+Further Design Explanation:
+- We wanted to use markov tree for the url and its sub-urls to conserve space, but due to
+  rocksDB being an only key value pair and to promote simplicity for our first baseline
+  model, we decided to keep the links flat. Although this method sacrifices space,
+  it increases the speed of queries.
+- To count the number of documents N for the calculation of tf*idf, we decided to do a 
+  preprocessing (precounting) of it when the database server is launched instead of having
+  a separate DB to store it.

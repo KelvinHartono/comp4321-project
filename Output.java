@@ -87,8 +87,7 @@ public class Output {
     String lastModificationDate = seg[1];
     String pageSize = seg[2];
 
-    String ret = "Page Title: " + pageTitle + "\nURL: " + URL + "\nLast Modification Date: " + lastModificationDate
-        + ", Page Size: " + pageSize + " Bytes\n";
+    String ret = "" + pageTitle + "\n" + URL + "\n" + lastModificationDate + ", " + pageSize + " Bytes\n";
 
     return ret;
   }
@@ -110,10 +109,11 @@ public class Output {
     Output output = new Output();
     try {
       Vector<String> res = new Vector<String>();
-      int num = 10;
+      int num = 30;
       res = output.rocks.allKeys(Database.PageIDtoURLInfo, -1);
       int count = 0;
       // System.out.println(res.size());
+      String spider_result = "";
       for (int i = 0; i < res.size(); i += 2) {
         if (!output.isIndexed(res.elementAt(i))) {
           continue;
@@ -124,23 +124,35 @@ public class Output {
         String forwardIndex = output.getForwardIndex(res.elementAt(i));
         forwardIndex = forwardIndex.substring(1, forwardIndex.length() - 1);
         String child[] = output.getChildString(res.elementAt(i)).split("@@");
-        System.out.println(metaData);
-        System.out.println("Keywords:\n");
-        System.out.println(forwardIndex);
-        System.out.println("\nChildren Links (including the non-indexed ones) :");
+        // System.out.println(metaData);
+        // System.out.println("Keywords:\n");
+        // System.out.println(forwardIndex);
+        // System.out.println("\nChildren Links (including the non-indexed ones) :");
+        String childLinks = "";
         for (int j = 0; j < child.length; j++) {
-          System.out.print("\t");
+          // System.out.print("\t");
           byte[] li = output.rocks.getEntry(Database.PageIDtoURLInfo, child[j].getBytes());
           if (li == null)
             continue;
           String link = new String(li).split("@@")[0];
-          System.out.println(link);
+          // System.out.println(link);
+          childLinks = childLinks + "\n" + link;
         }
+        spider_result = spider_result + "\n" + metaData + forwardIndex + childLinks + "\n";
+        spider_result += "----------------------------------------------------------------------------------------------------";
         // count++;
       }
+      File file = new File("spider_result.txt");
+      FileWriter fw = new FileWriter(file);
+      BufferedWriter bw = new BufferedWriter(fw);
+
+      bw.write(spider_result);
+      bw.close();
 
     } catch (RocksDBException e) {
       System.err.println(e.toString());
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }

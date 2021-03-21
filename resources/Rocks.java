@@ -7,6 +7,7 @@ import org.rocksdb.RocksIterator;
 import resources.Database;
 import java.util.Vector;
 
+//RocksDB class, stores 8 different databases corresponding to each type in Database.Java
 public class Rocks {
   private RocksDB[] db;
   private Options options;
@@ -19,19 +20,19 @@ public class Rocks {
       this.db[i] = RocksDB.open(this.options, dbpath[i]);
     }
   }
-
+  //Adds an entry to the chosen database, with byte[] key and byte[] values as
   public void addEntry(Database choice, byte[] key, byte[] values) throws RocksDBException {
     db[choice.ordinal()].put(key, values);
   }
-
+  //Deletes an entry to the chosen database with the same byte[] key
   public void delEntry(Database choice, byte[] key) throws RocksDBException {
     db[choice.ordinal()].delete(key);
   }
-
+  //Prints the Database entry of the chosen database with the same byte[] key
   public void print(Database choice, byte[] key) throws RocksDBException {
     System.out.println(key + "=" + new String(db[choice.ordinal()].get(key)));
   }
-
+  //Prints the first n entries in the chosen database, where n is the size argument
   public void printHead(Database choice, int size) throws RocksDBException {
     RocksIterator iter = db[choice.ordinal()].newIterator();
     int count = 0;
@@ -40,7 +41,7 @@ public class Rocks {
       ++count;
     }
   }
-
+  //Returns the first n keys of the chosen database, where n is the size
   public Vector<String> allKeys(Database choice, double size) throws RocksDBException {
     if (size == -1.)
       size = Double.POSITIVE_INFINITY;
@@ -55,7 +56,7 @@ public class Rocks {
     }
     return retArr;
   }
-
+  //Rreturns the entry from the chosen database with the given key
   public byte[] getEntry(Database choice, byte[] key) throws RocksDBException {
     return db[choice.ordinal()].get(key);
   }

@@ -12,6 +12,7 @@ public class StopWord {
     this("./resources/stopwords-en.txt");
   }
 
+  // Initialize stopwords from stopwords-en.txt as default parameter
   public StopWord(String str) {
     stopWords = new HashSet<String>();
 
@@ -26,7 +27,8 @@ public class StopWord {
       e.printStackTrace();
     }
   }
-
+  
+  // Check whether it is a stop word
   public boolean isStopWord(String str) {
     return stopWords.contains(str);
   }
