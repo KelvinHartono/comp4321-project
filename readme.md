@@ -8,7 +8,7 @@ The database explanation is in DBdoc.txt
 - java = openjdk version "11.0.10" 2021-01-19
 - jsoup = jsoup-1.13.1.jar
 - rocksdb = rocksdbjni-6.15.5.jar
-
+- sudo update-alternatives --config java
 ## How to run
 
 - Firstly, make sure that java is installed and its on PATH, so that our working directory can access it

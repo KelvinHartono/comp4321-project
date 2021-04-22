@@ -1,24 +1,9 @@
-
 import java.util.*;
 import java.io.*;
-import org.rocksdb.RocksDB;
-import org.rocksdb.Options;
 import org.rocksdb.RocksDBException;
-import org.rocksdb.RocksIterator;
-import org.jsoup.Jsoup;
-import org.jsoup.Connection;
-import org.jsoup.Connection.Response;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import java.io.IOException;
-import org.jsoup.HttpStatusException;
-import java.lang.RuntimeException;
 
-import resources.Porter;
-import resources.StopWord;
 import resources.Database;
-import resources.Link;
 import resources.Rocks;
 
 public class Output {
@@ -109,10 +94,9 @@ public class Output {
     Output output = new Output();
     try {
       Vector<String> res = new Vector<String>();
-      int num = 30;
+      int num = 1;
       res = output.rocks.allKeys(Database.PageIDtoURLInfo, -1);
       int count = 0;
-      // System.out.println(res.size());
       String spider_result = "";
       for (int i = 0; i < res.size(); i += 2) {
         if (!output.isIndexed(res.elementAt(i))) {

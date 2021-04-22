@@ -1,7 +1,7 @@
 import java.util.Vector;
 import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Arrays;
+import java.util.Stack;
 import java.util.StringTokenizer;
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;
@@ -12,9 +12,10 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import org.jsoup.HttpStatusException;
 import java.lang.RuntimeException;
-import java.sql.Time;
-import java.util.stream.Collectors;
 import org.rocksdb.RocksDBException;
+
+import java.net.URL;
+import java.net.MalformedURLException;
 
 import resources.Porter;
 import resources.StopWord;
@@ -142,12 +143,42 @@ public class Crawler {
    */
   public void crawlLoop() {
     int counter = 0;
-    while (!this.todos.isEmpty() && counter < 30) {
+    Stack<String> scrapedLinks = new Stack<String>();
+    Thread progressBar = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        // code goes here.
+        int counter = 0;
+        try {
+          Thread.sleep(2000);
+        } catch (InterruptedException e) {
+          System.err.println(e.toString());
+        }
+        while (counter < 6) {
+          if (scrapedLinks.empty()) {
+            counter++;
+            try {
+              Thread.sleep(10000);
+            } catch (InterruptedException e) {
+              System.err.println(e.toString());
+            }
+          } else {
+            counter=0;
+            System.out.println("Scraped " + scrapedLinks.pop());
+          }
+        }
+      }
+    });
+    progressBar.start();
+    System.out.println("---Progress Spider---");
+    while (!this.todos.isEmpty()) {
       Link focus = this.todos.remove(0);
       if (focus.level > this.max_crawl_depth)
         break; // stop criteria
       if (this.urls.contains(focus.url))
         continue; // ignore pages that has been visited
+      if (!focus.url.contains("cse.ust.hk"))
+        continue;
       /* start to crawl on the page */
       try {
         Response res = this.getResponse(focus.url);
@@ -162,19 +193,27 @@ public class Crawler {
         if (htmlLang != "" && !htmlLang.substring(0, 2).equals("en"))
           continue;
 
-        // FOR URLtoPageID
+        // FOR
+        // URLtoPageID-----------------------------------------------------------------
         byte[] pageID = Integer.toString(focus.url.hashCode()).getBytes();
 
         rocks.addEntry(Database.URLtoPageID, focus.url.getBytes(), pageID);
         // rocks.printHead(Database.URLtoPageID, 100);
+        // ------------------------------------------------------------------------------
 
-        // FOR PageIDtoURLInfo
+        // FOR
+        // PageIDtoURLInfo-------------------------------------------------------------------
         String title = doc.title();
         String infos = focus.url + "@@" + lastModified + "@@" + size + "@@" + title;
         rocks.addEntry(Database.PageIDtoURLInfo, pageID, infos.getBytes());
         // rocks.printHead(Database.PageIDtoURLInfo, 100);
-
-        Vector<String> words = this.extractWords(doc);
+        Vector<String> words;
+        try {
+          words = this.extractWords(doc);
+        } catch (Exception e) {
+          words = new Vector<String>();
+          System.out.println(e.toString());
+        }
 
         // System.out.println("\nWords:");
         for (String word : words) {
@@ -187,26 +226,44 @@ public class Crawler {
           // System.out.print(word + ", ");
         }
         Vector<String> links = this.extractLinks(doc);
+        // ------------------------------------------------------------------------------
 
-        // Add child links and parent links to the database
+        // Add child links and parent links to the
+        // database-----------------------------------------------
         String childLinks = "";
         Vector<String> currLinks = new Vector<String>();
         for (String link : links) {
           try {
             if (link.length() == 0 || link.charAt(0) == '#')
               continue;
-            else if (link.charAt(0) == '/')
-              link = focus.url + link.substring(1);
-            else if (link.charAt(0) == '?' || (link.length() > 4 && !link.substring(0, 4).equals("http"))) {
+            else if (link.charAt(0) == '/') {
+              try {
+                URL url = new URL(focus.url);
+                String baseUrl = url.getProtocol() + "://" + url.getHost();
+                link = baseUrl + link;
+              } catch (MalformedURLException e) {
+                System.out.println(e.toString());
+                continue;
+              }
+            } else if (link.charAt(0) == '?' || (link.length() > 4 && !link.substring(0, 4).equals("http"))) {
               link = focus.url + link;
+            } else if (link.length() > 4 && !link.substring(0, 4).equals("http")) {
+              String temp = focus.url;
+              if (temp.contains("?")) {
+                int remove = temp.indexOf("?");
+                temp = temp.substring(0, remove);
+              }
+              link = temp + link;
             } else if (link.charAt(0) == '.' && link.charAt(1) == '/')
               link = focus.url + link.substring(2);
-            if (currLinks.contains(link)) {
-              continue;
-            }
+            link = link.replaceAll("(?<!(http:|https:))//", "/");
           } catch (StringIndexOutOfBoundsException e) {
             System.err.println(e.toString());
           }
+          if (currLinks.contains(link))
+            continue;
+          else if (!link.contains("cse.ust.hk"))
+            continue;
           byte[] pageIDlink = Integer.toString(link.hashCode()).getBytes();
           rocks.addEntry(Database.URLtoPageID, link.getBytes(), pageIDlink);
           String dummyinfos = link + "@@null@@null@@null";
@@ -236,11 +293,13 @@ public class Crawler {
             this.rocks.addEntry(Database.ParentToChild, pageID, childLinks.getBytes());
           }
         }
+        // ------------------------------------------------------------------------------
 
-        // Making Forward Index
+        // Making Forward Index---------------------------------------------------------
         HashMap<String, Integer> wordFreqs = new HashMap<String, Integer>();
         HashMap<String, String> WordPage = new HashMap<String, String>();
         Integer ctr = 0;
+        int docLength = 0;
         for (String word : words) {
           word = word.replaceAll("[^\\x00-\\x7F]", "");
           if (word.length() > 0) {
@@ -263,17 +322,20 @@ public class Crawler {
               WordPage.put(word, wordFreqs.get(word) + "@" + Integer.toString(ctr));
           }
         }
+        wordFreqs.put("document-length", ctr);
         rocks.addEntry(Database.ForwardIndex, pageID, wordFreqs.toString().getBytes());
-        // rocks.printHead(Database.ForwardIndex, 100);
-        String str = wordFreqs.toString();
-        str = str.substring(1, str.length() - 1);
-        // FOR WordToPage
+        // ------------------------------------------------------------------------------
+
+        // FOR WordToPage---------------------------------------------------------------
         for (HashMap.Entry<String, String> entry : WordPage.entrySet()) {
           String key = entry.getKey() + "@" + new String(pageID);
           String val = entry.getValue();
           rocks.addEntry(Database.WordToPage, key.getBytes(), val.getBytes());
         }
-        // FOR HTMLtoPage
+        // ------------------------------------------------------------------------------
+
+        // FOR
+        // HTMLtoPage----------------------------------------------------------------
         for (HashMap.Entry<String, Integer> entry : wordFreqs.entrySet()) {
           byte[] temp = rocks.getEntry(Database.HTMLtoPage, entry.getKey().getBytes());
           if (temp == null)
@@ -283,7 +345,9 @@ public class Crawler {
             rocks.addEntry(Database.HTMLtoPage, entry.getKey().getBytes(), newVal.getBytes());
           }
         }
-        // For InvertedIndex
+        // --------------------------------------------------------------------------------
+
+        // For InvertedIndex DB---------------------------------------------------------
         Vector<String> titleWords = new Vector<String>();
         StringTokenizer stTitle = new StringTokenizer(title);
         while (stTitle.hasMoreTokens()) {
@@ -299,29 +363,34 @@ public class Crawler {
               continue;
             else {
               byte[] temp = rocks.getEntry(Database.InvertedIndex, titleWord.getBytes());
-              if (temp == null)
+              if (temp == null) {
                 rocks.addEntry(Database.InvertedIndex, titleWord.getBytes(), pageID);
-              else {
+              } else {
                 String newVal = new String(temp) + "@@" + new String(pageID);
                 rocks.addEntry(Database.InvertedIndex, titleWord.getBytes(), newVal.getBytes());
               }
-
             }
           }
         }
-
+        // ------------------------------------------------------------------------------
         counter++;
       } catch (HttpStatusException e) {
         // e.printStackTrace ();
-        System.out.printf("\nLink Error: %s\n", focus.url);
+        System.out.println("Link Error: " + focus.url);
       } catch (IOException e) {
         e.printStackTrace();
       } catch (RevisitException e) {
       } catch (RocksDBException e) {
         System.err.println(e.toString());
       }
+      scrapedLinks.push(focus.url);
+      // System.out.println("Scraped " + focus.url);
     }
-
+    try {
+      progressBar.join();
+    } catch (InterruptedException e) {
+      System.err.println(e.toString());
+    }
     // Debugging outputs
 
     // try {
@@ -350,6 +419,7 @@ public class Crawler {
     String url = "https://cse.ust.hk/";
     Crawler crawler = new Crawler(url);
 
+    // Stack<String> scrapedLinks = new Stack<String>();
     crawler.crawlLoop();
     System.out.println("\nSuccessfully Returned");
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
