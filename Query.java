@@ -18,6 +18,7 @@ import org.rocksdb.RocksIterator;
 import resources.Porter;
 import resources.Rocks;
 import resources.StopWord;
+import resources.Database;
 
 public class Query {
   private Rocks rocks;
@@ -52,6 +53,7 @@ public class Query {
     Vector<String> queryPArr = new Vector<String>();
     Boolean phrase = false;
     int prevSpace = 0;
+    long currentTime = System.currentTimeMillis();
     for (int i = 0; i < query.length(); i++) {
       if (phrase == false) {
         if (curr.toString().equals("")) {
@@ -96,6 +98,7 @@ public class Query {
         }
       }
     }
+
     if (!curr.toString().equals("")) {
       queryArr.add(curr.toString());
     }
@@ -111,13 +114,13 @@ public class Query {
       }
     }
     Vector<HashMap<String, String>> retval;
-
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
     try {
       retval = calculateScores(stemmedQueryArr, queryPArr);
-      for (HashMap<String, String> hm : retval) {
-        if (Double.parseDouble(hm.get("score")) > 0.0)
-          System.out.println(hm.get("url") + " = " + hm.get("score"));
-      }
+      // for (HashMap<String, String> hm : retval) {
+      // if (Double.parseDouble(hm.get("score")) > 0.0)
+      // System.out.println(hm.get("url") + " = " + hm.get("score"));
+      // }
       return retval;
     } catch (RocksDBException e) {
       System.err.println(e.toString());
@@ -150,16 +153,26 @@ public class Query {
     return phraseDics;
   }
 
+  public HashMap<String, Integer> getAllDf() {
+    HashMap<String, Integer> df = new HashMap<String, Integer>();
+    RocksIterator iter = rocks.getIterator(Database.HTMLtoPage); // Iterzator
+    for (iter.seekToFirst(); iter.isValid(); iter.next()) {
+      df.put(new String(iter.key()), new String(iter.value()).split("@@").length);
+    }
+    return df;
+  }
+
   public Vector<HashMap<String, String>> calculateScores(HashMap<String, Integer> queries, Vector<String> phraseQueries)
       throws RocksDBException {
     RocksIterator iter = rocks.getIterator(Database.ForwardIndex); // Iterzator
     Vector<HashMap<String, String>> retArr = new Vector<HashMap<String, String>>(); // Final Array
-
+    long currentTime = System.currentTimeMillis();
     /*
      * Prepare phrase queries helper array phraseQueries =
      * ["Hong Kong","american eagle"] phraseDics =
      * {"Hong"=[0],"Kong"=[0],"american"=[1], "eagle"=[1]}
      **/
+
     HashMap<String, Vector<Integer>> phraseDics = getPhraseDics(phraseQueries);
 
     long N = rocks.getSize(Database.ForwardIndex);
@@ -168,6 +181,8 @@ public class Query {
       queryLen += Math.pow(query, 2);
     for (Vector<Integer> q : phraseDics.values())
       queryLen += Math.pow(q.size(), 2);
+
+    HashMap<String, Integer> dfs = getAllDf();
 
     for (iter.seekToFirst(); iter.isValid(); iter.next()) {
       String wordFreqs = new String(iter.value());
@@ -182,7 +197,7 @@ public class Query {
         docLen += Math.pow(Double.parseDouble(strFreq[1]), 2);
         if (queries.containsKey(strFreq[0])) {
           int tf = queries.get(strFreq[0]);
-          int df = rocks.getEntry(Database.HTMLtoPage, strFreq[0].getBytes()).toString().split("@@").length;
+          int df = dfs.get(strFreq[0]);
           if (df == 0) {
             df = 1;
           }
@@ -190,9 +205,10 @@ public class Query {
           innerProduct += Double.parseDouble(strFreq[1]) * tf * idf;
         }
       }
+
       // Phrasal scoring
-      Vector<Integer> phrasalFreqs = new Vector<Integer>();
-      Integer df = 0;
+      // Vector<Integer> phrasalFreqs = new Vector<Integer>();
+      // Integer df = 0;
       for (String phrase : phraseQueries) {
         boolean valid = true;
         String[] phraseSplit = phrase.split(" ");
@@ -248,16 +264,24 @@ public class Query {
       cosSim = innerProduct / (Math.sqrt(docLen) * Math.sqrt(queryLen));
       HashMap<String, String> ret = new HashMap<String, String>();
       ret.put("score", cosSim.toString());
-      String link = new String(rocks.getEntry(Database.PageIDtoURLInfo, iter.key())).split("@@")[0];
+      String link = new String(rocks.getEntry(Database.PageIDtoURLInfo, iter.key()));
+      int firstAtSign = link.indexOf('@');
+      link = link.substring(0, firstAtSign);
       ret.put("url", link);
       retArr.add(ret);
     }
-
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
     return retArr;
   }
 
+  // public Vector<HashMap<String, String>>
+  // calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String>
+  // phraseQueries)
+
   public static void main(String[] args) {
+    long currentTime = System.currentTimeMillis();
     Query test = new Query();
-    test.processQuery("\"hong in kong\"");
+    test.processQuery("hong kong");
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }
 }
