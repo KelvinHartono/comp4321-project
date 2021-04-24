@@ -19,17 +19,22 @@ import resources.Porter;
 import resources.Rocks;
 import resources.StopWord;
 import resources.Database;
+import resources.ThreadedQuery;
 
 public class Query {
+  public static final int THREADS = Runtime.getRuntime().availableProcessors();
+
   private Rocks rocks;
   private Porter porter;
   private StopWord stopW;
+  private Vector<HashMap<String, String>> retArr;
 
-  Query() {
+  Query(Vector<HashMap<String, String>> retArr) {
     // Load the database from their paths
     String[] dbpath = new String[9];
     porter = new Porter();
     stopW = new StopWord();
+    this.retArr = retArr;
 
     for (int i = 0; i < 9; ++i) {
       dbpath[i] = "./db/" + Integer.toString(i);
@@ -42,7 +47,7 @@ public class Query {
   }
 
   // Return array of website links and its score
-  public Vector<HashMap<String, String>> processQuery(String query) {
+  public void processQuery(String query) {
     // Non term e.g. "Hong Kong"
     // String[] queryArr = query.split("\\s+");
 
@@ -114,19 +119,19 @@ public class Query {
       }
     }
     Vector<HashMap<String, String>> retval;
-    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
     try {
-      retval = calculateScores(stemmedQueryArr, queryPArr);
+      calculateScoresThreaded(stemmedQueryArr, queryPArr);
       // for (HashMap<String, String> hm : retval) {
       // if (Double.parseDouble(hm.get("score")) > 0.0)
       // System.out.println(hm.get("url") + " = " + hm.get("score"));
       // }
-      return retval;
+      // System.out.println(retArr.size());
+      // return retval;
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
-
-    return new Vector<HashMap<String, String>>();
+    return;
+    // return new Vector<HashMap<String, String>>();
   }
 
   private HashMap<String, Vector<Integer>> getPhraseDics(Vector<String> phraseQueries) {
@@ -162,20 +167,18 @@ public class Query {
     return df;
   }
 
-  public Vector<HashMap<String, String>> calculateScores(HashMap<String, Integer> queries, Vector<String> phraseQueries)
+  public void calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String> phraseQueries)
       throws RocksDBException {
-    RocksIterator iter = rocks.getIterator(Database.ForwardIndex); // Iterzator
-    Vector<HashMap<String, String>> retArr = new Vector<HashMap<String, String>>(); // Final Array
     long currentTime = System.currentTimeMillis();
     /*
      * Prepare phrase queries helper array phraseQueries =
      * ["Hong Kong","american eagle"] phraseDics =
      * {"Hong"=[0],"Kong"=[0],"american"=[1], "eagle"=[1]}
      **/
-
     HashMap<String, Vector<Integer>> phraseDics = getPhraseDics(phraseQueries);
-
     long N = rocks.getSize(Database.ForwardIndex);
+    System.out.println("There are " + N + " documents in total.");
+    System.out.println("There are " + THREADS + " threads in total.");
     int queryLen = 0;
     for (int query : queries.values())
       queryLen += Math.pow(query, 2);
@@ -183,105 +186,30 @@ public class Query {
       queryLen += Math.pow(q.size(), 2);
 
     HashMap<String, Integer> dfs = getAllDf();
-
-    for (iter.seekToFirst(); iter.isValid(); iter.next()) {
-      String wordFreqs = new String(iter.value());
-      wordFreqs = wordFreqs.substring(1, wordFreqs.length() - 1);
-      Double cosSim;
-      double innerProduct = 0;
-      double docLen = 0;
-
-      // We do the non-phrase terms
-      for (String str : wordFreqs.split(", ")) {
-        String[] strFreq = str.split("=");
-        docLen += Math.pow(Double.parseDouble(strFreq[1]), 2);
-        if (queries.containsKey(strFreq[0])) {
-          int tf = queries.get(strFreq[0]);
-          int df = dfs.get(strFreq[0]);
-          if (df == 0) {
-            df = 1;
-          }
-          double idf = Math.log(N / df) / Math.log(2);
-          innerProduct += Double.parseDouble(strFreq[1]) * tf * idf;
-        }
-      }
-
-      // Phrasal scoring
-      // Vector<Integer> phrasalFreqs = new Vector<Integer>();
-      // Integer df = 0;
-      for (String phrase : phraseQueries) {
-        boolean valid = true;
-        String[] phraseSplit = phrase.split(" ");
-        int[] checkpoints = new int[phraseSplit.length];
-        Vector<String[]> posInfos = new Vector<String[]>();
-        int freq = 0; // frequency of the term
-        for (int i = 0; i < phraseSplit.length; i++) {
-          String currWord = phraseSplit[i];
-          byte[] key = (currWord + "@" + new String(iter.key())).getBytes();
-          byte[] infos = rocks.getEntry(Database.WordToPage, key);
-          // System.out.println(currWord + "@" + new String(iter.key()));
-          if (infos != null) {
-            posInfos.add((new String(infos)).split("@"));
-            // System.out.println(new String(infos));
-          } else {
-            valid = false;
-            break;
-          }
-        }
-        if (!valid)
-          continue;
-
-        for (int i = 1; i < posInfos.get(0).length; i++) {
-          int firstLoc = Integer.parseInt(posInfos.get(0)[i]);
-          int distance = 1;
-          for (int j = 1; j < phraseSplit.length; j++) {
-            boolean isPhrase = false;
-            if (phraseSplit[j].equals("*")) {
-              distance += 1;
-              continue;
-            }
-            for (int k = checkpoints[j] + 1; k < posInfos.get(j).length; k++) {
-              int currLoc = Integer.parseInt(posInfos.get(j)[k]);
-              // System.out.println("firstloc = " + firstLoc + ", currLoc =" + currLoc);
-              if (currLoc <= firstLoc) {
-                continue;
-              } else if (firstLoc < currLoc && currLoc <= firstLoc + distance) {
-                checkpoints[j] = k;
-                isPhrase = true;
-                break;
-              } else {
-                checkpoints[j] = k;
-                break;
-              }
-            }
-            if (j == phraseSplit.length - 1 && isPhrase) {
-              freq += 1;
-            }
-          }
-        }
-        innerProduct += Math.pow(freq, 1);
-      }
-      cosSim = innerProduct / (Math.sqrt(docLen) * Math.sqrt(queryLen));
-      HashMap<String, String> ret = new HashMap<String, String>();
-      ret.put("score", cosSim.toString());
-      String link = new String(rocks.getEntry(Database.PageIDtoURLInfo, iter.key()));
-      int firstAtSign = link.indexOf('@');
-      link = link.substring(0, firstAtSign);
-      ret.put("url", link);
-      retArr.add(ret);
-    }
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-    return retArr;
-  }
 
-  // public Vector<HashMap<String, String>>
-  // calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String>
-  // phraseQueries)
+    Vector<Thread> pool = new Vector<Thread>();
+    for (int i = 0; i < THREADS; i++) {
+      ThreadedQuery tq = new ThreadedQuery(i, queries, phraseQueries, retArr, dfs, queryLen, rocks);
+      pool.add(new Thread(tq));
+      pool.get(i).start();
+    }
+    for (int i = 0; i < THREADS; i++) {
+      try {
+        pool.get(i).join();
+      } catch (InterruptedException e) {
+        System.err.println(e.toString());
+      }
+    }
+
+    // return retArr;
+  }
 
   public static void main(String[] args) {
     long currentTime = System.currentTimeMillis();
-    Query test = new Query();
-    test.processQuery("hong kong");
+    Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
+    Query test = new Query(retVal);
+    test.processQuery("\"hong kong\" hkust best university");
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }
 }

@@ -149,6 +149,7 @@ public class Crawler {
       public void run() {
         // code goes here.
         int counter = 0;
+        int ctr = 0;
         try {
           Thread.sleep(2000);
         } catch (InterruptedException e) {
@@ -163,8 +164,9 @@ public class Crawler {
               System.err.println(e.toString());
             }
           } else {
-            counter=0;
-            System.out.println("Scraped " + scrapedLinks.pop());
+            counter = 0;
+            ctr++;
+            System.out.println(ctr + ". Scraped " + scrapedLinks.pop());
           }
         }
       }
