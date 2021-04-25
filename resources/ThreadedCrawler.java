@@ -37,7 +37,7 @@ public class ThreadedCrawler implements Runnable {
   private Porter porter;
   private Stack<String> scrapedLinks;
   private int max_crawl_depth = 2;
-
+  
   public ThreadedCrawler(Vector<Link> todos, Rocks rocks, HashMap<String, Integer> urls, Stack<String> scrapedLinks,
       HashMap<String, Integer> paths) {
     this.todos = todos;

@@ -1,16 +1,9 @@
-import java.util.Vector;
-import java.util.HashSet;
+package resources;
+
 import java.util.Map;
 import java.util.HashMap;
-import java.util.StringTokenizer;
-import java.lang.StringBuffer;
-
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
-import resources.Porter;
-import resources.Rocks;
-import resources.StopWord;
-import resources.Database;
 
 public class Pagerank {
     private Rocks rocks;
@@ -75,9 +68,10 @@ public class Pagerank {
                       {
                         currPr += D*(PRScores.get(p)/ChildCount.get(p));
                       }
+                    PRScores.replace(key, currPr);
                     sumDelta+=currPr-prevPr;
                   }
-                  if(Math.abs(currDelta-sumDelta)<EPSILON)
+                  if(Math.abs(currDelta-sumDelta)<=EPSILON)
                     {
                       System.out.println("The delta is "+Double.toString(currDelta));
                       break;
