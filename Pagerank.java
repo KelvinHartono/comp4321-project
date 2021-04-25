@@ -77,7 +77,7 @@ public class Pagerank {
                       }
                     sumDelta+=currPr-prevPr;
                   }
-                  if(Math.abs(currDelta-sumDelta)<EPSILON)
+                  if(Math.abs(currDelta-sumDelta)<=EPSILON)
                     {
                       System.out.println("The delta is "+Double.toString(currDelta));
                       break;
