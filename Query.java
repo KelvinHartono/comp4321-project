@@ -52,10 +52,11 @@ public class Query {
     // String[] queryArr = query.split("\\s+");
 
     System.out.println("Query: " + query);
-
+    // return;
     StringBuffer curr = new StringBuffer("");
     Vector<String> queryArr = new Vector<String>();
     Vector<String> queryPArr = new Vector<String>();
+    HashMap<String, Integer> rawQuery = new HashMap<String, Integer>();
     Boolean phrase = false;
     int prevSpace = 0;
     long currentTime = System.currentTimeMillis();
@@ -71,7 +72,9 @@ public class Query {
           }
         } else {
           if (query.charAt(i) == ' ') {
-            queryArr.add(curr.toString());
+            String temp = curr.toString();
+            queryArr.add(temp);
+            rawQuery.put(porter.stripAffixes(temp), 1);
             curr = new StringBuffer("");
           } else {
             curr.append(query.charAt(i));
@@ -80,17 +83,20 @@ public class Query {
       } else {
         if (query.charAt(i) == '\"') {
           String latestWord = curr.toString().substring(prevSpace, curr.length());
+          rawQuery.put(porter.stripAffixes(latestWord), 1);
           if (stopW.isStopWord(latestWord)) {
             curr.replace(prevSpace, curr.length(), "*");
           } else {
             curr.replace(prevSpace, curr.length(), porter.stripAffixes(latestWord));
           }
           prevSpace = curr.length();
-          queryPArr.add(curr.toString());
+          String temp = curr.toString();
+          queryPArr.add(temp);
           curr = new StringBuffer("");
           phrase = false;
         } else if (query.charAt(i) == ' ') {
           String latestWord = curr.toString().substring(prevSpace, curr.length());
+          rawQuery.put(porter.stripAffixes(latestWord), 1);
           if (stopW.isStopWord(latestWord)) {
             curr.replace(prevSpace, curr.length(), "*");
           } else {
@@ -118,9 +124,8 @@ public class Query {
         stemmedQueryArr.put(stripped, 1);
       }
     }
-    Vector<HashMap<String, String>> retval;
     try {
-      calculateScoresThreaded(stemmedQueryArr, queryPArr);
+      calculateScoresThreaded(stemmedQueryArr, queryPArr, rawQuery);
       // for (HashMap<String, String> hm : retval) {
       // if (Double.parseDouble(hm.get("score")) > 0.0)
       // System.out.println(hm.get("url") + " = " + hm.get("score"));
@@ -158,17 +163,19 @@ public class Query {
     return phraseDics;
   }
 
-  public HashMap<String, Integer> getAllDf() {
-    HashMap<String, Integer> df = new HashMap<String, Integer>();
+  public void getAllDf(HashMap<String, Integer> df, HashMap<String, Integer> titleDf) {
     RocksIterator iter = rocks.getIterator(Database.HTMLtoPage); // Iterzator
     for (iter.seekToFirst(); iter.isValid(); iter.next()) {
       df.put(new String(iter.key()), new String(iter.value()).split("@@").length);
     }
-    return df;
+    iter = rocks.getIterator(Database.InvertedIndex); // Iterzator
+    for (iter.seekToFirst(); iter.isValid(); iter.next()) {
+      titleDf.put(new String(iter.key()), new String(iter.value()).split("@@").length);
+    }
   }
 
-  public void calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String> phraseQueries)
-      throws RocksDBException {
+  public void calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String> phraseQueries,
+      HashMap<String, Integer> rawQuery) throws RocksDBException {
     long currentTime = System.currentTimeMillis();
     /*
      * Prepare phrase queries helper array phraseQueries =
@@ -185,12 +192,14 @@ public class Query {
     for (Vector<Integer> q : phraseDics.values())
       queryLen += Math.pow(q.size(), 2);
 
-    HashMap<String, Integer> dfs = getAllDf();
+    HashMap<String, Integer> dfs = new HashMap<String, Integer>();
+    HashMap<String, Integer> titleDfs = new HashMap<String, Integer>();
+    getAllDf(dfs, titleDfs);
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
 
     Vector<Thread> pool = new Vector<Thread>();
     for (int i = 0; i < THREADS; i++) {
-      ThreadedQuery tq = new ThreadedQuery(i, queries, phraseQueries, retArr, dfs, queryLen, rocks);
+      ThreadedQuery tq = new ThreadedQuery(i, rawQuery, queries, phraseQueries, retArr, dfs, titleDfs, queryLen, rocks);
       pool.add(new Thread(tq));
       pool.get(i).start();
     }
@@ -209,6 +218,7 @@ public class Query {
     long currentTime = System.currentTimeMillis();
     Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
     Query test = new Query(retVal);
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
     test.processQuery("\"hong kong\" hkust best university");
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }

@@ -17,16 +17,19 @@ public class ThreadedQuery implements Runnable {
   private static final int THREADS = Runtime.getRuntime().availableProcessors();
   private int id;
   private HashMap<String, Integer> queries;
+  private HashMap<String, Integer> rawQueries;
   private Vector<String> phraseQueries;
   private Vector<HashMap<String, String>> retArr;
   private HashMap<String, Integer> dfs;
+  private HashMap<String, Integer> titleDfs;
   private int queryLen;
   private Rocks rocks;
-  private Porter porter;
-  private StopWord stopW;
+  private static final Double WEIGHT_COSIM = 0.25;
+  private static final Double WEIGHT_TITLESIM = 0.75;
 
-  public ThreadedQuery(int id, HashMap<String, Integer> queries, Vector<String> phraseQueries,
-      Vector<HashMap<String, String>> retArr, HashMap<String, Integer> dfs, int queryLen, Rocks rocks) {
+  public ThreadedQuery(int id, HashMap<String, Integer> rawQueries, HashMap<String, Integer> queries,
+      Vector<String> phraseQueries, Vector<HashMap<String, String>> retArr, HashMap<String, Integer> dfs,
+      HashMap<String, Integer> titleDfs, int queryLen, Rocks rocks) {
     this.id = id;
     this.queries = queries;
     this.phraseQueries = phraseQueries;
@@ -34,13 +37,11 @@ public class ThreadedQuery implements Runnable {
     this.dfs = dfs;
     this.queryLen = queryLen;
     this.rocks = rocks;
-    this.porter = new Porter();
-    this.stopW = new StopWord();
+    this.titleDfs = titleDfs;
+    this.rawQueries = rawQueries;
   }
 
   public void run() {
-    long currentTime = System.currentTimeMillis();
-
     RocksIterator iter = rocks.getIterator(Database.ForwardIndex); // Iterzator
     long N = rocks.getSize(Database.ForwardIndex);
     /*
@@ -138,8 +139,11 @@ public class ThreadedQuery implements Runnable {
       }
       cosSim = innerProduct / (Math.sqrt(docLen) * Math.sqrt(queryLen));
       HashMap<String, String> ret = new HashMap<String, String>();
-      ret.put("score", cosSim.toString());
       String link = "";
+
+      Double titleSim = 0.0;
+
+      String title = "";
       try {
         byte[] linkInBytes = rocks.getEntry(Database.PageIDtoURLInfo, iter.key());
         link = new String(linkInBytes);
@@ -149,14 +153,37 @@ public class ThreadedQuery implements Runnable {
         byte[] ctp = rocks.getEntry(Database.ChildToParent, linkInBytes);
         if (ctp != null)
           ret.put("parent", new String(ctp));
+        String infos[] = link.split("@");
+        ret.put("url", infos[0]);
+        ret.put("date", infos[1]);
+        ret.put("size", infos[2]);
+        title = infos[3];
+        ret.put("title", infos[3]);
       } catch (RocksDBException e) {
         System.err.println(e.toString());
       }
-      String infos[] = link.split("@");
-      ret.put("url", infos[0]);
-      ret.put("date", infos[1]);
-      ret.put("size", infos[2]);
-      ret.put("title", infos[3]);
+
+      if (!title.equals("")) {
+        String[] titleSplitted = title.split(" ");
+
+        HashMap<String, Integer> titleMap = new HashMap<String, Integer>();
+        for (String i : titleSplitted) {
+          if (titleMap.containsKey(i)) {
+            titleMap.replace(i, titleMap.get(i) + 1);
+          } else {
+            titleMap.put(i, 1);
+          }
+        }
+        Double tf = 0.0;
+        for (String j : rawQueries.keySet()) {
+          // int df = titleDfs.get(j);
+          if (titleMap.containsKey(j)) {
+            tf += 1.0;
+          }
+        }
+        titleSim = tf / queryLen;
+      }
+      ret.put("score", Double.toString(cosSim * WEIGHT_COSIM + titleSim * WEIGHT_TITLESIM));
       retArr.add(ret);
     }
   }
