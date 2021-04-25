@@ -75,6 +75,7 @@ public class Pagerank {
                       {
                         currPr += D*(PRScores.get(p)/ChildCount.get(p));
                       }
+                    PRScores.replace(key, currPr);
                     sumDelta+=currPr-prevPr;
                   }
                   if(Math.abs(currDelta-sumDelta)<=EPSILON)
