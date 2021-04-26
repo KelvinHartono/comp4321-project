@@ -12,7 +12,7 @@ public class Pagerank {
         {
             String[] dbpath = new String[9];
         
-            for (int i = 0; i < 8; ++i) {
+            for (int i = 0; i < 9; ++i) {
               dbpath[i] = "./db/" + Integer.toString(i);
             }
             try {
@@ -81,7 +81,11 @@ public class Pagerank {
               }
             System.out.println("Iterations until convergence "+Integer.toString(count));
             System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-            return PRScores;
+            //Input into database
+            for(Map.Entry<String, Double> t : PRScores.entrySet())
+              {
+                rocks.addEntry(Database.PageRank, t.getKey().getBytes(), [t.getValue().byteValue()]);
+              }
         }
 
     public static void main(String[] args) {

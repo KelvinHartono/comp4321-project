@@ -8,5 +8,6 @@ public enum Database {
   ForwardIndex, // PageID <=> WordID freq (nowcast=2, about=5, academ=5,)
   WordToPage, // Word@pageID <=> freq positioninfos (freq@positioninfo1@positioninfo2@......)
   HTMLtoPage, // Word(in html body) <=> pageIDs
-  InvertedIndex // Word(in page title) <=> pageIDs
+  InvertedIndex, // Word(in page title) <=> pageIDs
+  PageRank, //PageID <=> PageRank scores
 };
