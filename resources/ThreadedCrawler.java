@@ -21,6 +21,9 @@ import jdk.jfr.ContentType;
 
 import java.net.URL;
 import java.net.MalformedURLException;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import org.jsoup.UnsupportedMimeTypeException;
 
 class RevisitException extends RuntimeException {
   public RevisitException() {
@@ -37,9 +40,10 @@ public class ThreadedCrawler implements Runnable {
   private Porter porter;
   private Stack<String> scrapedLinks;
   private int max_crawl_depth = 2;
-  
-  public ThreadedCrawler(Vector<Link> todos, Rocks rocks, HashMap<String, Integer> urls, Stack<String> scrapedLinks,
-      HashMap<String, Integer> paths) {
+  private int id;
+
+  public ThreadedCrawler(int id, Vector<Link> todos, Rocks rocks, HashMap<String, Integer> urls,
+      Stack<String> scrapedLinks, HashMap<String, Integer> paths) {
     this.todos = todos;
     this.rocks = rocks;
     this.urls = urls;
@@ -47,6 +51,7 @@ public class ThreadedCrawler implements Runnable {
     this.stopW = new StopWord();
     this.porter = new Porter();
     this.paths = paths;
+    this.id = id;
   }
 
   /**
@@ -93,7 +98,9 @@ public class ThreadedCrawler implements Runnable {
    */
   public Vector<String> extractWords(Document doc) {
     Vector<String> result = new Vector<String>();
-    // ADD YOUR CODES HERE
+    if (doc.body() == null) {
+      return result;
+    }
     String contents = doc.body().text();
     StringTokenizer st = new StringTokenizer(contents);
     while (st.hasMoreTokens()) {
@@ -154,7 +161,7 @@ public class ThreadedCrawler implements Runnable {
           } else
             paths.put(str, 1);
         } catch (MalformedURLException e) {
-          System.out.println(e.toString());
+          // System.out.println(e.toString());
           continue;
         }
         if (this.urls.containsKey(focus.url))
@@ -174,6 +181,7 @@ public class ThreadedCrawler implements Runnable {
             continue;
           }
           Document doc = res.parse();
+          // if(doc.)
           // Handle only english pages
           String htmlLang = doc.select("html").first().attr("lang");
           if (htmlLang != "" && !htmlLang.substring(0, 2).equals("en"))
@@ -198,17 +206,10 @@ public class ThreadedCrawler implements Runnable {
             words = this.extractWords(doc);
           } catch (Exception e) {
             words = new Vector<String>();
-            System.out.println(e.toString());
+            System.out.println(focus.url);
+            e.printStackTrace();
           }
 
-          // System.out.println("\nWords:");
-          for (String word : words) {
-            if (word.length() > 0) {
-              if (!stopW.isStopWord(word))
-                word = stem(word);
-            }
-            // System.out.print(word + ", ");
-          }
           Vector<String> links = this.extractLinks(doc);
           // ------------------------------------------------------------------------------
 
@@ -223,33 +224,9 @@ public class ThreadedCrawler implements Runnable {
                 URL newUrl = new URL(baseUrl, link);
                 link = newUrl.toString();
               } catch (MalformedURLException e) {
-                System.out.println(e.toString());
+                // System.out.println(e.toString());
                 continue;
               }
-              // if (link.length() == 0 || link.charAt(0) == '#')
-              // continue;
-              // else if (link.charAt(0) == '/') {
-              // try {
-              // URL url = new URL(focus.url);
-              // String baseUrl = url.getProtocol() + "://" + url.getHost();
-              // link = baseUrl + link;
-              // } catch (MalformedURLException e) {
-              // System.out.println(e.toString());
-              // continue;
-              // }
-              // } else if (link.charAt(0) == '?') {
-              // link = focus.url + link;
-              // } else if (link.length() > 4 && !link.substring(0, 4).equals("http")
-              // && !link.substring(0, 3).equals("www")) {
-              // String temp = focus.url;
-              // if (temp.contains("/")) {
-              // int remove = temp.lastIndexOf("/");
-              // temp = temp.substring(0, remove + 1);
-              // }
-              // link = temp + link;
-              // } else if (link.charAt(0) == '.' && link.charAt(1) == '/')
-              // link = focus.url + link.substring(2);
-              // link = link.replaceAll("(?<!(http:|https:))//", "/");
             } catch (StringIndexOutOfBoundsException e) {
               System.err.println(e.toString());
             }
@@ -366,17 +343,11 @@ public class ThreadedCrawler implements Runnable {
             }
           }
           // ------------------------------------------------------------------------------
-        } catch (HttpStatusException e) {
+          scrapedLinks.push(focus.url);
+        } catch (Exception e) {
           // e.printStackTrace ();
-          System.out.println("Link Error: " + focus.url);
-        } catch (IOException e) {
-          e.printStackTrace();
-        } catch (RevisitException e) {
-        } catch (RocksDBException e) {
-          System.err.println(e.toString());
+          // System.out.println("Link Error: " + focus.url);
         }
-        scrapedLinks.push(focus.url);
-        // System.out.println("Scraped " + focus.url);
       }
     }
     System.out.println("Thread Crawler Gracefully Exited");

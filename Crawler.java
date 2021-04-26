@@ -12,6 +12,8 @@ import java.io.IOException;
 import org.jsoup.HttpStatusException;
 import java.lang.RuntimeException;
 import org.rocksdb.RocksDBException;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 
 import java.net.URL;
 import java.net.MalformedURLException;
@@ -35,7 +37,7 @@ class RevisitException extends RuntimeException {
 }
 
 public class Crawler {
-  private static final int THREADS = Runtime.getRuntime().availableProcessors();
+  private static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
   private HashMap<String, Integer> urls; // the set of urls that have been visited before
   private HashMap<String, Integer> paths; // the set of urls that have been visited before
   public Vector<Link> todos; // the queue of URLs to be crawled
@@ -150,7 +152,7 @@ public class Crawler {
         } catch (InterruptedException e) {
           System.err.println(e.toString());
         }
-        while (counter < 6) {
+        while (counter < 20) {
           if (scrapedLinks.empty()) {
             counter++;
             try {
@@ -170,7 +172,7 @@ public class Crawler {
     System.out.println("---Progress Spider---");
     Vector<Thread> pool = new Vector<Thread>();
     for (int i = 0; i < THREADS; i++) {
-      ThreadedCrawler tq = new ThreadedCrawler(this.todos, this.rocks, this.urls, scrapedLinks, this.paths);
+      ThreadedCrawler tq = new ThreadedCrawler(i, this.todos, this.rocks, this.urls, scrapedLinks, this.paths);
       pool.add(new Thread(tq));
       pool.get(i).start();
     }
@@ -183,9 +185,10 @@ public class Crawler {
     }
     try {
       progressBar.join();
-    } catch (InterruptedException e) {
+    } catch (Exception e) {
       System.err.println(e.toString());
     }
+
     // Debugging outputs
 
     // try {
@@ -214,18 +217,18 @@ public class Crawler {
     String url = "https://cse.ust.hk/";
     Crawler crawler = new Crawler(url);
 
-    // Stack<String> scrapedLinks = new Stack<String>();
+    Stack<String> scrapedLinks = new Stack<String>();
     crawler.crawlLoop();
-    System.out.println("Calculating Pagerank Scores");
-    Pagerank pr = new Pagerank();
-    try
-    {
-      pr.calculateScores();
-    }
-    catch(RocksDBException e)
-      {
-        System.err.println(e.toString());
-      }
+    // System.out.println("Calculating Pagerank Scores");
+    // Pagerank pr = new Pagerank();
+    // try
+    // {
+    // pr.calculateScores();
+    // }
+    // catch(RocksDBException e)
+    // {
+    // System.err.println(e.toString());
+    // }
     System.out.println("\nSuccessfully Returned");
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }

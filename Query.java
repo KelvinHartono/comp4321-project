@@ -20,21 +20,22 @@ import resources.Rocks;
 import resources.StopWord;
 import resources.Database;
 import resources.ThreadedQuery;
+import java.io.*;
 
 public class Query {
-  public static final int THREADS = Runtime.getRuntime().availableProcessors();
+  public static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
 
   private Rocks rocks;
   private Porter porter;
   private StopWord stopW;
-  private Vector<HashMap<String, String>> retArr;
+  HashMap<String, Integer> dfs;
+  HashMap<String, Integer> titleDfs;
 
-  Query(Vector<HashMap<String, String>> retArr) {
+  Query() {
     // Load the database from their paths
     String[] dbpath = new String[9];
     porter = new Porter();
     stopW = new StopWord();
-    this.retArr = retArr;
 
     for (int i = 0; i < 9; ++i) {
       dbpath[i] = "./db/" + Integer.toString(i);
@@ -44,10 +45,14 @@ public class Query {
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
+    dfs = new HashMap<String, Integer>();
+    titleDfs = new HashMap<String, Integer>();
+    getAllDf(dfs, titleDfs);
   }
 
   // Return array of website links and its score
-  public void processQuery(String query) {
+  public void processQuery(String query, Vector<HashMap<String, String>> retArr) {
+    long currentTime = System.currentTimeMillis();
     // Non term e.g. "Hong Kong"
     // String[] queryArr = query.split("\\s+");
 
@@ -59,7 +64,6 @@ public class Query {
     HashMap<String, Integer> rawQuery = new HashMap<String, Integer>();
     Boolean phrase = false;
     int prevSpace = 0;
-    long currentTime = System.currentTimeMillis();
     for (int i = 0; i < query.length(); i++) {
       if (phrase == false) {
         if (curr.toString().equals("")) {
@@ -125,16 +129,18 @@ public class Query {
       }
     }
     try {
-      calculateScoresThreaded(stemmedQueryArr, queryPArr, rawQuery);
-      // for (HashMap<String, String> hm : retval) {
-      // if (Double.parseDouble(hm.get("score")) > 0.0)
-      // System.out.println(hm.get("url") + " = " + hm.get("score"));
-      // }
+      calculateScoresThreaded(stemmedQueryArr, queryPArr, rawQuery, retArr);
+      for (HashMap<String, String> hm : retval) {
+        if (Double.parseDouble(hm.get("score")) > 0.0)
+          System.out.println(hm.get("url") + " = " + hm.get("score"));
+        break;
+      }
       // System.out.println(retArr.size());
       // return retval;
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
     return;
     // return new Vector<HashMap<String, String>>();
   }
@@ -175,7 +181,7 @@ public class Query {
   }
 
   public void calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String> phraseQueries,
-      HashMap<String, Integer> rawQuery) throws RocksDBException {
+      HashMap<String, Integer> rawQuery, Vector<HashMap<String, String>> retArr) throws RocksDBException {
     long currentTime = System.currentTimeMillis();
     /*
      * Prepare phrase queries helper array phraseQueries =
@@ -192,11 +198,6 @@ public class Query {
     for (Vector<Integer> q : phraseDics.values())
       queryLen += Math.pow(q.size(), 2);
 
-    HashMap<String, Integer> dfs = new HashMap<String, Integer>();
-    HashMap<String, Integer> titleDfs = new HashMap<String, Integer>();
-    getAllDf(dfs, titleDfs);
-    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-
     Vector<Thread> pool = new Vector<Thread>();
     for (int i = 0; i < THREADS; i++) {
       ThreadedQuery tq = new ThreadedQuery(i, rawQuery, queries, phraseQueries, retArr, dfs, titleDfs, queryLen, rocks);
@@ -206,7 +207,7 @@ public class Query {
     for (int i = 0; i < THREADS; i++) {
       try {
         pool.get(i).join();
-      } catch (InterruptedException e) {
+      } catch (Exception e) {
         System.err.println(e.toString());
       }
     }
@@ -216,10 +217,21 @@ public class Query {
 
   public static void main(String[] args) {
     long currentTime = System.currentTimeMillis();
-    Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
-    Query test = new Query(retVal);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = "";
+    Query test = new Query();
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-    test.processQuery("\"hong kong\" hkust best university");
-    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
+    while (!str.equals("x")) {
+      try {
+        System.out.println("Enter query:");
+        str = br.readLine();
+        currentTime = System.currentTimeMillis();
+        Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
+        test.processQuery(str, retVal);
+        System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
+      } catch (IOException ioe) {
+        System.out.println(ioe);
+      }
+    }
   }
 }

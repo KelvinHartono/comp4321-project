@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.RuntimeException;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
@@ -12,9 +13,10 @@ import resources.Porter;
 import resources.Rocks;
 import resources.StopWord;
 import resources.Database;
+import java.nio.ByteBuffer;
 
 public class ThreadedQuery implements Runnable {
-  private static final int THREADS = Runtime.getRuntime().availableProcessors();
+  private static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
   private int id;
   private HashMap<String, Integer> queries;
   private HashMap<String, Integer> rawQueries;
@@ -25,7 +27,8 @@ public class ThreadedQuery implements Runnable {
   private int queryLen;
   private Rocks rocks;
   private static final Double WEIGHT_COSIM = 0.25;
-  private static final Double WEIGHT_TITLESIM = 0.75;
+  private static final Double WEIGHT_TITLESIM = 0.50;
+  private static final Double WEIGHT_PAGERANK = 0.25;
 
   public ThreadedQuery(int id, HashMap<String, Integer> rawQueries, HashMap<String, Integer> queries,
       Vector<String> phraseQueries, Vector<HashMap<String, String>> retArr, HashMap<String, Integer> dfs,
@@ -39,6 +42,10 @@ public class ThreadedQuery implements Runnable {
     this.rocks = rocks;
     this.titleDfs = titleDfs;
     this.rawQueries = rawQueries;
+  }
+
+  public static double toDouble(byte[] bytes) {
+    return ByteBuffer.wrap(bytes).getDouble();
   }
 
   public void run() {
@@ -142,6 +149,7 @@ public class ThreadedQuery implements Runnable {
       String link = "";
 
       Double titleSim = 0.0;
+      Double pageRank = 0.0;
 
       String title = "";
       try {
@@ -183,7 +191,19 @@ public class ThreadedQuery implements Runnable {
         }
         titleSim = tf / queryLen;
       }
-      ret.put("score", Double.toString(cosSim * WEIGHT_COSIM + titleSim * WEIGHT_TITLESIM));
+      try {
+        byte[] temp = rocks.getEntry(Database.PageRank, iter.key());
+        if (temp != null) {
+          pageRank = toDouble(temp);
+        }
+      } catch (RocksDBException e) {
+        System.err.println(e.toString());
+      }
+      ret.put("cosim", Double.toString(cosSim));
+      ret.put("titleSim", Double.toString(titleSim));
+      ret.put("pageRank", Double.toString(pageRank));
+      ret.put("score",
+          Double.toString(cosSim * WEIGHT_COSIM + titleSim * WEIGHT_TITLESIM + pageRank * WEIGHT_PAGERANK));
       retArr.add(ret);
     }
   }
