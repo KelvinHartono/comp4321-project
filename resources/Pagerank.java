@@ -93,14 +93,7 @@ public class Pagerank {
       Pagerank test = new Pagerank();
       try
         {
-          HashMap<String,Double> test1 = test.calculateScores();
-          int count=0;
-          for(Map.Entry<String,Double> t : test1.entrySet())
-          {
-            System.out.println(t.getKey()+" "+Double.toString(t.getValue()));
-            if(count==100)break;
-            else ++count;
-          }
+          test.calculateScores();
         }
       catch(RocksDBException e)
         {
