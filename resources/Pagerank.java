@@ -8,7 +8,7 @@ import org.rocksdb.RocksIterator;
 public class Pagerank {
     private Rocks rocks;
 
-    Pagerank() //CLASS CONSTRUCTOR
+    public Pagerank() //CLASS CONSTRUCTOR
         {
             String[] dbpath = new String[9];
         
@@ -22,7 +22,7 @@ public class Pagerank {
             }
         }
     
-    public HashMap<String, Double> calculateScores() throws RocksDBException
+    public void calculateScores() throws RocksDBException
         {
             // Hashmap<PageID, PRscores> PRScores, initialized to 1
             // Hashmap<PageID, ChildCount> ChildCount
@@ -86,6 +86,7 @@ public class Pagerank {
               {
                 rocks.addEntry(Database.PageRank, t.getKey().getBytes(), [t.getValue().byteValue()]);
               }
+
         }
 
     public static void main(String[] args) {

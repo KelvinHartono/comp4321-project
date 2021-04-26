@@ -22,6 +22,7 @@ import resources.ThreadedCrawler;
 import resources.Database;
 import resources.Link;
 import resources.Rocks;
+import resources.Pagerank;
 
 @SuppressWarnings("serial")
 /**
@@ -215,6 +216,16 @@ public class Crawler {
 
     // Stack<String> scrapedLinks = new Stack<String>();
     crawler.crawlLoop();
+    System.out.println("Calculating Pagerank Scores");
+    Pagerank pr = new Pagerank();
+    try
+    {
+      pr.calculateScores();
+    }
+    catch(RocksDBException e)
+      {
+        System.err.println(e.toString());
+      }
     System.out.println("\nSuccessfully Returned");
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }
