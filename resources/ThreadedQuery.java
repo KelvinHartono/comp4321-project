@@ -27,9 +27,9 @@ public class ThreadedQuery implements Runnable {
   private HashMap<String, Integer> titleDfs;
   private int queryLen;
   private Rocks rocks;
-  private static final Double WEIGHT_COSIM = 0.25;
-  private static final Double WEIGHT_TITLESIM = 0.50;
-  private static final Double WEIGHT_PAGERANK = 0.25;
+  private static final Double WEIGHT_COSIM = 0.6;
+  private static final Double WEIGHT_TITLESIM = 0.4;
+  private static final Double WEIGHT_PAGERANK = 0.0;
   private Porter porter;
 
   public ThreadedQuery(int id, HashMap<String, Integer> rawQueries, HashMap<String, Integer> queries,
@@ -68,14 +68,14 @@ public class ThreadedQuery implements Runnable {
       counter++;
       String wordFreqs = new String(iter.value());
       wordFreqs = wordFreqs.substring(1, wordFreqs.length() - 1);
-      Double cosSim;
+      double cosSim;
       double innerProduct = 0;
       double docLen = 0;
 
       // We do the non-phrase terms
       for (String str : wordFreqs.split(", ")) {
         String[] strFreq = str.split("=");
-        docLen += Math.pow(Double.parseDouble(strFreq[1]), 2);
+        docLen += Math.pow(Integer.parseInt(strFreq[1]), 2);
         if (queries.containsKey(strFreq[0])) {
           int tf = queries.get(strFreq[0]);
           int df = dfs.get(strFreq[0]);
@@ -147,6 +147,11 @@ public class ThreadedQuery implements Runnable {
         }
         innerProduct += Math.pow(freq, 1);
       }
+      if (docLen == 0.0) {
+        docLen = 1.0;
+      } else if (queryLen == 0.0) {
+        queryLen = 1;
+      }
       cosSim = innerProduct / (Math.sqrt(docLen) * Math.sqrt(queryLen));
       HashMap<String, String> ret = new HashMap<String, String>();
       String tempo = "";
@@ -194,7 +199,7 @@ public class ThreadedQuery implements Runnable {
             tf += 1.0;
           }
         }
-        titleSim = tf / queryLen;
+        titleSim = Math.pow(tf / queryLen, 3);
       }
       try {
         byte[] temp = rocks.getEntry(Database.PageRank, iter.key());

@@ -217,6 +217,26 @@ public class Query {
     // return retArr;
   }
 
+  public static Vector<HashMap<String, String>> sortResult(Vector<HashMap<String, String>> input) {
+    Vector<HashMap<String, String>> ret = new Vector<HashMap<String, String>>();
+    // int size = input.size();
+    for (HashMap<String, String> curr : input) {
+      Double score = Double.parseDouble(curr.get("score"));
+      int l = 0;
+      int r = ret.size();
+      while (r > l) {
+        int m = l + (r - l) / 2;
+        Double cs = Double.parseDouble(ret.elementAt(m).get("score"));
+        if (cs > score)
+          l = m + 1;
+        else
+          r = m;
+      }
+      ret.insertElementAt(curr, l + (r - l) / 2);
+    }
+    return ret;
+  }
+
   public static void main(String[] args) {
     long currentTime = System.currentTimeMillis();
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -230,16 +250,16 @@ public class Query {
         currentTime = System.currentTimeMillis();
         Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
         test.processQuery(str, retVal);
+        retVal = sortResult(retVal);
         System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-        // for (HashMap<String, String> i : retVal) {
-        // System.out.println(i.get("url"));
-        // System.out.println(i.get("cosim"));
-        // System.out.println(i.get("titleSim"));
-        // System.out.println(i.get("pageRank"));
-        // System.out.println(i.get("score"));
-        // System.out.println(i.get("title"));
-        // break;
-        // }
+        for (int i = 0; i < 5; i++) {
+          System.out.print((i + 1) + ". " + retVal.elementAt(i).get("url"));
+          System.out.print(" " + retVal.elementAt(i).get("score"));
+          System.out.print(" " + retVal.elementAt(i).get("cosim"));
+          System.out.print(" " + retVal.elementAt(i).get("titleSim"));
+          System.out.println(" " + retVal.elementAt(i).get("pageRank"));
+          // System.out.println(" " + retVal.elementAt(i).get("title"));
+        }
       } catch (IOException ioe) {
         System.out.println(ioe);
       }
