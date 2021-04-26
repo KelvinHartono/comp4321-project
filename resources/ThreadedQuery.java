@@ -14,6 +14,7 @@ import resources.Rocks;
 import resources.StopWord;
 import resources.Database;
 import java.nio.ByteBuffer;
+import java.util.StringTokenizer;
 
 public class ThreadedQuery implements Runnable {
   private static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
@@ -29,6 +30,7 @@ public class ThreadedQuery implements Runnable {
   private static final Double WEIGHT_COSIM = 0.25;
   private static final Double WEIGHT_TITLESIM = 0.50;
   private static final Double WEIGHT_PAGERANK = 0.25;
+  private Porter porter;
 
   public ThreadedQuery(int id, HashMap<String, Integer> rawQueries, HashMap<String, Integer> queries,
       Vector<String> phraseQueries, Vector<HashMap<String, String>> retArr, HashMap<String, Integer> dfs,
@@ -42,6 +44,7 @@ public class ThreadedQuery implements Runnable {
     this.rocks = rocks;
     this.titleDfs = titleDfs;
     this.rawQueries = rawQueries;
+    this.porter = new Porter();
   }
 
   public static double toDouble(byte[] bytes) {
@@ -146,7 +149,7 @@ public class ThreadedQuery implements Runnable {
       }
       cosSim = innerProduct / (Math.sqrt(docLen) * Math.sqrt(queryLen));
       HashMap<String, String> ret = new HashMap<String, String>();
-      String link = "";
+      String tempo = "";
 
       Double titleSim = 0.0;
       Double pageRank = 0.0;
@@ -154,32 +157,34 @@ public class ThreadedQuery implements Runnable {
       String title = "";
       try {
         byte[] linkInBytes = rocks.getEntry(Database.PageIDtoURLInfo, iter.key());
-        link = new String(linkInBytes);
+        String link = new String(linkInBytes);
         byte[] ptc = rocks.getEntry(Database.ParentToChild, linkInBytes);
         if (ptc != null)
           ret.put("child", new String(ptc));
         byte[] ctp = rocks.getEntry(Database.ChildToParent, linkInBytes);
         if (ctp != null)
           ret.put("parent", new String(ctp));
-        String infos[] = link.split("@");
+        String infos[] = link.split("@@");
         ret.put("url", infos[0]);
+        tempo = infos[0];
         ret.put("date", infos[1]);
         ret.put("size", infos[2]);
         title = infos[3];
         ret.put("title", infos[3]);
-      } catch (RocksDBException e) {
+      } catch (Exception e) {
         System.err.println(e.toString());
       }
 
       if (!title.equals("")) {
-        String[] titleSplitted = title.split(" ");
-
+        // String[] titleSplitted = title.split(" ");
         HashMap<String, Integer> titleMap = new HashMap<String, Integer>();
-        for (String i : titleSplitted) {
-          if (titleMap.containsKey(i)) {
-            titleMap.replace(i, titleMap.get(i) + 1);
+        StringTokenizer st = new StringTokenizer(title);
+        while (st.hasMoreTokens()) {
+          String str = porter.stripAffixes(st.nextToken());
+          if (titleMap.containsKey(str)) {
+            titleMap.replace(str, titleMap.get(str) + 1);
           } else {
-            titleMap.put(i, 1);
+            titleMap.put(str, 1);
           }
         }
         Double tf = 0.0;

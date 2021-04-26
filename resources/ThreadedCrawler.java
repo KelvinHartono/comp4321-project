@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import org.jsoup.HttpStatusException;
+
 import java.lang.RuntimeException;
 import org.rocksdb.RocksDBException;
 
@@ -73,16 +74,11 @@ public class ThreadedCrawler implements Runnable {
       /* establish the connection and retrieve the response */
       res = conn.execute();
       /* if the link redirects to other place... */
-      if (res.hasHeader("location")) {
-        String actual_url = res.header("location");
-        if (this.urls.containsKey(actual_url)) {
-          throw new RevisitException();
-        } else {
-          this.urls.put(actual_url, 1);
-        }
-      } else {
-        this.urls.put(url, 1);
-      }
+      // if (res.hasHeader("location")) {
+      // String actual_url = res.header("location");
+      // } else {
+      // this.urls.put(url, 1);
+      // }
     } catch (HttpStatusException e) {
       throw e;
     }
@@ -148,32 +144,42 @@ public class ThreadedCrawler implements Runnable {
       } else if (!this.todos.isEmpty()) {
         counter = 0;
         Link focus = this.todos.remove(0);
-        // if (focus.level > this.max_crawl_depth)
-        // break; // stop criteria
+        Response res;
+        try {
+          res = this.getResponse(focus.url);
+          if (res.hasHeader("location"))
+            focus.url = res.header("location");
+        } catch (Exception e) {
+          // System.out.println(e.toString());
+          continue;
+        }
+
         try {
           URL url = new URL(focus.url);
           String str = url.getProtocol() + "://" + url.getHost() + url.getPath();
           if (paths.containsKey(str)) {
-            if (paths.get(str) > 50) {
+            if (paths.get(str) > 30) {
               continue;
             }
-            paths.put(str, paths.get(str) + 1);
+            paths.replace(str, paths.get(str) + 1);
           } else
             paths.put(str, 1);
         } catch (MalformedURLException e) {
-          // System.out.println(e.toString());
+          // e.printStackTrace();
           continue;
         }
+
         if (this.urls.containsKey(focus.url))
           continue; // ignore pages that has been visited
+        else
+          this.urls.put(focus.url, 1);
         if (!focus.url.contains("cse.ust.hk"))
           continue;
+
         /* start to crawl on the page */
         try {
-          Response res = this.getResponse(focus.url);
-
           // Getting metadatas
-          int size = res.bodyAsBytes().length;
+          String size = Integer.toString(res.bodyAsBytes().length);
           String lastModified = res.header("last-modified");
           String ct = res.contentType().split(";")[0].trim();
           // System.out.println(ct);
@@ -198,6 +204,13 @@ public class ThreadedCrawler implements Runnable {
           // FOR
           // PageIDtoURLInfo-------------------------------------------------------------------
           String title = doc.title();
+
+          if (lastModified == null || lastModified.equals(""))
+            lastModified = "null";
+          if (title == null || title.equals(""))
+            title = "null";
+          if (size == null || size.equals(""))
+            size = "null";
           String infos = focus.url + "@@" + lastModified + "@@" + size + "@@" + title;
           rocks.addEntry(Database.PageIDtoURLInfo, pageID, infos.getBytes());
           // rocks.printHead(Database.PageIDtoURLInfo, 100);
@@ -206,8 +219,8 @@ public class ThreadedCrawler implements Runnable {
             words = this.extractWords(doc);
           } catch (Exception e) {
             words = new Vector<String>();
-            System.out.println(focus.url);
-            e.printStackTrace();
+            // System.out.println(focus.url);
+            // e.printStackTrace();
           }
 
           Vector<String> links = this.extractLinks(doc);
@@ -218,21 +231,34 @@ public class ThreadedCrawler implements Runnable {
           String childLinks = "";
           Vector<String> currLinks = new Vector<String>();
           for (String link : links) {
-            try {
+            if (link.length() > 0 && link.contains("#")) {
+              // System.out.println(link + " - " + link.indexOf('#'));
+              link = link.substring(0, link.indexOf('#'));
+            }
+            if (link.length() > 4 && (link.substring(0, 4).equals("http") || link.substring(0, 3).equals("www"))) {
+              // link = link;
+            } else {
               try {
                 URL baseUrl = new URL(focus.url);
                 URL newUrl = new URL(baseUrl, link);
                 link = newUrl.toString();
+              } catch (StringIndexOutOfBoundsException e) {
+                // System.err.println(e.toString());
               } catch (MalformedURLException e) {
                 // System.out.println(e.toString());
                 continue;
               }
-            } catch (StringIndexOutOfBoundsException e) {
-              System.err.println(e.toString());
+            }
+            String checkUrl = link;
+            try {
+              URL url = new URL(focus.url);
+              checkUrl = url.getHost();
+            } catch (MalformedURLException e) {
+              // e.printStackTrace();
             }
             if (currLinks.contains(link))
               continue;
-            else if (!link.contains("cse.ust.hk"))
+            else if (!checkUrl.contains("cse.ust.hk"))
               continue;
             byte[] pageIDlink = Integer.toString(link.hashCode()).getBytes();
             rocks.addEntry(Database.URLtoPageID, link.getBytes(), pageIDlink);
@@ -345,7 +371,7 @@ public class ThreadedCrawler implements Runnable {
           // ------------------------------------------------------------------------------
           scrapedLinks.push(focus.url);
         } catch (Exception e) {
-          // e.printStackTrace ();
+          e.printStackTrace();
           // System.out.println("Link Error: " + focus.url);
         }
       }

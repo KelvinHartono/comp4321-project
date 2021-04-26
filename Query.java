@@ -21,6 +21,7 @@ import resources.StopWord;
 import resources.Database;
 import resources.ThreadedQuery;
 import java.io.*;
+import java.nio.ByteBuffer;
 
 public class Query {
   public static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
@@ -116,6 +117,7 @@ public class Query {
 
     if (!curr.toString().equals("")) {
       queryArr.add(curr.toString());
+      rawQuery.put(porter.stripAffixes(curr.toString()), 1);
     }
 
     HashMap<String, Integer> stemmedQueryArr = new HashMap<String, Integer>();
@@ -130,11 +132,11 @@ public class Query {
     }
     try {
       calculateScoresThreaded(stemmedQueryArr, queryPArr, rawQuery, retArr);
-      for (HashMap<String, String> hm : retval) {
-        if (Double.parseDouble(hm.get("score")) > 0.0)
-          System.out.println(hm.get("url") + " = " + hm.get("score"));
-        break;
-      }
+      // for (HashMap<String, String> hm : retval) {
+      // if (Double.parseDouble(hm.get("score")) > 0.0)
+      // System.out.println(hm.get("url") + " = " + hm.get("score"));
+      // break;
+      // }
       // System.out.println(retArr.size());
       // return retval;
     } catch (RocksDBException e) {
@@ -229,6 +231,15 @@ public class Query {
         Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
         test.processQuery(str, retVal);
         System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
+        // for (HashMap<String, String> i : retVal) {
+        // System.out.println(i.get("url"));
+        // System.out.println(i.get("cosim"));
+        // System.out.println(i.get("titleSim"));
+        // System.out.println(i.get("pageRank"));
+        // System.out.println(i.get("score"));
+        // System.out.println(i.get("title"));
+        // break;
+        // }
       } catch (IOException ioe) {
         System.out.println(ioe);
       }

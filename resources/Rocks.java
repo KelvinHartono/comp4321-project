@@ -14,10 +14,10 @@ public class Rocks {
   private Options options;
 
   public Rocks(String[] dbpath) throws RocksDBException {
-    this.db = new RocksDB[8];
+    this.db = new RocksDB[9];
     this.options = new Options();
     this.options.setCreateIfMissing(true);
-    for (int i = 0; i < 8; ++i) {
+    for (int i = 0; i < 9; ++i) {
       this.db[i] = RocksDB.open(this.options, dbpath[i]);
     }
   }

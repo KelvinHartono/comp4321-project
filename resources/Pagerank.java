@@ -22,14 +22,11 @@ public class Pagerank {
       System.err.println(e.toString());
     }
   }
+
   public static byte[] toByteArray(double value) {
     byte[] bytes = new byte[8];
     ByteBuffer.wrap(bytes).putDouble(value);
     return bytes;
-  }
-
-  public static double toDouble(byte[] bytes) {
-      return ByteBuffer.wrap(bytes).getDouble();
   }
 
   public void calculateScores() throws RocksDBException {
@@ -63,6 +60,7 @@ public class Pagerank {
       // DOES 1000 iterations no matter converged/not -> probably should fix
       System.out.println("Iteration " + Integer.toString(count));
       double sumDelta = 0;
+      double sumScores = 0;
       // Do asynchronous calculation
       for (Map.Entry<String, Double> prScore : PRScores.entrySet()) {
         String key = prScore.getKey();
@@ -75,20 +73,24 @@ public class Pagerank {
         }
         PRScores.replace(key, currPr);
         sumDelta += currPr - prevPr;
+        sumScores += currPr;
       }
       if (Math.abs(currDelta - sumDelta) <= EPSILON) {
         System.out.println("The delta is " + Double.toString(currDelta));
         break;
       }
       ++count;
-
+      for (Map.Entry<String, Double> prScore : PRScores.entrySet()) {
+        String key = prScore.getKey();
+        double currPr = prScore.getValue();
+        PRScores.replace(key, currPr / sumScores);
+      }
+      // Normalize the scores
     }
     System.out.println("Iterations until convergence " + Integer.toString(count));
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
     // Input into database
     for (Map.Entry<String, Double> t : PRScores.entrySet()) {
-      byte[] value = new byte[1];
-      // value[0] = t.getValue().byteValue();
       rocks.addEntry(Database.PageRank, t.getKey().getBytes(), toByteArray(t.getValue()));
     }
 
@@ -102,4 +104,5 @@ public class Pagerank {
       System.err.println(e.toString());
     }
   }
+
 }
