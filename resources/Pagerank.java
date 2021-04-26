@@ -84,7 +84,9 @@ public class Pagerank {
             //Input into database
             for(Map.Entry<String, Double> t : PRScores.entrySet())
               {
-                rocks.addEntry(Database.PageRank, t.getKey().getBytes(), [t.getValue().byteValue()]);
+                byte[] value = new byte[1];
+                value[0] = t.getValue().byteValue();
+                rocks.addEntry(Database.PageRank, t.getKey().getBytes(),value);
               }
 
         }
