@@ -37,7 +37,7 @@ class RevisitException extends RuntimeException {
 }
 
 public class Crawler {
-  private static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
+  private static final int THREADS = Runtime.getRuntime().availableProcessors() * 4;
   private HashMap<String, Integer> urls; // the set of urls that have been visited before
   private HashMap<String, Integer> paths; // the set of urls that have been visited before
   public Vector<Link> todos; // the queue of URLs to be crawled
@@ -58,41 +58,6 @@ public class Crawler {
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
-  }
-
-  /**
-   * Send an HTTP request and analyze the response.
-   * 
-   * @return {Response} res
-   * @throws HttpStatusException for non-existing pages
-   * @throws IOException
-   */
-  public Response getResponse(String url) throws HttpStatusException, IOException {
-    if (this.urls.containsKey(url)) {
-      throw new RevisitException(); // if the page has been visited, break the function
-    }
-
-    Connection conn = Jsoup.connect(url).followRedirects(true);
-
-    Response res;
-    try {
-      /* establish the connection and retrieve the response */
-      res = conn.execute();
-      /* if the link redirects to other place... */
-      if (res.hasHeader("location")) {
-        String actual_url = res.header("location");
-        if (this.urls.containsKey(actual_url)) {
-          throw new RevisitException();
-        } else {
-          this.urls.put(actual_url, 1);
-        }
-      } else {
-        this.urls.put(url, 1);
-      }
-    } catch (HttpStatusException e) {
-      throw e;
-    }
-    return res;
   }
 
   /**
@@ -122,7 +87,6 @@ public class Crawler {
    */
   public Vector<String> extractLinks(Document doc) {
     Vector<String> result = new Vector<String>();
-    // ADD YOUR CODES HERE
     Elements links = doc.select("a[href]");
     for (Element link : links) {
       String linkString = link.attr("href");
@@ -139,8 +103,10 @@ public class Crawler {
    * Use a queue to manage crawl tasks.
    */
   public void crawlLoop() {
-    int counter = 0;
     Stack<String> scrapedLinks = new Stack<String>();
+    HashMap<String, String> redirect = new HashMap<String, String>();
+
+    // Create a progress updater so we know our progress
     Thread progressBar = new Thread(new Runnable() {
       @Override
       public void run() {
@@ -156,7 +122,7 @@ public class Crawler {
           if (scrapedLinks.empty()) {
             counter++;
             try {
-              Thread.sleep(10000);
+              Thread.sleep(3000);
             } catch (InterruptedException e) {
               System.err.println(e.toString());
             }
@@ -169,10 +135,14 @@ public class Crawler {
       }
     });
     progressBar.start();
+
     System.out.println("---Progress Spider---");
+
+    // Use threading to handle the crawling
     Vector<Thread> pool = new Vector<Thread>();
     for (int i = 0; i < THREADS; i++) {
-      ThreadedCrawler tq = new ThreadedCrawler(i, this.todos, this.rocks, this.urls, scrapedLinks, this.paths);
+      ThreadedCrawler tq = new ThreadedCrawler(i, this.todos, this.rocks, this.urls, scrapedLinks, this.paths,
+          redirect);
       pool.add(new Thread(tq));
       pool.get(i).start();
     }
@@ -188,28 +158,6 @@ public class Crawler {
     } catch (Exception e) {
       System.err.println(e.toString());
     }
-
-    // Debugging outputs
-
-    // try {
-    // rocks.printHead(Database.URLtoPageID, 3);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.PageIDtoURLInfo, 3);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.ParentToChild, 3);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.ChildToParent, 3);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.ForwardIndex, 100);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.WordToPage, 3);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.HTMLtoPage, 3);
-    // System.out.println("\n\n\n\n");
-    // rocks.printHead(Database.InvertedIndex, 3);
-    // } catch (RocksDBException e) {
-    // System.err.println(e.toString());
-    // }
   }
 
   public static void main(String[] args) {
@@ -217,18 +165,14 @@ public class Crawler {
     String url = "https://cse.ust.hk/";
     Crawler crawler = new Crawler(url);
 
-    Stack<String> scrapedLinks = new Stack<String>();
+    // Do crawling and handle their pagerank immediately
     crawler.crawlLoop();
-    // System.out.println("Calculating Pagerank Scores");
-    // Pagerank pr = new Pagerank();
-    // try
-    // {
-    // pr.calculateScores();
-    // }
-    // catch(RocksDBException e)
-    // {
-    // System.err.println(e.toString());
-    // }
+    Pagerank pr = new Pagerank();
+    try {
+      pr.calculateScores();
+    } catch (RocksDBException e) {
+      System.err.println(e.toString());
+    }
     System.out.println("\nSuccessfully Returned");
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
   }

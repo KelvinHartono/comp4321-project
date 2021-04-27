@@ -9,5 +9,5 @@ public enum Database {
   WordToPage, // Word@pageID <=> freq positioninfos (freq@positioninfo1@positioninfo2@......)
   HTMLtoPage, // Word(in html body) <=> pageIDs
   InvertedIndex, // Word(in page title) <=> pageIDs
-  PageRank, //PageID <=> PageRank scores
+  PageRank, // PageID <=> PageRank scores
 };

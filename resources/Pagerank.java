@@ -56,6 +56,8 @@ public class Pagerank {
     // Iterate page scores
     int count = 0;
     int currDelta = 9999;
+    Double highest = Double.NEGATIVE_INFINITY;
+    Double lowest = Double.POSITIVE_INFINITY;
     while (count < MAX_ITERS) {
       // DOES 1000 iterations no matter converged/not -> probably should fix
       System.out.println("Iteration " + Integer.toString(count));
@@ -66,10 +68,13 @@ public class Pagerank {
         String key = prScore.getKey();
         double prevPr = prScore.getValue();
         double currPr = (1 - D);
-
-        String[] parents = new String(rocks.getEntry(Database.ChildToParent, key.getBytes())).split("@@");
-        for (String p : parents) {
-          currPr += D * (PRScores.get(p) / ChildCount.get(p));
+        try {
+          String[] parents = new String(rocks.getEntry(Database.ChildToParent, key.getBytes())).split("@@");
+          for (String p : parents) {
+            currPr += D * (PRScores.get(p) / ChildCount.get(p));
+          }
+        } catch (Exception e) {
+          // e.printStackTrace();
         }
         PRScores.replace(key, currPr);
         sumDelta += currPr - prevPr;
@@ -83,16 +88,32 @@ public class Pagerank {
       for (Map.Entry<String, Double> prScore : PRScores.entrySet()) {
         String key = prScore.getKey();
         double currPr = prScore.getValue();
+        double currNPr = currPr / sumScores;
+        highest = currNPr > highest ? currNPr : highest;
+        lowest = currNPr < lowest ? currNPr : lowest;
         PRScores.replace(key, currPr / sumScores);
       }
       // Normalize the scores
     }
+    PRScores.put("max", highest);
+    PRScores.put("min", lowest);
     System.out.println("Iterations until convergence " + Integer.toString(count));
     System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
+    System.out.println(highest + " - " + lowest);
+    System.out.println(PRScores.get("max") + " - " + PRScores.get("min"));
     // Input into database
     for (Map.Entry<String, Double> t : PRScores.entrySet()) {
       rocks.addEntry(Database.PageRank, t.getKey().getBytes(), toByteArray(t.getValue()));
     }
+    // System.out.println("LAngit biru");
+
+    // RocksIterator iter2 = rocks.getIterator(Database.ChildToParent);
+    // // Initialize PR Scores
+    // for (iter2.seekToFirst(); iter2.isValid(); iter2.next()) {
+    // System.out.println(new String(iter2.key()) + " - " + new
+    // String(iter2.value()));
+    // // break;
+    // }
 
   }
 

@@ -8,6 +8,7 @@ The database explanation is in DBdoc.txt
 - java = openjdk version "11.0.10" 2021-01-19
 - jsoup = jsoup-1.13.1.jar
 - rocksdb = rocksdbjni-6.15.5.jar
+- sudo update-alternatives --config java
 
 ## How to run
 
@@ -36,3 +37,12 @@ The database explanation is in DBdoc.txt
     java -cp lib/jsoup-1.13.1.jar:lib/rocksdbjni-6.15.5.jar:. Output
     ```
   - spider_result.txt will appear!
+- To try query
+  - Build the query file, which is Query.java
+    ```
+    javac -cp lib/jsoup-1.13.1.jar:lib/rocksdbjni-6.15.5.jar:. Query.java
+    ```
+  - Run the query file
+    ```
+    java -cp lib/jsoup-1.13.1.jar:lib/rocksdbjni-6.15.5.jar:. Query
+    ```

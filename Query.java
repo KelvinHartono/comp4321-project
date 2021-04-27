@@ -30,7 +30,6 @@ public class Query {
   private Porter porter;
   private StopWord stopW;
   HashMap<String, Integer> dfs;
-  HashMap<String, Integer> titleDfs;
 
   Query() {
     // Load the database from their paths
@@ -47,24 +46,32 @@ public class Query {
       System.err.println(e.toString());
     }
     dfs = new HashMap<String, Integer>();
-    titleDfs = new HashMap<String, Integer>();
-    getAllDf(dfs, titleDfs);
+    getAllDf(dfs);
   }
 
-  // Return array of website links and its score
-  public void processQuery(String query, Vector<HashMap<String, String>> retArr) {
-    long currentTime = System.currentTimeMillis();
-    // Non term e.g. "Hong Kong"
-    // String[] queryArr = query.split("\\s+");
+  /**
+   * Return array of website links and its informations including score. This is
+   * the main function to process a query
+   * 
+   * @param query  the query string
+   * @param retArr the information result, the parameters are
+   *               "score","cosim","pageRank","titleSim","child","parent","url","date","size","title"
+   */
+  public Vector<HashMap<String, String>> processQuery(String query) {
 
     System.out.println("Query: " + query);
-    // return;
+
+    // Create the helper arrays
+    Vector<HashMap<String, String>> retArr = new Vector<HashMap<String, String>>();
     StringBuffer curr = new StringBuffer("");
     Vector<String> queryArr = new Vector<String>();
     Vector<String> queryPArr = new Vector<String>();
     HashMap<String, Integer> rawQuery = new HashMap<String, Integer>();
     Boolean phrase = false;
     int prevSpace = 0;
+
+    // This block of code is to process the incoming query, split it to term and
+    // phrases.
     for (int i = 0; i < query.length(); i++) {
       if (phrase == false) {
         if (curr.toString().equals("")) {
@@ -114,14 +121,13 @@ public class Query {
         }
       }
     }
-
     if (!curr.toString().equals("")) {
       queryArr.add(curr.toString());
       rawQuery.put(porter.stripAffixes(curr.toString()), 1);
     }
 
+    // Stem the term Array. This could be improved for the future
     HashMap<String, Integer> stemmedQueryArr = new HashMap<String, Integer>();
-
     for (String q : queryArr) {
       String stripped = porter.stripAffixes(q);
       if (stemmedQueryArr.containsKey(stripped)) {
@@ -130,26 +136,25 @@ public class Query {
         stemmedQueryArr.put(stripped, 1);
       }
     }
+
+    // Call a function which handles threaded score calculation
     try {
       calculateScoresThreaded(stemmedQueryArr, queryPArr, rawQuery, retArr);
-      // for (HashMap<String, String> hm : retval) {
-      // if (Double.parseDouble(hm.get("score")) > 0.0)
-      // System.out.println(hm.get("url") + " = " + hm.get("score"));
-      // break;
-      // }
-      // System.out.println(retArr.size());
-      // return retval;
+      return sortResult(retArr);
     } catch (RocksDBException e) {
       System.err.println(e.toString());
     }
-    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-    return;
-    // return new Vector<HashMap<String, String>>();
+    return retArr;
   }
 
+  /**
+   * To get all the words in the dictionary, will be deprecated if there is any
+   * performance update
+   * 
+   * @param phraseQueries
+   * @return [{"Hong"=1,"Kong"=1},{"american"=1, "eagle"=1}]
+   */
   private HashMap<String, Vector<Integer>> getPhraseDics(Vector<String> phraseQueries) {
-    // phraseDicArray = [{"Hong"=1,"Kong"=1},{"american"=1, "eagle"=1}]
-    Vector<HashMap<String, Integer>> phraseDicArray = new Vector<HashMap<String, Integer>>();
     HashMap<String, Vector<Integer>> phraseDics = new HashMap<String, Vector<Integer>>();
     for (int i = 0; i < phraseQueries.size(); i++) {
       System.out.println(phraseQueries.get(i));
@@ -166,22 +171,31 @@ public class Query {
           phraseDics.put(word, temp);
         }
       }
-      phraseDicArray.add(curPhrase);
     }
     return phraseDics;
   }
 
-  public void getAllDf(HashMap<String, Integer> df, HashMap<String, Integer> titleDf) {
+  /**
+   * To calculate the document frequency of every term
+   * 
+   * @param df input the df hashmap, we will return the result here
+   */
+  public void getAllDf(HashMap<String, Integer> df) {
     RocksIterator iter = rocks.getIterator(Database.HTMLtoPage); // Iterzator
     for (iter.seekToFirst(); iter.isValid(); iter.next()) {
       df.put(new String(iter.key()), new String(iter.value()).split("@@").length);
     }
-    iter = rocks.getIterator(Database.InvertedIndex); // Iterzator
-    for (iter.seekToFirst(); iter.isValid(); iter.next()) {
-      titleDf.put(new String(iter.key()), new String(iter.value()).split("@@").length);
-    }
   }
 
+  /**
+   * Calculate the scores by threading. This is a helper function!
+   * 
+   * @param queries
+   * @param phraseQueries
+   * @param rawQuery
+   * @param retArr        We will return the result here
+   * @throws RocksDBException
+   */
   public void calculateScoresThreaded(HashMap<String, Integer> queries, Vector<String> phraseQueries,
       HashMap<String, Integer> rawQuery, Vector<HashMap<String, String>> retArr) throws RocksDBException {
     long currentTime = System.currentTimeMillis();
@@ -191,7 +205,10 @@ public class Query {
      * {"Hong"=[0],"Kong"=[0],"american"=[1], "eagle"=[1]}
      **/
     HashMap<String, Vector<Integer>> phraseDics = getPhraseDics(phraseQueries);
-    long N = rocks.getSize(Database.ForwardIndex);
+
+    long N = rocks.getSize(Database.ForwardIndex);// approximate size of the database
+
+    // print informations
     System.out.println("There are " + N + " documents in total.");
     System.out.println("There are " + THREADS + " threads in total.");
     int queryLen = 0;
@@ -200,9 +217,10 @@ public class Query {
     for (Vector<Integer> q : phraseDics.values())
       queryLen += Math.pow(q.size(), 2);
 
+    // Do the calculation
     Vector<Thread> pool = new Vector<Thread>();
     for (int i = 0; i < THREADS; i++) {
-      ThreadedQuery tq = new ThreadedQuery(i, rawQuery, queries, phraseQueries, retArr, dfs, titleDfs, queryLen, rocks);
+      ThreadedQuery tq = new ThreadedQuery(i, rawQuery, queries, phraseQueries, retArr, dfs, queryLen, rocks);
       pool.add(new Thread(tq));
       pool.get(i).start();
     }
@@ -217,6 +235,12 @@ public class Query {
     // return retArr;
   }
 
+  /**
+   * Sort the result. This is a helper function!
+   * 
+   * @param input
+   * @return
+   */
   public static Vector<HashMap<String, String>> sortResult(Vector<HashMap<String, String>> input) {
     Vector<HashMap<String, String>> ret = new Vector<HashMap<String, String>>();
     // int size = input.size();
@@ -248,9 +272,7 @@ public class Query {
         System.out.println("Enter query:");
         str = br.readLine();
         currentTime = System.currentTimeMillis();
-        Vector<HashMap<String, String>> retVal = new Vector<HashMap<String, String>>();
-        test.processQuery(str, retVal);
-        retVal = sortResult(retVal);
+        Vector<HashMap<String, String>> retVal = test.processQuery(str);
         System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
         for (int i = 0; i < 5; i++) {
           System.out.print((i + 1) + ". " + retVal.elementAt(i).get("url"));
@@ -258,7 +280,6 @@ public class Query {
           System.out.print(" " + retVal.elementAt(i).get("cosim"));
           System.out.print(" " + retVal.elementAt(i).get("titleSim"));
           System.out.println(" " + retVal.elementAt(i).get("pageRank"));
-          // System.out.println(" " + retVal.elementAt(i).get("title"));
         }
       } catch (IOException ioe) {
         System.out.println(ioe);

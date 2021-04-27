@@ -1,40 +1,40 @@
 package resources;
 
 import java.util.Vector;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.HashMap;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.RuntimeException;
-import org.rocksdb.RocksDBException;
-import org.rocksdb.RocksIterator;
-import resources.Porter;
-import resources.Rocks;
-import resources.StopWord;
-import resources.Database;
-import java.nio.ByteBuffer;
 import java.util.StringTokenizer;
 
+import org.rocksdb.RocksDBException;
+import org.rocksdb.RocksIterator;
+
+import java.nio.ByteBuffer;
+
+/**
+ * This is a helper class for Query.java
+ */
 public class ThreadedQuery implements Runnable {
-  private static final int THREADS = Runtime.getRuntime().availableProcessors() * 2;
-  private int id;
+  private static final int THREADS = Runtime.getRuntime().availableProcessors() * 2; // Number of threads
+
+  private int id;// Id of thread
+
+  // Helper arrays
   private HashMap<String, Integer> queries;
   private HashMap<String, Integer> rawQueries;
   private Vector<String> phraseQueries;
   private Vector<HashMap<String, String>> retArr;
   private HashMap<String, Integer> dfs;
-  private HashMap<String, Integer> titleDfs;
+
+  // Length of query, saves time to not precompute in every thread
   private int queryLen;
   private Rocks rocks;
-  private static final Double WEIGHT_COSIM = 0.6;
-  private static final Double WEIGHT_TITLESIM = 0.4;
-  private static final Double WEIGHT_PAGERANK = 0.0;
+  private static final Double WEIGHT_COSIM = 0.38;
+  private static final Double WEIGHT_TITLESIM = 0.60;
+  private static final Double WEIGHT_PAGERANK = 0.02;
   private Porter porter;
 
   public ThreadedQuery(int id, HashMap<String, Integer> rawQueries, HashMap<String, Integer> queries,
-      Vector<String> phraseQueries, Vector<HashMap<String, String>> retArr, HashMap<String, Integer> dfs,
-      HashMap<String, Integer> titleDfs, int queryLen, Rocks rocks) {
+      Vector<String> phraseQueries, Vector<HashMap<String, String>> retArr, HashMap<String, Integer> dfs, int queryLen,
+      Rocks rocks) {
     this.id = id;
     this.queries = queries;
     this.phraseQueries = phraseQueries;
@@ -42,15 +42,23 @@ public class ThreadedQuery implements Runnable {
     this.dfs = dfs;
     this.queryLen = queryLen;
     this.rocks = rocks;
-    this.titleDfs = titleDfs;
     this.rawQueries = rawQueries;
     this.porter = new Porter();
   }
 
+  /**
+   * byte[] to double, as there is no function like this before.
+   * 
+   * @param bytes
+   * @return double
+   */
   public static double toDouble(byte[] bytes) {
     return ByteBuffer.wrap(bytes).getDouble();
   }
 
+  /**
+   * helper array for Query.java
+   */
   public void run() {
     RocksIterator iter = rocks.getIterator(Database.ForwardIndex); // Iterzator
     long N = rocks.getSize(Database.ForwardIndex);
@@ -68,7 +76,12 @@ public class ThreadedQuery implements Runnable {
       counter++;
       String wordFreqs = new String(iter.value());
       wordFreqs = wordFreqs.substring(1, wordFreqs.length() - 1);
+
+      // initialize the scores
       double cosSim;
+      Double titleSim = 0.0;
+      Double pageRank = 0.0;
+
       double innerProduct = 0;
       double docLen = 0;
 
@@ -88,13 +101,11 @@ public class ThreadedQuery implements Runnable {
       }
 
       // Phrasal scoring
-      // Vector<Integer> phrasalFreqs = new Vector<Integer>();
-      // Integer df = 0;
       for (String phrase : phraseQueries) {
         boolean valid = true;
         String[] phraseSplit = phrase.split(" ");
         int[] checkpoints = new int[phraseSplit.length];
-        Vector<String[]> posInfos = new Vector<String[]>();
+        Vector<String[]> posInfos = new Vector<String[]>();// position infos
         int freq = 0; // frequency of the term
         for (int i = 0; i < phraseSplit.length; i++) {
           String currWord = phraseSplit[i];
@@ -105,10 +116,8 @@ public class ThreadedQuery implements Runnable {
           } catch (RocksDBException e) {
             System.err.println(e.toString());
           }
-          // System.out.println(currWord + "@" + new String(iter.key()));
           if (infos != null) {
             posInfos.add((new String(infos)).split("@"));
-            // System.out.println(new String(infos));
           } else {
             valid = false;
             break;
@@ -128,7 +137,6 @@ public class ThreadedQuery implements Runnable {
             }
             for (int k = checkpoints[j] + 1; k < posInfos.get(j).length; k++) {
               int currLoc = Integer.parseInt(posInfos.get(j)[k]);
-              // System.out.println("firstloc = " + firstLoc + ", currLoc =" + currLoc);
               if (currLoc <= firstLoc) {
                 continue;
               } else if (firstLoc < currLoc && currLoc <= firstLoc + distance) {
@@ -145,8 +153,9 @@ public class ThreadedQuery implements Runnable {
             }
           }
         }
-        innerProduct += Math.pow(freq, 1);
+        innerProduct += freq;
       }
+      // Handling 0 divisor
       if (docLen == 0.0) {
         docLen = 1.0;
       } else if (queryLen == 0.0) {
@@ -154,11 +163,8 @@ public class ThreadedQuery implements Runnable {
       }
       cosSim = innerProduct / (Math.sqrt(docLen) * Math.sqrt(queryLen));
       HashMap<String, String> ret = new HashMap<String, String>();
-      String tempo = "";
 
-      Double titleSim = 0.0;
-      Double pageRank = 0.0;
-
+      // Get the page informations and put it as the output
       String title = "";
       try {
         byte[] linkInBytes = rocks.getEntry(Database.PageIDtoURLInfo, iter.key());
@@ -171,7 +177,6 @@ public class ThreadedQuery implements Runnable {
           ret.put("parent", new String(ctp));
         String infos[] = link.split("@@");
         ret.put("url", infos[0]);
-        tempo = infos[0];
         ret.put("date", infos[1]);
         ret.put("size", infos[2]);
         title = infos[3];
@@ -180,8 +185,8 @@ public class ThreadedQuery implements Runnable {
         System.err.println(e.toString());
       }
 
+      // handle title similarity calculation
       if (!title.equals("")) {
-        // String[] titleSplitted = title.split(" ");
         HashMap<String, Integer> titleMap = new HashMap<String, Integer>();
         StringTokenizer st = new StringTokenizer(title);
         while (st.hasMoreTokens()) {
@@ -194,21 +199,29 @@ public class ThreadedQuery implements Runnable {
         }
         Double tf = 0.0;
         for (String j : rawQueries.keySet()) {
-          // int df = titleDfs.get(j);
           if (titleMap.containsKey(j)) {
             tf += 1.0;
           }
         }
-        titleSim = Math.pow(tf / queryLen, 3);
+        titleSim = Math.pow(tf / ((queryLen + titleMap.size()) / 2), 1);
       }
+
+      // handle pagerank calculation
       try {
         byte[] temp = rocks.getEntry(Database.PageRank, iter.key());
+        String tempQ = "max";
+        double max = toDouble(rocks.getEntry(Database.PageRank, tempQ.getBytes()));
+        tempQ = "min";
+        double min = toDouble(rocks.getEntry(Database.PageRank, tempQ.getBytes()));
         if (temp != null) {
-          pageRank = toDouble(temp);
+          pageRank = (toDouble(temp) - min) / (max - min);
         }
-      } catch (RocksDBException e) {
-        System.err.println(e.toString());
+      } catch (Exception e) {
+        e.printStackTrace();
+        // System.err.println(e.toString());
       }
+
+      // put values on the returned array
       ret.put("cosim", Double.toString(cosSim));
       ret.put("titleSim", Double.toString(titleSim));
       ret.put("pageRank", Double.toString(pageRank));
