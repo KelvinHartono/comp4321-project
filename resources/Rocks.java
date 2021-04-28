@@ -82,4 +82,23 @@ public class Rocks {
   public byte[] getEntry(Database choice, byte[] key) throws RocksDBException {
     return db[choice.ordinal()].get(key);
   }
+
+  //DB closer
+  public void closeDatabases() throws RocksDBException
+    {
+      for(int i=0;i<9;++i)
+        this.db[i].close();
+    }
+  
+  protected void finalize()
+    {
+      try
+      {
+        closeDatabases();
+      }
+      catch(RocksDBException e)
+        {
+          System.err.println(e.toString());
+        }
+    }
 }
