@@ -1,9 +1,0 @@
-rm ./db/0/LOCK
-rm ./db/1/LOCK
-rm ./db/2/LOCK
-rm ./db/3/LOCK
-rm ./db/4/LOCK
-rm ./db/5/LOCK
-rm ./db/6/LOCK
-rm ./db/7/LOCK
-rm ./db/8/LOCK
