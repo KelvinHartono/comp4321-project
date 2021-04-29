@@ -1,0 +1,1011 @@
+29-Apr-2021 00:16:55.974 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 00:16:55.974 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 00:17:01.724 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 00:17:01.724 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 00:17:01.727 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@37fbe4a8')
+29-Apr-2021 00:20:23.606 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 00:20:23.606 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 00:20:28.594 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 00:20:28.594 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 00:20:28.607 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@120f38e6')
+29-Apr-2021 00:21:37.606 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 00:21:37.606 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 00:21:42.340 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 00:21:42.340 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 00:21:42.349 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@2555fff0')
+29-Apr-2021 00:26:32.783 SEVERE [http-nio-8080-exec-7] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se 4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 00:26:43.852 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 00:26:43.852 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 00:26:47.969 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 00:26:47.970 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 00:26:47.972 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@7d373bcf')
+29-Apr-2021 00:31:25.107 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 00:31:25.107 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 00:31:32.037 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 00:31:32.040 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 00:31:32.046 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@22c01ab0')
+29-Apr-2021 00:31:51.258 SEVERE [http-nio-8080-exec-1] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se 4321] threw exception [An exception occurred processing [search.jsp] at line [103]
+
+100:         //out.print("<p>Parent Links</p>");
+101:         out.print("<p>Child Links:</p>");
+102: 
+103:         String child[] = ret.get("child").split("@@");
+104: 
+105:         for(String c : child) {
+106:           out.print("<p>" + c + "</p>");
+
+
+Stacktrace:] with root cause
+	java.lang.NullPointerException
+		at org.apache.jsp.search_jsp._jspService(search_jsp.java:237)
+		at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:71)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:467)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 00:33:38.311 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 00:33:38.311 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 00:33:42.690 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 00:33:42.691 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 00:33:42.693 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@677dbd89')
+29-Apr-2021 21:09:35.368 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 21:09:35.368 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 21:09:35.371 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@2ca47471')
+29-Apr-2021 21:10:00.201 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 21:10:00.201 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 21:12:08.405 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 21:12:08.405 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 21:12:08.410 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@324c64cd')
+29-Apr-2021 21:12:20.847 SEVERE [http-nio-8080-exec-1] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:13:11.273 SEVERE [http-nio-8080-exec-3] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:13:19.875 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 21:13:19.876 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 21:13:23.968 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 21:13:23.968 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 21:13:23.970 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@7d373bcf')
+29-Apr-2021 21:13:28.032 SEVERE [http-nio-8080-exec-1] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:48:28.610 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 21:48:28.610 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 21:48:46.378 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 21:48:46.378 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 21:48:46.380 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@2ad3a1bb')
+29-Apr-2021 21:48:49.177 SEVERE [http-nio-8080-exec-2] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [Unable to compile class for JSP: 
+
+An error occurred at line: [75] in the jsp file: [/search.jsp]
+Invalid character constant
+72:       int links_counter = 1;
+73: 			
+74: 			//print Search result term and time
+75: 			out.print('<div class="container"><div class="row" style="margin-top: 40px"><p><small>Search Results of "' + s + '" (' + (System.currentTimeMillis()-currentTime) + ')</small></p></div>');
+76: 
+77: 			
+78: 			for(HashMap<String, String> ret: retArr) {
+
+
+Stacktrace:] with root cause
+	org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [75] in the jsp file: [/search.jsp]
+Invalid character constant
+72:       int links_counter = 1;
+73: 			
+74: 			//print Search result term and time
+75: 			out.print('<div class="container"><div class="row" style="margin-top: 40px"><p><small>Search Results of "' + s + '" (' + (System.currentTimeMillis()-currentTime) + ')</small></p></div>');
+76: 
+77: 			
+78: 			for(HashMap<String, String> ret: retArr) {
+
+
+Stacktrace:
+		at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:103)
+		at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:213)
+		at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:481)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:398)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:368)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:352)
+		at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:603)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:400)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:48:49.179 SEVERE [http-nio-8080-exec-1] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [org.apache.jasper.JasperException: java.lang.ClassNotFoundException: org.apache.jsp.search_jsp] with root cause
+	java.lang.ClassNotFoundException: org.apache.jsp.search_jsp
+		at java.base/java.net.URLClassLoader.findClass(URLClassLoader.java:471)
+		at org.apache.jasper.servlet.JasperLoader.loadClass(JasperLoader.java:128)
+		at org.apache.jasper.servlet.JasperLoader.loadClass(JasperLoader.java:59)
+		at org.apache.catalina.core.DefaultInstanceManager.newInstance(DefaultInstanceManager.java:160)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:193)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:50:19.684 SEVERE [http-nio-8080-exec-5] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [Unable to compile class for JSP: 
+
+An error occurred at line: [75] in the jsp file: [/search.jsp]
+Invalid character constant
+72:       int links_counter = 1;
+73: 			
+74: 			//print Search result term and time
+75: 			out.print('<div class="container"><div class="row" style="margin-top: 40px"><p><small>Search Results of "' + s + '" (' + (System.currentTimeMillis()-currentTime) + ')</small></p></div>');
+76: 
+77: 			
+78: 			for(HashMap<String, String> ret: retArr) {
+
+
+Stacktrace:] with root cause
+	org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [75] in the jsp file: [/search.jsp]
+Invalid character constant
+72:       int links_counter = 1;
+73: 			
+74: 			//print Search result term and time
+75: 			out.print('<div class="container"><div class="row" style="margin-top: 40px"><p><small>Search Results of "' + s + '" (' + (System.currentTimeMillis()-currentTime) + ')</small></p></div>');
+76: 
+77: 			
+78: 			for(HashMap<String, String> ret: retArr) {
+
+
+Stacktrace:
+		at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:103)
+		at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:213)
+		at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:481)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:398)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:368)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:352)
+		at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:603)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:400)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:50:57.647 SEVERE [http-nio-8080-exec-8] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [Unable to compile class for JSP: 
+
+An error occurred at line: [75] in the jsp file: [/search.jsp]
+Invalid character constant
+72:       int links_counter = 1;
+73: 			
+74: 			//print Search result term and time
+75: 			out.print('<div class="container"><div class="row" style="margin-top: 40px"><p><small>Search Results of "' + s + '" (' + (System.currentTimeMillis()-currentTime) + ')</small></p></div>');
+76: 
+77: 			
+78: 			for(HashMap<String, String> ret: retArr) {
+
+
+Stacktrace:] with root cause
+	org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [75] in the jsp file: [/search.jsp]
+Invalid character constant
+72:       int links_counter = 1;
+73: 			
+74: 			//print Search result term and time
+75: 			out.print('<div class="container"><div class="row" style="margin-top: 40px"><p><small>Search Results of "' + s + '" (' + (System.currentTimeMillis()-currentTime) + ')</small></p></div>');
+76: 
+77: 			
+78: 			for(HashMap<String, String> ret: retArr) {
+
+
+Stacktrace:
+		at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:103)
+		at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:213)
+		at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:481)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:398)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:368)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:352)
+		at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:603)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:400)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:52:50.417 SEVERE [http-nio-8080-exec-10] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [Unable to compile class for JSP: 
+
+An error occurred at line: [83] in the jsp file: [/search.jsp]
+Invalid character constant
+80:         //out.print(ret);
+81: 
+82:         //print website title
+83:         out.print('<div class="row"><div class="content"><div class="row"><div class="col-12"><h6><a href="'+ ret.get('url') +'" target="_blank" style="color: rgb(26, 10, 213); text-decoration: none">' + ret.get('title') +'</a></h6>');
+84: 
+85:         //print url
+86:         out.print('<p><a href="'+ ret.get('url') +'" target="_blank" style="color: green; text-decoration: none">' + ret.get('url') + '</a></p>');
+
+
+Stacktrace:] with root cause
+	org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [83] in the jsp file: [/search.jsp]
+Invalid character constant
+80:         //out.print(ret);
+81: 
+82:         //print website title
+83:         out.print('<div class="row"><div class="content"><div class="row"><div class="col-12"><h6><a href="'+ ret.get('url') +'" target="_blank" style="color: rgb(26, 10, 213); text-decoration: none">' + ret.get('title') +'</a></h6>');
+84: 
+85:         //print url
+86:         out.print('<p><a href="'+ ret.get('url') +'" target="_blank" style="color: green; text-decoration: none">' + ret.get('url') + '</a></p>');
+
+
+Stacktrace:
+		at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:103)
+		at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:213)
+		at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:481)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:398)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:368)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:352)
+		at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:603)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:400)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:55:04.457 SEVERE [http-nio-8080-exec-3] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [Unable to compile class for JSP: 
+
+An error occurred at line: [89] in the jsp file: [/search.jsp]
+Invalid character constant
+86:         out.print("<p><a href='"+ ret.get("url") +"' target='_blank' style='color: green; text-decoration: none'>" + ret.get("url") + "</a></p>");
+87: 
+88:         //print metadata
+89:         out.print('<p><strong>Last modified:</strong>' + ret.get('date') + ',<strong>Size:</strong> ' + ret.get('size') + ' Bytes</p><p><strong>Score:</strong> ' + ret.get('score') + '</p><p><strong>PageRank:</strong> ' + ret.get('pageRank') + '</p><p><strong>Title Similarity:</strong> ' + ret.get('titleSim') + '</p><p><strong>Cosine Similarity:</strong> ' + ret.get('cosim') + '</p><p><strong>Most frequent stemmed keywords: </strong>keyword 1 freq1; keyword 2 freq 2; keyword 3 freq 3; keyword 4 freq 4; keyword5 freq 5;</p>');
+90: 
+91: 
+92:         //print parent links
+
+
+Stacktrace:] with root cause
+	org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [89] in the jsp file: [/search.jsp]
+Invalid character constant
+86:         out.print("<p><a href='"+ ret.get("url") +"' target='_blank' style='color: green; text-decoration: none'>" + ret.get("url") + "</a></p>");
+87: 
+88:         //print metadata
+89:         out.print('<p><strong>Last modified:</strong>' + ret.get('date') + ',<strong>Size:</strong> ' + ret.get('size') + ' Bytes</p><p><strong>Score:</strong> ' + ret.get('score') + '</p><p><strong>PageRank:</strong> ' + ret.get('pageRank') + '</p><p><strong>Title Similarity:</strong> ' + ret.get('titleSim') + '</p><p><strong>Cosine Similarity:</strong> ' + ret.get('cosim') + '</p><p><strong>Most frequent stemmed keywords: </strong>keyword 1 freq1; keyword 2 freq 2; keyword 3 freq 3; keyword 4 freq 4; keyword5 freq 5;</p>');
+90: 
+91: 
+92:         //print parent links
+
+
+Stacktrace:
+		at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:103)
+		at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:213)
+		at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:481)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:398)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:368)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:352)
+		at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:603)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:400)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:59:05.243 SEVERE [http-nio-8080-exec-6] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [Unable to compile class for JSP: 
+
+An error occurred at line: [93] in the jsp file: [/search.jsp]
+Syntax error on token ""' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>"", delete this token
+90: 
+91: 
+92:         //print parent links
+93:         out.print("<div class='row'><div class='col-12'><p><strong>Parent Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+94: 
+95:         String parent[] = ret.get("parent").split("@@");
+96: 
+
+
+An error occurred at line: [110] in the jsp file: [/search.jsp]
+Syntax error on token ""' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>"", delete this token
+107: 
+108: 
+109:         //print child links
+110:         out.print("<div class='row'><div class='col-12'><p><strong>Child Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+111: 
+112:         String child[] = ret.get("child").split("@@");
+113: 
+
+
+Stacktrace:] with root cause
+	org.apache.jasper.JasperException: Unable to compile class for JSP: 
+
+An error occurred at line: [93] in the jsp file: [/search.jsp]
+Syntax error on token ""' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>"", delete this token
+90: 
+91: 
+92:         //print parent links
+93:         out.print("<div class='row'><div class='col-12'><p><strong>Parent Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+94: 
+95:         String parent[] = ret.get("parent").split("@@");
+96: 
+
+
+An error occurred at line: [110] in the jsp file: [/search.jsp]
+Syntax error on token ""' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>"", delete this token
+107: 
+108: 
+109:         //print child links
+110:         out.print("<div class='row'><div class='col-12'><p><strong>Child Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+111: 
+112:         String child[] = ret.get("child").split("@@");
+113: 
+
+
+Stacktrace:
+		at org.apache.jasper.compiler.DefaultErrorHandler.javacError(DefaultErrorHandler.java:103)
+		at org.apache.jasper.compiler.ErrorDispatcher.javacError(ErrorDispatcher.java:213)
+		at org.apache.jasper.compiler.JDTCompiler.generateClass(JDTCompiler.java:481)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:398)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:368)
+		at org.apache.jasper.compiler.Compiler.compile(Compiler.java:352)
+		at org.apache.jasper.JspCompilationContext.compile(JspCompilationContext.java:603)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:400)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:59:42.023 SEVERE [http-nio-8080-exec-9] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 21:59:58.186 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 21:59:58.186 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:00:01.913 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:00:01.913 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:00:01.916 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@2db2dd9d')
+29-Apr-2021 22:00:38.503 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:00:38.503 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:03:13.739 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:03:13.739 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:03:13.742 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@677dbd89')
+29-Apr-2021 22:06:47.201 SEVERE [http-nio-8080-exec-5] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [An exception occurred processing [search.jsp] at line [95]
+
+92:         //print parent links
+93:         out.print("<div class='row'><div class='col-12'><p><strong>Parent Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter + "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+94: 
+95:         String parent[] = ret.get("parent").split("@@");
+96: 
+97:         for(int i = 0; i < parent.length; i++) {
+98:           out.print(parent[i] + "<br />");
+
+
+Stacktrace:] with root cause
+	java.lang.NullPointerException
+		at org.apache.jsp.search_jsp._jspService(search_jsp.java:229)
+		at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:71)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:467)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:07:03.860 SEVERE [http-nio-8080-exec-3] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [An exception occurred processing [search.jsp] at line [95]
+
+92:         //print parent links
+93:         out.print("<div class='row'><div class='col-12'><p><strong>Parent Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter + "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+94: 
+95:         String parent[] = ret.get("parent").split("@@");
+96: 
+97:         for(int i = 0; i < parent.length; i++) {
+98:           out.print(parent[i] + "<br />");
+
+
+Stacktrace:] with root cause
+	java.lang.NullPointerException
+		at org.apache.jsp.search_jsp._jspService(search_jsp.java:229)
+		at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:71)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:467)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:07:30.699 SEVERE [http-nio-8080-exec-10] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [An exception occurred processing [search.jsp] at line [95]
+
+92:         //print parent links
+93:         out.print("<div class='row'><div class='col-12'><p><strong>Parent Links:<button onclick='myFunction(" + links_counter + ")' id='Btn" + links_counter + "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
+94: 
+95:         String parent[] = ret.get("parent").split("@@");
+96: 
+97:         for(int i = 0; i < parent.length; i++) {
+98:           out.print(parent[i] + "<br />");
+
+
+Stacktrace:] with root cause
+	java.lang.NullPointerException
+		at org.apache.jsp.search_jsp._jspService(search_jsp.java:229)
+		at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:71)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:467)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:08:04.125 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:08:04.125 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:08:09.344 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:08:09.344 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:08:09.347 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@677dbd89')
+29-Apr-2021 22:08:53.283 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:08:53.284 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:09:01.689 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:09:01.689 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:09:01.694 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@7646731d')
+29-Apr-2021 22:10:10.415 SEVERE [http-nio-8080-exec-7] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:10:20.816 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:10:20.816 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:10:26.040 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:10:26.040 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:10:26.042 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@2db2dd9d')
+29-Apr-2021 22:17:09.064 SEVERE [http-nio-8080-exec-5] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:17:18.037 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:17:18.038 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:17:23.202 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:17:23.202 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:17:23.205 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@24be2d9c')
+29-Apr-2021 22:21:20.983 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:21:20.983 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:21:26.602 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:21:26.602 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:21:26.605 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@10027fc9')
+29-Apr-2021 22:24:51.864 SEVERE [http-nio-8080-exec-10] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:24:58.144 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:24:58.144 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:25:04.316 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:25:04.318 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:25:04.320 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@7d373bcf')
+29-Apr-2021 22:26:26.403 SEVERE [http-nio-8080-exec-6] org.apache.catalina.core.StandardWrapperValve.invoke Servlet.service() for servlet [jsp] in context with path [/se4321] threw exception [java.lang.NullPointerException] with root cause
+	java.lang.NullPointerException
+		at resources.Query.getAllDf(Query.java:181)
+		at resources.Query.<init>(Query.java:46)
+		at org.apache.jsp.search_jsp.jspInit(search_jsp.java:30)
+		at org.apache.jasper.runtime.HttpJspBase.init(HttpJspBase.java:49)
+		at org.apache.jasper.servlet.JspServletWrapper.getServlet(JspServletWrapper.java:201)
+		at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:414)
+		at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:379)
+		at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:327)
+		at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:770)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:223)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+		at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:185)
+		at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:158)
+		at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+		at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+		at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:543)
+		at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+		at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+		at org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:690)
+		at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+		at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:353)
+		at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+		at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+		at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:870)
+		at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1696)
+		at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+		at java.base/java.lang.Thread.run(Thread.java:834)
+29-Apr-2021 22:26:33.901 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:26:33.901 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:26:38.797 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:26:38.799 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:26:38.801 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@37fbe4a8')
+29-Apr-2021 22:30:11.993 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:30:11.993 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:30:17.015 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:30:17.015 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:30:17.027 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@5400db36')
+29-Apr-2021 22:32:23.157 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:32:23.157 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:32:27.763 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:32:27.763 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:32:27.768 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@352c308')
+29-Apr-2021 22:33:17.978 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:33:17.978 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:33:23.374 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:33:23.374 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:33:23.376 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@2ca47471')
+29-Apr-2021 22:35:55.548 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:35:55.548 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:35:59.106 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:35:59.106 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:35:59.111 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@263f04ca')
+29-Apr-2021 22:37:16.486 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:37:16.486 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:37:27.209 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:37:27.210 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:37:27.211 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@7d373bcf')
+29-Apr-2021 22:38:21.649 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:38:21.649 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+29-Apr-2021 22:38:25.415 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+29-Apr-2021 22:38:25.415 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+29-Apr-2021 22:38:25.417 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@37fbe4a8')
+29-Apr-2021 22:38:27.228 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+29-Apr-2021 22:38:27.229 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()

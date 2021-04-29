@@ -1,0 +1,286 @@
+2021/04/29-00:31:46.336770 45a4 RocksDB version: 6.15.5
+2021/04/29-00:31:46.336831 45a4 Git sha rocksdb_build_git_sha:@abd4b1ff1504ae2a7ed6e60bc9c9797b880c33a5@
+2021/04/29-00:31:46.336853 45a4 Compile date Mar 13 2021
+2021/04/29-00:31:46.336871 45a4 DB SUMMARY
+2021/04/29-00:31:46.336885 45a4 DB Session ID:  YJ0EZA6D8XI76U9MOS3A
+2021/04/29-00:31:46.337031 45a4 CURRENT file:  CURRENT
+2021/04/29-00:31:46.337050 45a4 IDENTITY file:  IDENTITY
+2021/04/29-00:31:46.337099 45a4 MANIFEST file:  MANIFEST-000084 size: 123 Bytes
+2021/04/29-00:31:46.337117 45a4 SST files in D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5\webapps\se 4321\WEB-INF\classes\resources\db\8 dir, Total Num: 1, files: 000013.sst 
+2021/04/29-00:31:46.337132 45a4 Write Ahead Log file in D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5\webapps\se 4321\WEB-INF\classes\resources\db\8: 000085.log size: 0 ; 
+2021/04/29-00:31:46.337451 45a4                         Options.error_if_exists: 0
+2021/04/29-00:31:46.337466 45a4                       Options.create_if_missing: 1
+2021/04/29-00:31:46.337473 45a4                         Options.paranoid_checks: 1
+2021/04/29-00:31:46.337478 45a4                               Options.track_and_verify_wals_in_manifest: 0
+2021/04/29-00:31:46.337484 45a4                                     Options.env: 0000023651CB7BD0
+2021/04/29-00:31:46.337490 45a4                                      Options.fs: Legacy File System
+2021/04/29-00:31:46.337496 45a4                                Options.info_log: 00000236529175D0
+2021/04/29-00:31:46.337502 45a4                Options.max_file_opening_threads: 16
+2021/04/29-00:31:46.337507 45a4                              Options.statistics: 0000000000000000
+2021/04/29-00:31:46.337513 45a4                               Options.use_fsync: 0
+2021/04/29-00:31:46.337519 45a4                       Options.max_log_file_size: 0
+2021/04/29-00:31:46.337524 45a4                  Options.max_manifest_file_size: 1073741824
+2021/04/29-00:31:46.337530 45a4                   Options.log_file_time_to_roll: 0
+2021/04/29-00:31:46.337536 45a4                       Options.keep_log_file_num: 1000
+2021/04/29-00:31:46.337542 45a4                    Options.recycle_log_file_num: 0
+2021/04/29-00:31:46.337547 45a4                         Options.allow_fallocate: 1
+2021/04/29-00:31:46.337553 45a4                        Options.allow_mmap_reads: 0
+2021/04/29-00:31:46.337558 45a4                       Options.allow_mmap_writes: 0
+2021/04/29-00:31:46.337564 45a4                        Options.use_direct_reads: 0
+2021/04/29-00:31:46.337569 45a4                        Options.use_direct_io_for_flush_and_compaction: 0
+2021/04/29-00:31:46.337575 45a4          Options.create_missing_column_families: 0
+2021/04/29-00:31:46.337580 45a4                              Options.db_log_dir: 
+2021/04/29-00:31:46.337586 45a4                                 Options.wal_dir: D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5\webapps\se 4321\WEB-INF\classes\resources\db\8
+2021/04/29-00:31:46.337591 45a4                Options.table_cache_numshardbits: 6
+2021/04/29-00:31:46.337597 45a4                         Options.WAL_ttl_seconds: 0
+2021/04/29-00:31:46.337602 45a4                       Options.WAL_size_limit_MB: 0
+2021/04/29-00:31:46.337608 45a4                        Options.max_write_batch_group_size_bytes: 1048576
+2021/04/29-00:31:46.337614 45a4             Options.manifest_preallocation_size: 4194304
+2021/04/29-00:31:46.337619 45a4                     Options.is_fd_close_on_exec: 1
+2021/04/29-00:31:46.337625 45a4                   Options.advise_random_on_open: 1
+2021/04/29-00:31:46.337630 45a4                    Options.db_write_buffer_size: 0
+2021/04/29-00:31:46.337636 45a4                    Options.write_buffer_manager: 000002365176E170
+2021/04/29-00:31:46.337642 45a4         Options.access_hint_on_compaction_start: 1
+2021/04/29-00:31:46.337647 45a4  Options.new_table_reader_for_compaction_inputs: 0
+2021/04/29-00:31:46.337652 45a4           Options.random_access_max_buffer_size: 1048576
+2021/04/29-00:31:46.337658 45a4                      Options.use_adaptive_mutex: 0
+2021/04/29-00:31:46.337694 45a4                            Options.rate_limiter: 0000000000000000
+2021/04/29-00:31:46.337704 45a4     Options.sst_file_manager.rate_bytes_per_sec: 0
+2021/04/29-00:31:46.337710 45a4                       Options.wal_recovery_mode: 2
+2021/04/29-00:31:46.337716 45a4                  Options.enable_thread_tracking: 0
+2021/04/29-00:31:46.337721 45a4                  Options.enable_pipelined_write: 0
+2021/04/29-00:31:46.337727 45a4                  Options.unordered_write: 0
+2021/04/29-00:31:46.337732 45a4         Options.allow_concurrent_memtable_write: 1
+2021/04/29-00:31:46.337738 45a4      Options.enable_write_thread_adaptive_yield: 1
+2021/04/29-00:31:46.337743 45a4             Options.write_thread_max_yield_usec: 100
+2021/04/29-00:31:46.337749 45a4            Options.write_thread_slow_yield_usec: 3
+2021/04/29-00:31:46.337754 45a4                               Options.row_cache: None
+2021/04/29-00:31:46.337760 45a4                              Options.wal_filter: None
+2021/04/29-00:31:46.337766 45a4             Options.avoid_flush_during_recovery: 0
+2021/04/29-00:31:46.337771 45a4             Options.allow_ingest_behind: 0
+2021/04/29-00:31:46.337777 45a4             Options.preserve_deletes: 0
+2021/04/29-00:31:46.337782 45a4             Options.two_write_queues: 0
+2021/04/29-00:31:46.337788 45a4             Options.manual_wal_flush: 0
+2021/04/29-00:31:46.337793 45a4             Options.atomic_flush: 0
+2021/04/29-00:31:46.337799 45a4             Options.avoid_unnecessary_blocking_io: 0
+2021/04/29-00:31:46.337804 45a4                 Options.persist_stats_to_disk: 0
+2021/04/29-00:31:46.337810 45a4                 Options.write_dbid_to_manifest: 0
+2021/04/29-00:31:46.337815 45a4                 Options.log_readahead_size: 0
+2021/04/29-00:31:46.337821 45a4                 Options.file_checksum_gen_factory: Unknown
+2021/04/29-00:31:46.337827 45a4                 Options.best_efforts_recovery: 0
+2021/04/29-00:31:46.337832 45a4                Options.max_bgerror_resume_count: 2147483647
+2021/04/29-00:31:46.337838 45a4            Options.bgerror_resume_retry_interval: 1000000
+2021/04/29-00:31:46.337844 45a4             Options.allow_data_in_errors: 0
+2021/04/29-00:31:46.337849 45a4             Options.db_host_id: __hostname__
+2021/04/29-00:31:46.337855 45a4             Options.max_background_jobs: 2
+2021/04/29-00:31:46.337860 45a4             Options.max_background_compactions: -1
+2021/04/29-00:31:46.337866 45a4             Options.max_subcompactions: 1
+2021/04/29-00:31:46.337871 45a4             Options.avoid_flush_during_shutdown: 0
+2021/04/29-00:31:46.337876 45a4           Options.writable_file_max_buffer_size: 1048576
+2021/04/29-00:31:46.337882 45a4             Options.delayed_write_rate : 16777216
+2021/04/29-00:31:46.337888 45a4             Options.max_total_wal_size: 0
+2021/04/29-00:31:46.337894 45a4             Options.delete_obsolete_files_period_micros: 21600000000
+2021/04/29-00:31:46.337899 45a4                   Options.stats_dump_period_sec: 600
+2021/04/29-00:31:46.337905 45a4                 Options.stats_persist_period_sec: 600
+2021/04/29-00:31:46.337910 45a4                 Options.stats_history_buffer_size: 1048576
+2021/04/29-00:31:46.337916 45a4                          Options.max_open_files: -1
+2021/04/29-00:31:46.337922 45a4                          Options.bytes_per_sync: 0
+2021/04/29-00:31:46.337927 45a4                      Options.wal_bytes_per_sync: 0
+2021/04/29-00:31:46.337933 45a4                   Options.strict_bytes_per_sync: 0
+2021/04/29-00:31:46.337938 45a4       Options.compaction_readahead_size: 0
+2021/04/29-00:31:46.337944 45a4                  Options.max_background_flushes: -1
+2021/04/29-00:31:46.337949 45a4 Compression algorithms supported:
+2021/04/29-00:31:46.337955 45a4 	kZSTD supported: 1
+2021/04/29-00:31:46.337961 45a4 	kSnappyCompression supported: 1
+2021/04/29-00:31:46.337967 45a4 	kBZip2Compression supported: 0
+2021/04/29-00:31:46.337972 45a4 	kZlibCompression supported: 1
+2021/04/29-00:31:46.337978 45a4 	kLZ4Compression supported: 1
+2021/04/29-00:31:46.338003 45a4 	kXpressCompression supported: 0
+2021/04/29-00:31:46.338010 45a4 	kLZ4HCCompression supported: 1
+2021/04/29-00:31:46.338016 45a4 	kZSTDNotFinalCompression supported: 1
+2021/04/29-00:31:46.338024 45a4 Fast CRC32 supported: Supported on x86
+2021/04/29-00:31:46.338592 45a4 [db\version_set.cc:4725] Recovering from manifest file: D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5\webapps\se 4321\WEB-INF\classes\resources\db\8/MANIFEST-000084
+2021/04/29-00:31:46.338718 45a4 [db\column_family.cc:597] --------------- Options for column family [default]:
+2021/04/29-00:31:46.338729 45a4               Options.comparator: leveldb.BytewiseComparator
+2021/04/29-00:31:46.338735 45a4           Options.merge_operator: None
+2021/04/29-00:31:46.338741 45a4        Options.compaction_filter: None
+2021/04/29-00:31:46.338746 45a4        Options.compaction_filter_factory: None
+2021/04/29-00:31:46.338752 45a4  Options.sst_partitioner_factory: None
+2021/04/29-00:31:46.338757 45a4         Options.memtable_factory: SkipListFactory
+2021/04/29-00:31:46.338763 45a4            Options.table_factory: BlockBasedTable
+2021/04/29-00:31:46.338790 45a4            table_factory options:   flush_block_policy_factory: FlushBlockBySizePolicyFactory (00000236518AA270)
+  cache_index_and_filter_blocks: 0
+  cache_index_and_filter_blocks_with_high_priority: 1
+  pin_l0_filter_and_index_blocks_in_cache: 0
+  pin_top_level_index_and_filter: 1
+  index_type: 0
+  data_block_index_type: 0
+  index_shortening: 1
+  data_block_hash_table_util_ratio: 0.750000
+  hash_index_allow_collision: 1
+  checksum: 1
+  no_block_cache: 0
+  block_cache: 0000023652AC4B70
+  block_cache_name: LRUCache
+  block_cache_options:
+    capacity : 8388608
+    num_shard_bits : 4
+    strict_capacity_limit : 0
+    memory_allocator : None
+    high_pri_pool_ratio: 0.000
+  block_cache_compressed: 0000000000000000
+  persistent_cache: 0000000000000000
+  block_size: 4096
+  block_size_deviation: 10
+  block_restart_interval: 16
+  index_block_restart_interval: 1
+  metadata_block_size: 4096
+  partition_filters: 0
+  use_delta_encoding: 1
+  filter_policy: nullptr
+  whole_key_filtering: 1
+  verify_compression: 0
+  read_amp_bytes_per_bit: 0
+  format_version: 4
+  enable_index_compression: 1
+  block_align: 0
+2021/04/29-00:31:46.338796 45a4        Options.write_buffer_size: 67108864
+2021/04/29-00:31:46.338802 45a4  Options.max_write_buffer_number: 2
+2021/04/29-00:31:46.338808 45a4          Options.compression: Snappy
+2021/04/29-00:31:46.338813 45a4                  Options.bottommost_compression: Disabled
+2021/04/29-00:31:46.338819 45a4       Options.prefix_extractor: nullptr
+2021/04/29-00:31:46.338824 45a4   Options.memtable_insert_with_hint_prefix_extractor: nullptr
+2021/04/29-00:31:46.338829 45a4             Options.num_levels: 7
+2021/04/29-00:31:46.338835 45a4        Options.min_write_buffer_number_to_merge: 1
+2021/04/29-00:31:46.338840 45a4     Options.max_write_buffer_number_to_maintain: 0
+2021/04/29-00:31:46.338846 45a4     Options.max_write_buffer_size_to_maintain: 0
+2021/04/29-00:31:46.338851 45a4            Options.bottommost_compression_opts.window_bits: -14
+2021/04/29-00:31:46.338857 45a4                  Options.bottommost_compression_opts.level: 32767
+2021/04/29-00:31:46.338862 45a4               Options.bottommost_compression_opts.strategy: 0
+2021/04/29-00:31:46.338868 45a4         Options.bottommost_compression_opts.max_dict_bytes: 0
+2021/04/29-00:31:46.338873 45a4         Options.bottommost_compression_opts.zstd_max_train_bytes: 0
+2021/04/29-00:31:46.338879 45a4         Options.bottommost_compression_opts.parallel_threads: 1
+2021/04/29-00:31:46.338884 45a4                  Options.bottommost_compression_opts.enabled: false
+2021/04/29-00:31:46.338890 45a4            Options.compression_opts.window_bits: -14
+2021/04/29-00:31:46.338895 45a4                  Options.compression_opts.level: 32767
+2021/04/29-00:31:46.338901 45a4               Options.compression_opts.strategy: 0
+2021/04/29-00:31:46.338906 45a4         Options.compression_opts.max_dict_bytes: 0
+2021/04/29-00:31:46.338914 45a4         Options.compression_opts.zstd_max_train_bytes: 0
+2021/04/29-00:31:46.338921 45a4         Options.compression_opts.parallel_threads: 1
+2021/04/29-00:31:46.338926 45a4                  Options.compression_opts.enabled: false
+2021/04/29-00:31:46.338932 45a4      Options.level0_file_num_compaction_trigger: 4
+2021/04/29-00:31:46.338937 45a4          Options.level0_slowdown_writes_trigger: 20
+2021/04/29-00:31:46.338943 45a4              Options.level0_stop_writes_trigger: 36
+2021/04/29-00:31:46.338948 45a4                   Options.target_file_size_base: 67108864
+2021/04/29-00:31:46.338954 45a4             Options.target_file_size_multiplier: 1
+2021/04/29-00:31:46.338959 45a4                Options.max_bytes_for_level_base: 268435456
+2021/04/29-00:31:46.338965 45a4 Options.level_compaction_dynamic_level_bytes: 0
+2021/04/29-00:31:46.338970 45a4          Options.max_bytes_for_level_multiplier: 10.000000
+2021/04/29-00:31:46.338977 45a4 Options.max_bytes_for_level_multiplier_addtl[0]: 1
+2021/04/29-00:31:46.338982 45a4 Options.max_bytes_for_level_multiplier_addtl[1]: 1
+2021/04/29-00:31:46.338988 45a4 Options.max_bytes_for_level_multiplier_addtl[2]: 1
+2021/04/29-00:31:46.338993 45a4 Options.max_bytes_for_level_multiplier_addtl[3]: 1
+2021/04/29-00:31:46.338999 45a4 Options.max_bytes_for_level_multiplier_addtl[4]: 1
+2021/04/29-00:31:46.339004 45a4 Options.max_bytes_for_level_multiplier_addtl[5]: 1
+2021/04/29-00:31:46.339009 45a4 Options.max_bytes_for_level_multiplier_addtl[6]: 1
+2021/04/29-00:31:46.339015 45a4       Options.max_sequential_skip_in_iterations: 8
+2021/04/29-00:31:46.339020 45a4                    Options.max_compaction_bytes: 1677721600
+2021/04/29-00:31:46.339026 45a4                        Options.arena_block_size: 8388608
+2021/04/29-00:31:46.339031 45a4   Options.soft_pending_compaction_bytes_limit: 68719476736
+2021/04/29-00:31:46.339037 45a4   Options.hard_pending_compaction_bytes_limit: 274877906944
+2021/04/29-00:31:46.339042 45a4       Options.rate_limit_delay_max_milliseconds: 100
+2021/04/29-00:31:46.339048 45a4                Options.disable_auto_compactions: 0
+2021/04/29-00:31:46.339054 45a4                        Options.compaction_style: kCompactionStyleLevel
+2021/04/29-00:31:46.339060 45a4                          Options.compaction_pri: kMinOverlappingRatio
+2021/04/29-00:31:46.339066 45a4 Options.compaction_options_universal.size_ratio: 1
+2021/04/29-00:31:46.339072 45a4 Options.compaction_options_universal.min_merge_width: 2
+2021/04/29-00:31:46.339077 45a4 Options.compaction_options_universal.max_merge_width: 4294967295
+2021/04/29-00:31:46.339083 45a4 Options.compaction_options_universal.max_size_amplification_percent: 200
+2021/04/29-00:31:46.339088 45a4 Options.compaction_options_universal.compression_size_percent: -1
+2021/04/29-00:31:46.339094 45a4 Options.compaction_options_universal.stop_style: kCompactionStopStyleTotalSize
+2021/04/29-00:31:46.339100 45a4 Options.compaction_options_fifo.max_table_files_size: 1073741824
+2021/04/29-00:31:46.339106 45a4 Options.compaction_options_fifo.allow_compaction: 0
+2021/04/29-00:31:46.339114 45a4                   Options.table_properties_collectors: 
+2021/04/29-00:31:46.339120 45a4                   Options.inplace_update_support: 0
+2021/04/29-00:31:46.339125 45a4                 Options.inplace_update_num_locks: 10000
+2021/04/29-00:31:46.339131 45a4               Options.memtable_prefix_bloom_size_ratio: 0.000000
+2021/04/29-00:31:46.339137 45a4               Options.memtable_whole_key_filtering: 0
+2021/04/29-00:31:46.339142 45a4   Options.memtable_huge_page_size: 0
+2021/04/29-00:31:46.339148 45a4                           Options.bloom_locality: 0
+2021/04/29-00:31:46.339153 45a4                    Options.max_successive_merges: 0
+2021/04/29-00:31:46.339159 45a4                Options.optimize_filters_for_hits: 0
+2021/04/29-00:31:46.339164 45a4                Options.paranoid_file_checks: 0
+2021/04/29-00:31:46.339169 45a4                Options.force_consistency_checks: 1
+2021/04/29-00:31:46.339175 45a4                Options.report_bg_io_stats: 0
+2021/04/29-00:31:46.339206 45a4                               Options.ttl: 2592000
+2021/04/29-00:31:46.339213 45a4          Options.periodic_compaction_seconds: 0
+2021/04/29-00:31:46.339219 45a4                    Options.enable_blob_files: false
+2021/04/29-00:31:46.339225 45a4                        Options.min_blob_size: 0
+2021/04/29-00:31:46.339230 45a4                       Options.blob_file_size: 268435456
+2021/04/29-00:31:46.339236 45a4                Options.blob_compression_type: NoCompression
+2021/04/29-00:31:46.339241 45a4       Options.enable_blob_garbage_collection: false
+2021/04/29-00:31:46.339247 45a4   Options.blob_garbage_collection_age_cutoff: 0.250000
+2021/04/29-00:31:46.341872 45a4 [db\version_set.cc:4773] Recovered from manifest file:D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5\webapps\se 4321\WEB-INF\classes\resources\db\8/MANIFEST-000084 succeeded,manifest_file_number is 84, next_file_number is 86, last_sequence is 8871, log_number is 81,prev_log_number is 0,max_column_family is 0,min_log_number_to_keep is 0
+2021/04/29-00:31:46.341888 45a4 [db\version_set.cc:4782] Column family [default] (ID 0), log number is 81
+2021/04/29-00:31:46.342192 45a4 [db\version_set.cc:4083] Creating manifest 88
+2021/04/29-00:31:46.395950 45a4 EVENT_LOG_v1 {"time_micros": 1619627506395940, "job": 1, "event": "recovery_started", "wal_files": [85]}
+2021/04/29-00:31:46.395966 45a4 [db\db_impl\db_impl_open.cc:847] Recovering log #85 mode 2
+2021/04/29-00:31:46.396091 45a4 [db\version_set.cc:4083] Creating manifest 89
+2021/04/29-00:31:46.485774 45a4 EVENT_LOG_v1 {"time_micros": 1619627506485764, "job": 1, "event": "recovery_finished"}
+2021/04/29-00:31:46.486579 45a4 [file\delete_scheduler.cc:73] Deleted file D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5\webapps\se 4321\WEB-INF\classes\resources\db\8/000085.log immediately, rate_bytes_per_sec 0, total_trash_size 0 max_trash_db_ratio 0.250000
+2021/04/29-00:31:46.527919 45a4 [db\db_impl\db_impl_open.cc:1701] SstFileManager instance 0000023651D57B80
+2021/04/29-00:31:46.528107 45a4 DB pointer 00000236528F7560
+2021/04/29-00:32:10.530050 48b8 [db\db_impl\db_impl.cc:902] ------- DUMPING STATS -------
+2021/04/29-00:32:10.530136 48b8 [db\db_impl\db_impl.cc:903] 
+** DB Stats **
+Uptime(secs): 24.2 total, 24.2 interval
+Cumulative writes: 0 writes, 0 keys, 0 commit groups, 0.0 writes per commit group, ingest: 0.00 GB, 0.00 MB/s
+Cumulative WAL: 0 writes, 0 syncs, 0.00 writes per sync, written: 0.00 GB, 0.00 MB/s
+Cumulative stall: 00:00:0.000 H:M:S, 0.0 percent
+Interval writes: 0 writes, 0 keys, 0 commit groups, 0.0 writes per commit group, ingest: 0.00 MB, 0.00 MB/s
+Interval WAL: 0 writes, 0 syncs, 0.00 writes per sync, written: 0.00 MB, 0.00 MB/s
+Interval stall: 00:00:0.000 H:M:S, 0.0 percent
+
+** Compaction Stats [default] **
+Level    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  L0      1/0   172.07 KB   0.3      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+ Sum      1/0   172.07 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+ Int      0/0    0.00 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+
+** Compaction Stats [default] **
+Priority    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Uptime(secs): 24.2 total, 24.2 interval
+Flush(GB): cumulative 0.000, interval 0.000
+AddFile(GB): cumulative 0.000, interval 0.000
+AddFile(Total Files): cumulative 0, interval 0
+AddFile(L0 Files): cumulative 0, interval 0
+AddFile(Keys): cumulative 0, interval 0
+Cumulative compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Interval compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Stalls(count): 0 level0_slowdown, 0 level0_slowdown_with_compaction, 0 level0_numfiles, 0 level0_numfiles_with_compaction, 0 stop for pending_compaction_bytes, 0 slowdown for pending_compaction_bytes, 0 memtable_compaction, 0 memtable_slowdown, interval 0 total count
+
+** File Read Latency Histogram By Level [default] **
+
+** Compaction Stats [default] **
+Level    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  L0      1/0   172.07 KB   0.3      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+ Sum      1/0   172.07 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+ Int      0/0    0.00 KB   0.0      0.0     0.0      0.0       0.0      0.0       0.0   0.0      0.0      0.0      0.00              0.00         0    0.000       0      0
+
+** Compaction Stats [default] **
+Priority    Files   Size     Score Read(GB)  Rn(GB) Rnp1(GB) Write(GB) Wnew(GB) Moved(GB) W-Amp Rd(MB/s) Wr(MB/s) Comp(sec) CompMergeCPU(sec) Comp(cnt) Avg(sec) KeyIn KeyDrop
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Uptime(secs): 24.2 total, 0.0 interval
+Flush(GB): cumulative 0.000, interval 0.000
+AddFile(GB): cumulative 0.000, interval 0.000
+AddFile(Total Files): cumulative 0, interval 0
+AddFile(L0 Files): cumulative 0, interval 0
+AddFile(Keys): cumulative 0, interval 0
+Cumulative compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Interval compaction: 0.00 GB write, 0.00 MB/s write, 0.00 GB read, 0.00 MB/s read, 0.0 seconds
+Stalls(count): 0 level0_slowdown, 0 level0_slowdown_with_compaction, 0 level0_numfiles, 0 level0_numfiles_with_compaction, 0 stop for pending_compaction_bytes, 0 slowdown for pending_compaction_bytes, 0 memtable_compaction, 0 memtable_slowdown, interval 0 total count
+
+** File Read Latency Histogram By Level [default] **
