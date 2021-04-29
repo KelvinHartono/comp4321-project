@@ -9,7 +9,9 @@ public class StopWord {
   private HashSet<String> stopWords;
 
   public StopWord() {
-    this("C:\\Users\\Dell\\eclipse-workspace\\servlet\\comp 4321\\src\\main\\java\\resources\\stopwords-en.txt");
+    this(System.getProperty("user.dir").substring(0,
+        System.getProperty("user.dir").lastIndexOf("apache-tomcat-10.0.5") + 20)
+        + "/webapps/se4321/WEB-INF/classes/resources/stopwords-en.txt");
   }
 
   // Initialize stopwords from stopwords-en.txt as default parameter
@@ -27,7 +29,7 @@ public class StopWord {
       e.printStackTrace();
     }
   }
-  
+
   // Check whether it is a stop word
   public boolean isStopWord(String str) {
     return stopWords.contains(str);

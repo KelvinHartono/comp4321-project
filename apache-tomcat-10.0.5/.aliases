@@ -1,0 +1,7 @@
+alias compile_all="javac -cp webapps/se4321/WEB-INF/lib/jsoup-1.13.1.jar:webapps/se4321/WEB-INF/lib/rocksdbjni-6.15.5.jar:webapps/se4321/WEB-INF/classes/resources webapps/se4321/WEB-INF/classes/resources/*.java"
+alias crawl="cd webapps/se4321/WEB-INF/classes && java -cp ../lib/jsoup-1.13.1.jar:../lib/rocksdbjni-6.15.5.jar:./resources:. resources/Crawler && cd ../../../.."
+alias calculate_pagerank="cd webapps/se4321/WEB-INF/classes && java -cp ../lib/jsoup-1.13.1.jar:../lib/rocksdbjni-6.15.5.jar:./resources:. resources/Pagerank && cd ../../../.."
+alias test_query="cd webapps/se4321/WEB-INF/classes && java -cp ../lib/jsoup-1.13.1.jar:../lib/rocksdbjni-6.15.5.jar:./resources:. resources/Query && cd ../../../.."
+alias on_server="chmod a+x bin/startup.sh && chmod a+x bin/catalina.sh && ./bin/startup.sh"
+alias off_server="chmod a+x bin/shutdown.sh && ./bin/shutdown.sh"
+alias purge_db="chmod a+x webapps/se4321/WEB-INF/classes/resources/purgeDB.sh && ./webapps/se4321/WEB-INF/classes/resources/purgeDB.sh"

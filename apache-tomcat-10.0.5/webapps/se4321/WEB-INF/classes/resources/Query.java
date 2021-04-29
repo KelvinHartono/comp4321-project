@@ -6,12 +6,14 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.StringTokenizer;
 import java.lang.StringBuffer;
+
 import org.jsoup.Jsoup;
 import org.jsoup.Connection;
 import org.jsoup.Connection.Response;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import java.io.IOException;
 import org.jsoup.HttpStatusException;
 import java.lang.RuntimeException;
@@ -33,9 +35,10 @@ public class Query {
     String[] dbpath = new String[9];
     porter = new Porter();
     stopW = new StopWord();
-
+    String absPath = System.getProperty("user.dir");
+    absPath = absPath.substring(0, absPath.lastIndexOf("apache-tomcat-10.0.5") + 20);
     for (int i = 0; i < 9; ++i) {
-      dbpath[i] = "D:\\HKUST\\Spring Sem 20-21\\COMP 4321\\Project\\apache-tomcat-10.0.5\\webapps\\se4321\\WEB-INF\\classes\\resources\\db\\" + Integer.toString(i);
+      dbpath[i] = absPath + "/webapps/se4321/WEB-INF/classes/resources/db/" + Integer.toString(i);
     }
     try {
       this.rocks = new Rocks(dbpath);
@@ -258,29 +261,29 @@ public class Query {
     return ret;
   }
 
-//  public static void main(String[] args) {
-//    long currentTime = System.currentTimeMillis();
-//    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//    String str = "";
-//    Query test = new Query();
-//    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-//    while (!str.equals("x")) {
-//      try {
-//        System.out.println("Enter query:");
-//        str = br.readLine();
-//        currentTime = System.currentTimeMillis();
-//        Vector<HashMap<String, String>> retVal = test.processQuery(str);
-//        System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
-//        for (int i = 0; i < 5; i++) {
-//          System.out.print((i + 1) + ". " + retVal.elementAt(i).get("url"));
-//          System.out.print(" " + retVal.elementAt(i).get("score"));
-//          System.out.print(" " + retVal.elementAt(i).get("cosim"));
-//          System.out.print(" " + retVal.elementAt(i).get("titleSim"));
-//          System.out.println(" " + retVal.elementAt(i).get("pageRank"));
-//        }
-//      } catch (IOException ioe) {
-//        System.out.println(ioe);
-//      }
-//    }
-//  }
+  public static void main(String[] args) {
+    long currentTime = System.currentTimeMillis();
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = "";
+    Query test = new Query();
+    System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
+    while (!str.equals("x")) {
+      try {
+        System.out.println("Enter query:");
+        str = br.readLine();
+        currentTime = System.currentTimeMillis();
+        Vector<HashMap<String, String>> retVal = test.processQuery(str);
+        System.out.println("\nTime elapsed = " + (System.currentTimeMillis() - currentTime) + " ms");
+        for (int i = 0; i < 5; i++) {
+          System.out.print((i + 1) + ". " + retVal.elementAt(i).get("url"));
+          System.out.print(" " + retVal.elementAt(i).get("score"));
+          System.out.print(" " + retVal.elementAt(i).get("cosim"));
+          System.out.print(" " + retVal.elementAt(i).get("titleSim"));
+          System.out.println(" " + retVal.elementAt(i).get("pageRank"));
+        }
+      } catch (IOException ioe) {
+        System.out.println(ioe);
+      }
+    }
+  }
 }

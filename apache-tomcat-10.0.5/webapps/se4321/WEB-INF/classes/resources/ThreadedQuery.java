@@ -28,9 +28,9 @@ public class ThreadedQuery implements Runnable {
   // Length of query, saves time to not precompute in every thread
   private int queryLen;
   private Rocks rocks;
-  private static final Double WEIGHT_COSIM = 0.38;
-  private static final Double WEIGHT_TITLESIM = 0.60;
-  private static final Double WEIGHT_PAGERANK = 0.02;
+  private static final Double WEIGHT_COSIM = 0.4;
+  private static final Double WEIGHT_TITLESIM = 0.5;
+  private static final Double WEIGHT_PAGERANK = 0.1;
   private Porter porter;
 
   public ThreadedQuery(int id, HashMap<String, Integer> rawQueries, HashMap<String, Integer> queries,
@@ -184,32 +184,36 @@ public class ThreadedQuery implements Runnable {
         byte[] linkInBytes = rocks.getEntry(Database.PageIDtoURLInfo, iter.key());
         String link = new String(linkInBytes);
         byte[] ptc = rocks.getEntry(Database.ParentToChild, iter.key());
-        // if (ptc != null)
         String ptcs = new String(ptc);
-        String ptcsa[] = ptcs.split("@@");
-        String ret_ptc = "";
-        for(String p : ptcsa) {
-          byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
-          String infos[] = new String(out).split("@@");
-          if(ret_ptc == null) {
-            ret_ptc = new String(infos[0].substring(2, infos[0].length()));
-          } else {
-            ret_ptc = ret_ptc + "@@" + new String(infos[0]);
+        String ret_ptc = "@@";
+        if (ptcs.contains("@@")) {
+          ret_ptc = "";
+          String ptcsa[] = ptcs.split("@@");
+          for (String p : ptcsa) {
+            byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
+            String infos[] = new String(out).split("@@");
+            if (ret_ptc == null) {
+              ret_ptc = new String(infos[0].substring(2, infos[0].length()));
+            } else {
+              ret_ptc = ret_ptc + "@@" + new String(infos[0]);
+            }
           }
         }
         ret.put("child", new String(ret_ptc));
         byte[] ctp = rocks.getEntry(Database.ChildToParent, iter.key());
-        // if (ctp != null)
         String ctps = new String(ptc);
-        String ctpsa[] = ptcs.split("@@");
-        String ret_ctp = "";
-        for(String p : ctpsa) {
-          byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
-          String infos[] = new String(out).split("@@");
-          if(ret_ctp == null) {
-            ret_ctp = new String(infos[0].substring(2, infos[0].length()));
-          } else {
-            ret_ctp = ret_ctp + "@@" + new String(infos[0]);
+        String ret_ctp = "@@";
+        if (ctps.contains("@@")) {
+          ret_ctp = "";
+          String ctpsa[] = ctps.split("@@");
+          for (String p : ctpsa) {
+            byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
+            String infos[] = new String(out).split("@@");
+            if (ret_ctp == null) {
+              ret_ctp = new String(infos[0].substring(2, infos[0].length()));
+            } else {
+              ret_ctp = ret_ctp + "@@" + new String(infos[0]);
+            }
           }
         }
         ret.put("parent", new String(ret_ctp));
@@ -223,12 +227,13 @@ public class ThreadedQuery implements Runnable {
         // int tempSize = top5.size();
         String top5Str = "";
         for (int i = 1; i < tempSize; i++) {
-        HashMap<String, String> keyword = top5.get(i);
-        top5Str += keyword.get("key") + " " + keyword.get("freq") + "; ";
-      }
-      ret.put("keyword", top5Str);
+          HashMap<String, String> keyword = top5.get(i);
+          top5Str += keyword.get("key") + " " + keyword.get("freq") + "; ";
+        }
+        ret.put("keyword", top5Str);
       } catch (Exception e) {
-        System.err.println(e.toString());
+        e.printStackTrace();
+        // System.err.println(e.toString());
       }
 
       // handle title similarity calculation

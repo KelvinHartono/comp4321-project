@@ -5,14 +5,15 @@ import java.io.*;
 import org.rocksdb.RocksDBException;
 import java.io.IOException;
 
-
 public class Output {
   private Rocks rocks;
 
   Output() {
     String[] dbpath = new String[9];
+    String absPath = System.getProperty("user.dir");
+    absPath = absPath.substring(0, absPath.lastIndexOf("apache-tomcat-10.0.5") + 20);
     for (int i = 0; i < 9; ++i) {
-      dbpath[i] = "./resources/db/" + Integer.toString(i);
+      dbpath[i] = absPath + "/webapps/se4321/WEB-INF/classes/resources/db/" + Integer.toString(i);
     }
     try {
       this.rocks = new Rocks(dbpath);
