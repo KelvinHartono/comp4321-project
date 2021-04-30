@@ -73,14 +73,14 @@
 			
 			//print Search result term and time
 			out.print("<div class='container'><div class='row' style='margin-top: 40px'><p><small>Search Results of \"" + s + "\" (" + (System.currentTimeMillis()-currentTime) + ")</small></p></div>");
-
+      out.print("<div class='row'>");
 			
 			for(HashMap<String, String> ret: retArr) {
 
         //out.print(ret);
 
         //print website title
-        out.print("<div class='row'><div class='content'><div class='row'><div class='col-12'><h6><a href='"+ ret.get("url") +"' target='_blank' style='color: rgb(26, 10, 213); text-decoration: none'>" + ret.get("title") +"</a></h6>");
+        out.print("<div class='content'><div class='row'><div class='col-12'><h6><a href='"+ ret.get("url") +"' target='_blank' style='color: rgb(26, 10, 213); text-decoration: none'>" + ret.get("title") +"</a></h6>");
 
         //print url
         out.print("<p><a href='"+ ret.get("url") +"' target='_blank' style='color: green; text-decoration: none'>" + ret.get("url") + "</a></p>");
