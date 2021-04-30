@@ -1,105 +1,105 @@
-2021/04/30-10:32:24.249197 2c1c RocksDB version: 6.15.5
-2021/04/30-10:32:24.249345 2c1c Git sha rocksdb_build_git_sha:@abd4b1ff1504ae2a7ed6e60bc9c9797b880c33a5@
-2021/04/30-10:32:24.249399 2c1c Compile date Mar 13 2021
-2021/04/30-10:32:24.249443 2c1c DB SUMMARY
-2021/04/30-10:32:24.249479 2c1c DB Session ID:  FN05ESKSKC7NX0DRD219
-2021/04/30-10:32:24.249935 2c1c CURRENT file:  CURRENT
-2021/04/30-10:32:24.249997 2c1c IDENTITY file:  IDENTITY
-2021/04/30-10:32:24.250111 2c1c MANIFEST file:  MANIFEST-000131 size: 389 Bytes
-2021/04/30-10:32:24.250221 2c1c MANIFEST file:  MANIFEST-000184 size: 169 Bytes
-2021/04/30-10:32:24.250266 2c1c SST files in D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5/webapps/se4321/WEB-INF/classes/resources/db/0 dir, Total Num: 3, files: 000008.sst 000014.sst 000100.sst 
-2021/04/30-10:32:24.250719 2c1c Write Ahead Log file in D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5/webapps/se4321/WEB-INF/classes/resources/db/0: 000132.log size: 114511 ; 000185.log size: 0 ; 
-2021/04/30-10:32:24.250762 2c1c                         Options.error_if_exists: 0
-2021/04/30-10:32:24.250780 2c1c                       Options.create_if_missing: 1
-2021/04/30-10:32:24.250794 2c1c                         Options.paranoid_checks: 1
-2021/04/30-10:32:24.250808 2c1c                               Options.track_and_verify_wals_in_manifest: 0
-2021/04/30-10:32:24.250822 2c1c                                     Options.env: 000001F77C93DC90
-2021/04/30-10:32:24.250838 2c1c                                      Options.fs: Legacy File System
-2021/04/30-10:32:24.250852 2c1c                                Options.info_log: 000001F77D77ECE0
-2021/04/30-10:32:24.250867 2c1c                Options.max_file_opening_threads: 16
-2021/04/30-10:32:24.250881 2c1c                              Options.statistics: 0000000000000000
-2021/04/30-10:32:24.250895 2c1c                               Options.use_fsync: 0
-2021/04/30-10:32:24.250909 2c1c                       Options.max_log_file_size: 0
-2021/04/30-10:32:24.250923 2c1c                  Options.max_manifest_file_size: 1073741824
-2021/04/30-10:32:24.250938 2c1c                   Options.log_file_time_to_roll: 0
-2021/04/30-10:32:24.250952 2c1c                       Options.keep_log_file_num: 1000
-2021/04/30-10:32:24.250981 2c1c                    Options.recycle_log_file_num: 0
-2021/04/30-10:32:24.250997 2c1c                         Options.allow_fallocate: 1
-2021/04/30-10:32:24.251011 2c1c                        Options.allow_mmap_reads: 0
-2021/04/30-10:32:24.251025 2c1c                       Options.allow_mmap_writes: 0
-2021/04/30-10:32:24.251039 2c1c                        Options.use_direct_reads: 0
-2021/04/30-10:32:24.251052 2c1c                        Options.use_direct_io_for_flush_and_compaction: 0
-2021/04/30-10:32:24.251067 2c1c          Options.create_missing_column_families: 0
-2021/04/30-10:32:24.251080 2c1c                              Options.db_log_dir: 
-2021/04/30-10:32:24.251094 2c1c                                 Options.wal_dir: D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5/webapps/se4321/WEB-INF/classes/resources/db/0
-2021/04/30-10:32:24.251109 2c1c                Options.table_cache_numshardbits: 6
-2021/04/30-10:32:24.251123 2c1c                         Options.WAL_ttl_seconds: 0
-2021/04/30-10:32:24.251137 2c1c                       Options.WAL_size_limit_MB: 0
-2021/04/30-10:32:24.251152 2c1c                        Options.max_write_batch_group_size_bytes: 1048576
-2021/04/30-10:32:24.251167 2c1c             Options.manifest_preallocation_size: 4194304
-2021/04/30-10:32:24.251181 2c1c                     Options.is_fd_close_on_exec: 1
-2021/04/30-10:32:24.251195 2c1c                   Options.advise_random_on_open: 1
-2021/04/30-10:32:24.251209 2c1c                    Options.db_write_buffer_size: 0
-2021/04/30-10:32:24.251222 2c1c                    Options.write_buffer_manager: 000001F77E1606D0
-2021/04/30-10:32:24.251237 2c1c         Options.access_hint_on_compaction_start: 1
-2021/04/30-10:32:24.251252 2c1c  Options.new_table_reader_for_compaction_inputs: 0
-2021/04/30-10:32:24.251358 2c1c           Options.random_access_max_buffer_size: 1048576
-2021/04/30-10:32:24.251384 2c1c                      Options.use_adaptive_mutex: 0
-2021/04/30-10:32:24.251399 2c1c                            Options.rate_limiter: 0000000000000000
-2021/04/30-10:32:24.251414 2c1c     Options.sst_file_manager.rate_bytes_per_sec: 0
-2021/04/30-10:32:24.251429 2c1c                       Options.wal_recovery_mode: 2
-2021/04/30-10:32:24.251443 2c1c                  Options.enable_thread_tracking: 0
-2021/04/30-10:32:24.251456 2c1c                  Options.enable_pipelined_write: 0
-2021/04/30-10:32:24.251470 2c1c                  Options.unordered_write: 0
-2021/04/30-10:32:24.251484 2c1c         Options.allow_concurrent_memtable_write: 1
-2021/04/30-10:32:24.251498 2c1c      Options.enable_write_thread_adaptive_yield: 1
-2021/04/30-10:32:24.251512 2c1c             Options.write_thread_max_yield_usec: 100
-2021/04/30-10:32:24.251527 2c1c            Options.write_thread_slow_yield_usec: 3
-2021/04/30-10:32:24.251541 2c1c                               Options.row_cache: None
-2021/04/30-10:32:24.251555 2c1c                              Options.wal_filter: None
-2021/04/30-10:32:24.251569 2c1c             Options.avoid_flush_during_recovery: 0
-2021/04/30-10:32:24.251583 2c1c             Options.allow_ingest_behind: 0
-2021/04/30-10:32:24.251597 2c1c             Options.preserve_deletes: 0
-2021/04/30-10:32:24.251611 2c1c             Options.two_write_queues: 0
-2021/04/30-10:32:24.251624 2c1c             Options.manual_wal_flush: 0
-2021/04/30-10:32:24.251638 2c1c             Options.atomic_flush: 0
-2021/04/30-10:32:24.251653 2c1c             Options.avoid_unnecessary_blocking_io: 0
-2021/04/30-10:32:24.251667 2c1c                 Options.persist_stats_to_disk: 0
-2021/04/30-10:32:24.251681 2c1c                 Options.write_dbid_to_manifest: 0
-2021/04/30-10:32:24.251695 2c1c                 Options.log_readahead_size: 0
-2021/04/30-10:32:24.251709 2c1c                 Options.file_checksum_gen_factory: Unknown
-2021/04/30-10:32:24.251723 2c1c                 Options.best_efforts_recovery: 0
-2021/04/30-10:32:24.251737 2c1c                Options.max_bgerror_resume_count: 2147483647
-2021/04/30-10:32:24.251752 2c1c            Options.bgerror_resume_retry_interval: 1000000
-2021/04/30-10:32:24.251766 2c1c             Options.allow_data_in_errors: 0
-2021/04/30-10:32:24.251781 2c1c             Options.db_host_id: __hostname__
-2021/04/30-10:32:24.251795 2c1c             Options.max_background_jobs: 2
-2021/04/30-10:32:24.251808 2c1c             Options.max_background_compactions: -1
-2021/04/30-10:32:24.251822 2c1c             Options.max_subcompactions: 1
-2021/04/30-10:32:24.251836 2c1c             Options.avoid_flush_during_shutdown: 0
-2021/04/30-10:32:24.251850 2c1c           Options.writable_file_max_buffer_size: 1048576
-2021/04/30-10:32:24.251865 2c1c             Options.delayed_write_rate : 16777216
-2021/04/30-10:32:24.251879 2c1c             Options.max_total_wal_size: 0
-2021/04/30-10:32:24.251892 2c1c             Options.delete_obsolete_files_period_micros: 21600000000
-2021/04/30-10:32:24.251907 2c1c                   Options.stats_dump_period_sec: 600
-2021/04/30-10:32:24.251923 2c1c                 Options.stats_persist_period_sec: 600
-2021/04/30-10:32:24.251937 2c1c                 Options.stats_history_buffer_size: 1048576
-2021/04/30-10:32:24.251953 2c1c                          Options.max_open_files: -1
-2021/04/30-10:32:24.251968 2c1c                          Options.bytes_per_sync: 0
-2021/04/30-10:32:24.251983 2c1c                      Options.wal_bytes_per_sync: 0
-2021/04/30-10:32:24.251998 2c1c                   Options.strict_bytes_per_sync: 0
-2021/04/30-10:32:24.252012 2c1c       Options.compaction_readahead_size: 0
-2021/04/30-10:32:24.252026 2c1c                  Options.max_background_flushes: -1
-2021/04/30-10:32:24.252041 2c1c Compression algorithms supported:
-2021/04/30-10:32:24.252057 2c1c 	kZSTD supported: 1
-2021/04/30-10:32:24.252072 2c1c 	kSnappyCompression supported: 1
-2021/04/30-10:32:24.252087 2c1c 	kBZip2Compression supported: 0
-2021/04/30-10:32:24.252197 2c1c 	kZlibCompression supported: 1
-2021/04/30-10:32:24.252225 2c1c 	kLZ4Compression supported: 1
-2021/04/30-10:32:24.252242 2c1c 	kXpressCompression supported: 0
-2021/04/30-10:32:24.252258 2c1c 	kLZ4HCCompression supported: 1
-2021/04/30-10:32:24.252289 2c1c 	kZSTDNotFinalCompression supported: 1
-2021/04/30-10:32:24.252313 2c1c Fast CRC32 supported: Supported on x86
-2021/04/30-10:32:24.253824 2c1c [WARN] [db\db_impl\db_impl_open.cc:1787] Persisting Option File error: OK
-2021/04/30-10:32:24.253858 2c1c [db\db_impl\db_impl.cc:447] Shutdown: canceling all background work
-2021/04/30-10:32:24.253998 2c1c [db\db_impl\db_impl.cc:625] Shutdown complete
+2021/04/30-11:02:04.572523 1a9c RocksDB version: 6.15.5
+2021/04/30-11:02:04.572599 1a9c Git sha rocksdb_build_git_sha:@abd4b1ff1504ae2a7ed6e60bc9c9797b880c33a5@
+2021/04/30-11:02:04.572625 1a9c Compile date Mar 13 2021
+2021/04/30-11:02:04.572647 1a9c DB SUMMARY
+2021/04/30-11:02:04.572664 1a9c DB Session ID:  KU2SCS2ZPW8F02XYKP2J
+2021/04/30-11:02:04.572916 1a9c CURRENT file:  CURRENT
+2021/04/30-11:02:04.572945 1a9c IDENTITY file:  IDENTITY
+2021/04/30-11:02:04.573004 1a9c MANIFEST file:  MANIFEST-000131 size: 389 Bytes
+2021/04/30-11:02:04.573064 1a9c MANIFEST file:  MANIFEST-000184 size: 169 Bytes
+2021/04/30-11:02:04.573086 1a9c SST files in D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5/webapps/se4321/WEB-INF/classes/resources/db/0 dir, Total Num: 3, files: 000008.sst 000014.sst 000100.sst 
+2021/04/30-11:02:04.573383 1a9c Write Ahead Log file in D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5/webapps/se4321/WEB-INF/classes/resources/db/0: 000132.log size: 114511 ; 000185.log size: 0 ; 
+2021/04/30-11:02:04.573416 1a9c                         Options.error_if_exists: 0
+2021/04/30-11:02:04.573430 1a9c                       Options.create_if_missing: 1
+2021/04/30-11:02:04.573442 1a9c                         Options.paranoid_checks: 1
+2021/04/30-11:02:04.573453 1a9c                               Options.track_and_verify_wals_in_manifest: 0
+2021/04/30-11:02:04.573465 1a9c                                     Options.env: 00000217EF75D400
+2021/04/30-11:02:04.573479 1a9c                                      Options.fs: Legacy File System
+2021/04/30-11:02:04.573491 1a9c                                Options.info_log: 00000217EFE13FF0
+2021/04/30-11:02:04.573503 1a9c                Options.max_file_opening_threads: 16
+2021/04/30-11:02:04.573515 1a9c                              Options.statistics: 0000000000000000
+2021/04/30-11:02:04.573526 1a9c                               Options.use_fsync: 0
+2021/04/30-11:02:04.573538 1a9c                       Options.max_log_file_size: 0
+2021/04/30-11:02:04.573549 1a9c                  Options.max_manifest_file_size: 1073741824
+2021/04/30-11:02:04.573561 1a9c                   Options.log_file_time_to_roll: 0
+2021/04/30-11:02:04.573584 1a9c                       Options.keep_log_file_num: 1000
+2021/04/30-11:02:04.573690 1a9c                    Options.recycle_log_file_num: 0
+2021/04/30-11:02:04.573701 1a9c                         Options.allow_fallocate: 1
+2021/04/30-11:02:04.573709 1a9c                        Options.allow_mmap_reads: 0
+2021/04/30-11:02:04.573756 1a9c                       Options.allow_mmap_writes: 0
+2021/04/30-11:02:04.573765 1a9c                        Options.use_direct_reads: 0
+2021/04/30-11:02:04.573771 1a9c                        Options.use_direct_io_for_flush_and_compaction: 0
+2021/04/30-11:02:04.573778 1a9c          Options.create_missing_column_families: 0
+2021/04/30-11:02:04.573785 1a9c                              Options.db_log_dir: 
+2021/04/30-11:02:04.573792 1a9c                                 Options.wal_dir: D:\HKUST\Spring Sem 20-21\COMP 4321\Project\apache-tomcat-10.0.5/webapps/se4321/WEB-INF/classes/resources/db/0
+2021/04/30-11:02:04.573799 1a9c                Options.table_cache_numshardbits: 6
+2021/04/30-11:02:04.573806 1a9c                         Options.WAL_ttl_seconds: 0
+2021/04/30-11:02:04.573813 1a9c                       Options.WAL_size_limit_MB: 0
+2021/04/30-11:02:04.573849 1a9c                        Options.max_write_batch_group_size_bytes: 1048576
+2021/04/30-11:02:04.573867 1a9c             Options.manifest_preallocation_size: 4194304
+2021/04/30-11:02:04.573876 1a9c                     Options.is_fd_close_on_exec: 1
+2021/04/30-11:02:04.573883 1a9c                   Options.advise_random_on_open: 1
+2021/04/30-11:02:04.573949 1a9c                    Options.db_write_buffer_size: 0
+2021/04/30-11:02:04.573958 1a9c                    Options.write_buffer_manager: 00000217EF54EE10
+2021/04/30-11:02:04.573966 1a9c         Options.access_hint_on_compaction_start: 1
+2021/04/30-11:02:04.573973 1a9c  Options.new_table_reader_for_compaction_inputs: 0
+2021/04/30-11:02:04.574033 1a9c           Options.random_access_max_buffer_size: 1048576
+2021/04/30-11:02:04.574046 1a9c                      Options.use_adaptive_mutex: 0
+2021/04/30-11:02:04.574053 1a9c                            Options.rate_limiter: 0000000000000000
+2021/04/30-11:02:04.574061 1a9c     Options.sst_file_manager.rate_bytes_per_sec: 0
+2021/04/30-11:02:04.574068 1a9c                       Options.wal_recovery_mode: 2
+2021/04/30-11:02:04.574075 1a9c                  Options.enable_thread_tracking: 0
+2021/04/30-11:02:04.574082 1a9c                  Options.enable_pipelined_write: 0
+2021/04/30-11:02:04.574088 1a9c                  Options.unordered_write: 0
+2021/04/30-11:02:04.574095 1a9c         Options.allow_concurrent_memtable_write: 1
+2021/04/30-11:02:04.574102 1a9c      Options.enable_write_thread_adaptive_yield: 1
+2021/04/30-11:02:04.574109 1a9c             Options.write_thread_max_yield_usec: 100
+2021/04/30-11:02:04.574116 1a9c            Options.write_thread_slow_yield_usec: 3
+2021/04/30-11:02:04.574123 1a9c                               Options.row_cache: None
+2021/04/30-11:02:04.574129 1a9c                              Options.wal_filter: None
+2021/04/30-11:02:04.574136 1a9c             Options.avoid_flush_during_recovery: 0
+2021/04/30-11:02:04.574143 1a9c             Options.allow_ingest_behind: 0
+2021/04/30-11:02:04.574150 1a9c             Options.preserve_deletes: 0
+2021/04/30-11:02:04.574157 1a9c             Options.two_write_queues: 0
+2021/04/30-11:02:04.574163 1a9c             Options.manual_wal_flush: 0
+2021/04/30-11:02:04.574170 1a9c             Options.atomic_flush: 0
+2021/04/30-11:02:04.574177 1a9c             Options.avoid_unnecessary_blocking_io: 0
+2021/04/30-11:02:04.574184 1a9c                 Options.persist_stats_to_disk: 0
+2021/04/30-11:02:04.574190 1a9c                 Options.write_dbid_to_manifest: 0
+2021/04/30-11:02:04.574197 1a9c                 Options.log_readahead_size: 0
+2021/04/30-11:02:04.574204 1a9c                 Options.file_checksum_gen_factory: Unknown
+2021/04/30-11:02:04.574212 1a9c                 Options.best_efforts_recovery: 0
+2021/04/30-11:02:04.574218 1a9c                Options.max_bgerror_resume_count: 2147483647
+2021/04/30-11:02:04.574225 1a9c            Options.bgerror_resume_retry_interval: 1000000
+2021/04/30-11:02:04.574232 1a9c             Options.allow_data_in_errors: 0
+2021/04/30-11:02:04.574239 1a9c             Options.db_host_id: __hostname__
+2021/04/30-11:02:04.574246 1a9c             Options.max_background_jobs: 2
+2021/04/30-11:02:04.574253 1a9c             Options.max_background_compactions: -1
+2021/04/30-11:02:04.574260 1a9c             Options.max_subcompactions: 1
+2021/04/30-11:02:04.574267 1a9c             Options.avoid_flush_during_shutdown: 0
+2021/04/30-11:02:04.574273 1a9c           Options.writable_file_max_buffer_size: 1048576
+2021/04/30-11:02:04.574281 1a9c             Options.delayed_write_rate : 16777216
+2021/04/30-11:02:04.574288 1a9c             Options.max_total_wal_size: 0
+2021/04/30-11:02:04.574295 1a9c             Options.delete_obsolete_files_period_micros: 21600000000
+2021/04/30-11:02:04.574302 1a9c                   Options.stats_dump_period_sec: 600
+2021/04/30-11:02:04.574309 1a9c                 Options.stats_persist_period_sec: 600
+2021/04/30-11:02:04.574316 1a9c                 Options.stats_history_buffer_size: 1048576
+2021/04/30-11:02:04.574323 1a9c                          Options.max_open_files: -1
+2021/04/30-11:02:04.574331 1a9c                          Options.bytes_per_sync: 0
+2021/04/30-11:02:04.574338 1a9c                      Options.wal_bytes_per_sync: 0
+2021/04/30-11:02:04.574345 1a9c                   Options.strict_bytes_per_sync: 0
+2021/04/30-11:02:04.574352 1a9c       Options.compaction_readahead_size: 0
+2021/04/30-11:02:04.574359 1a9c                  Options.max_background_flushes: -1
+2021/04/30-11:02:04.574367 1a9c Compression algorithms supported:
+2021/04/30-11:02:04.574374 1a9c 	kZSTD supported: 1
+2021/04/30-11:02:04.574382 1a9c 	kSnappyCompression supported: 1
+2021/04/30-11:02:04.574389 1a9c 	kBZip2Compression supported: 0
+2021/04/30-11:02:04.574451 1a9c 	kZlibCompression supported: 1
+2021/04/30-11:02:04.574476 1a9c 	kLZ4Compression supported: 1
+2021/04/30-11:02:04.574489 1a9c 	kXpressCompression supported: 0
+2021/04/30-11:02:04.574499 1a9c 	kLZ4HCCompression supported: 1
+2021/04/30-11:02:04.574507 1a9c 	kZSTDNotFinalCompression supported: 1
+2021/04/30-11:02:04.574534 1a9c Fast CRC32 supported: Supported on x86
+2021/04/30-11:02:04.575731 1a9c [WARN] [db\db_impl\db_impl_open.cc:1787] Persisting Option File error: OK
+2021/04/30-11:02:04.575746 1a9c [db\db_impl\db_impl.cc:447] Shutdown: canceling all background work
+2021/04/30-11:02:04.575808 1a9c [db\db_impl\db_impl.cc:625] Shutdown complete

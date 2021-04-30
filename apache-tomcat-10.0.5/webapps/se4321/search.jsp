@@ -72,7 +72,7 @@
       int links_counter = 1;
 			
 			//print Search result term and time
-			out.print("<div class='container'><div class='row' style='margin-top: 40px'><p><small>Search Results of \"" + s + "\" (" + (System.currentTimeMillis()-currentTime) + ")</small></p></div>");
+			out.print("<div class='container'><div class='row' style='margin-top: 40px'><p><small>Search Results of \"" + s + "\" (" + (System.currentTimeMillis()-currentTime) + " ms)</small></p></div>");
       out.print("<div class='row'>");
 			
 			for(HashMap<String, String> ret: retArr) {
