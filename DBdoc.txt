@@ -52,6 +52,9 @@ the later stages.
 - "@@" is used to separate the pageIDs from each other
 - This db is used to for fetching the pageIDs which contain the keywords in the queries, but is useful for matching words in the html title only, which will make it easier to filter out irrelevant pageIDs.
 
+9. pagerank // PageID <=> pagerankscore
+- This holds the pagerank value for each website
+
 Further Design Explanation:
 - We wanted to use markov tree for the url and its sub-urls to conserve space, but due to
   rocksDB being an only key value pair and to promote simplicity for our first baseline
