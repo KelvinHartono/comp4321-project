@@ -94,6 +94,13 @@
 
         String parent[] = ret.get("parent").split("@@");
 
+        if(parent.length != 0){
+          links_counter++;
+          out.print("<span id='" + links_counter + "'>...</span>");
+          links_counter++;
+          out.print("<span id='" + links_counter + "' class='hidden'>");
+        }
+
         for(int i = 0; i < parent.length; i++) {
           out.print(parent[i] + "<br />");
           if(i == 1) {
@@ -114,6 +121,13 @@
 
         String child[] = ret.get("child").split("@@");
 
+        if(child.length != 0){
+          links_counter++;
+          out.print("<span id='" + links_counter + "'>...</span>");
+          links_counter++;
+          out.print("<span id='" + links_counter + "' class='hidden'>");
+        }
+        
         for(int i = 0; i < child.length; i++) {
           out.print(child[i] + "<br />");
           if(i == 1) {
