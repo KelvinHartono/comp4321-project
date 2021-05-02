@@ -251,11 +251,6 @@ public class ThreadedQuery implements Runnable {
           top5Str += keyword.get("key") + " " + keyword.get("freq") + "; ";
         }
         ret.put("keyword", top5Str);
-        if (title.contains("Tremolo Learning Object")) {
-          System.out.println(infos[0]);
-          System.out.println(ret_ctp);
-          System.out.println(ret_ptc);
-        }
       } catch (Exception e) {
         e.printStackTrace();
         // System.err.println(e.toString());
