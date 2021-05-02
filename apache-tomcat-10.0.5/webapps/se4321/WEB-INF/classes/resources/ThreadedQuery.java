@@ -198,8 +198,10 @@ public class ThreadedQuery implements Runnable {
               ret_ptc = ret_ptc + "@@" + new String(infos[0]);
             }
           }
+        } else {
+          ret_ptc = ptcs;
         }
-        ret.put("child", new String(ret_ptc));
+        ret.put("child", ret_ptc);
         byte[] ctp = rocks.getEntry(Database.ChildToParent, iter.key());
         String ctps = new String(ptc);
         String ret_ctp = "@@";
@@ -215,8 +217,10 @@ public class ThreadedQuery implements Runnable {
               ret_ctp = ret_ctp + "@@" + new String(infos[0]);
             }
           }
+        } else {
+          ret_ctp = ctps;
         }
-        ret.put("parent", new String(ret_ctp));
+        ret.put("parent", ret_ctp);
         String infos[] = link.split("@@");
         ret.put("url", infos[0]);
         ret.put("date", infos[1]);
