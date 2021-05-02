@@ -183,44 +183,60 @@ public class ThreadedQuery implements Runnable {
       try {
         byte[] linkInBytes = rocks.getEntry(Database.PageIDtoURLInfo, iter.key());
         String link = new String(linkInBytes);
-        byte[] ptc = rocks.getEntry(Database.ParentToChild, iter.key());
-        String ptcs = new String(ptc);
-        String ret_ptc = "@@";
-        if (ptcs.contains("@@")) {
-          ret_ptc = "";
-          String ptcsa[] = ptcs.split("@@");
-          for (String p : ptcsa) {
-            byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
-            String infos[] = new String(out).split("@@");
-            if (ret_ptc == null) {
-              ret_ptc = new String(infos[0].substring(2, infos[0].length()));
-            } else {
-              ret_ptc = ret_ptc + "@@" + new String(infos[0]);
+
+        byte[] ctp = rocks.getEntry(Database.ChildToParent, iter.key());
+        String ret_ctp = "";
+        if (ctp != null) {
+          String ctps = new String(ctp);
+          if (ctps.contains("@@")) {
+            ret_ctp = "";
+            String ctpsa[] = ctps.split("@@");
+            for (String p : ctpsa) {
+              byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
+              String infos[] = new String(out).split("@@");
+              if (ret_ctp == null) {
+                ret_ctp = new String(infos[0].substring(2, infos[0].length()));
+              } else {
+                ret_ctp = ret_ctp + "@@" + new String(infos[0]);
+              }
+            }
+          } else {
+            byte[] bytectp = rocks.getEntry(Database.PageIDtoURLInfo, ctps.getBytes());
+            if (bytectp != null) {
+              ret_ctp = (new String(bytectp)).split("@@")[0];
             }
           }
-        } else {
-          ret_ptc = ptcs;
+        }
+        // if(ret_ctp.equals("")){
+        // continue;
+        // }
+        ret.put("parent", ret_ctp);
+
+        byte[] ptc = rocks.getEntry(Database.ParentToChild, iter.key());
+        String ret_ptc = "";
+        if (ptc != null) {
+          String ptcs = new String(ptc);
+          if (ptcs.contains("@@")) {
+            ret_ptc = "";
+            String ptcsa[] = ptcs.split("@@");
+            for (String p : ptcsa) {
+              byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
+              String infos[] = new String(out).split("@@");
+              if (ret_ptc == null) {
+                ret_ptc = new String(infos[0].substring(2, infos[0].length()));
+              } else {
+                ret_ptc = ret_ptc + "@@" + new String(infos[0]);
+              }
+            }
+          } else {
+            byte[] byteptc = rocks.getEntry(Database.PageIDtoURLInfo, ptcs.getBytes());
+            if (byteptc != null) {
+              ret_ptc = (new String(byteptc)).split("@@")[0];
+            }
+          }
         }
         ret.put("child", ret_ptc);
-        byte[] ctp = rocks.getEntry(Database.ChildToParent, iter.key());
-        String ctps = new String(ptc);
-        String ret_ctp = "@@";
-        if (ctps.contains("@@")) {
-          ret_ctp = "";
-          String ctpsa[] = ctps.split("@@");
-          for (String p : ctpsa) {
-            byte[] out = rocks.getEntry(Database.PageIDtoURLInfo, p.getBytes());
-            String infos[] = new String(out).split("@@");
-            if (ret_ctp == null) {
-              ret_ctp = new String(infos[0].substring(2, infos[0].length()));
-            } else {
-              ret_ctp = ret_ctp + "@@" + new String(infos[0]);
-            }
-          }
-        } else {
-          ret_ctp = ctps;
-        }
-        ret.put("parent", ret_ctp);
+
         String infos[] = link.split("@@");
         ret.put("url", infos[0]);
         ret.put("date", infos[1]);
@@ -235,6 +251,11 @@ public class ThreadedQuery implements Runnable {
           top5Str += keyword.get("key") + " " + keyword.get("freq") + "; ";
         }
         ret.put("keyword", top5Str);
+        if (title.contains("Tremolo Learning Object")) {
+          System.out.println(infos[0]);
+          System.out.println(ret_ctp);
+          System.out.println(ret_ptc);
+        }
       } catch (Exception e) {
         e.printStackTrace();
         // System.err.println(e.toString());
@@ -258,7 +279,7 @@ public class ThreadedQuery implements Runnable {
             tf += 1.0;
           }
         }
-        titleSim = Math.pow(tf / ((queryLen + titleMap.size()) / 2), 1);
+        titleSim = Math.pow(tf / queryLen, 1);
       }
 
       // handle pagerank calculation

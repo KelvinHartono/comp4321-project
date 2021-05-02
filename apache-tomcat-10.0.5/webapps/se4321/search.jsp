@@ -118,7 +118,7 @@
 
         //print child links
         out.print("<div class='row'><div class='col-12'><p><strong>Child Links:<button onclick='myFunction(" + links_counter + ")' id='" + links_counter + "' class='show-button'><i class='bi bi-caret-down-fill'></i> More</button></strong></p></div></div><p style='line-height: 100%'>");
-
+        
         String child[] = ret.get("child").split("@@");
 
         if(child.length == 0){
@@ -130,7 +130,7 @@
         
         for(int i = 0; i < child.length; i++) {
           out.print(child[i] + "<br />");
-          if(i == 1) {
+          if(i == 0) {
             links_counter++;
             out.print("<span id='" + links_counter + "'>...</span>");
             links_counter++;
