@@ -26,6 +26,7 @@ The database explanation is in DBdoc.txt
   ```
   source .aliases
   ```
+- REMINDER!! All of the source aliases MUST be done on the root folder, which is /apache-tomcat-xxxx
 - Compile every class (simply type "compile_all" in the terminal)
   ```
   compile_all
@@ -50,6 +51,7 @@ The database explanation is in DBdoc.txt
 
 - Crawl the website (Remember to also calculate the pagerank AFTER finish crawling everything)
   ```
+  purge_db // Purge before we crawl again
   crawl
   calculate_pagerank
   ```
